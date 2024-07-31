@@ -1,0 +1,123 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@font-face {
+  font-family: "castleBook";
+  src: url("../src/styles/fonts/castlet.ttf") format("truetype");
+}
+@font-face {
+  font-family: "castletLigh";
+  src: url("../src/styles/fonts/Castle T Light Regular.otf") format("OpenType");
+}
+@font-face {
+  font-family: "castleBold";
+  src: url("../src/styles/fonts/Castle T Bold \(1\) \(1\).otf")
+    format("OpenType");
+}
+
+* {
+  font-family: "castleBook";
+}
+
+.custom_font label {
+  font-family: "castleBook";
+}
+
+input ::placeholder{
+  color: white;
+}
+
+.label-color label{
+  color: white;
+}
+
+.custom_font img {
+  filter: drop-shadow(1px 5px 8px #000000);
+}
+
+/* App.css */
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap");
+
+.hero-image {
+  position: relative;
+  overflow: hidden;
+}
+
+.hero-overlay {
+  background-color: rgba(0, 0, 0, 0.7);
+  background-blend-mode: overlay;
+  z-index: 1;
+}
+
+.particle-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 2;
+}
+
+.particle {
+  position: absolute;
+  border-radius: 50%;
+  opacity: 0.5;
+  animation: shimmer 3s infinite;
+}
+
+.particle-1 {
+  width: 10px;
+  height: 10px;
+  background-color: #ffd700;
+  top: 20%;
+  left: 30%;
+  animation-delay: 0s;
+}
+
+.particle-2 {
+  width: 15px;
+  height: 15px;
+  background-color: #b8860b;
+  top: 60%;
+  left: 70%;
+  animation-delay: 1s;
+}
+
+.particle-3 {
+  width: 8px;
+  height: 8px;
+  background-color: #ffd700;
+  top: 80%;
+  left: 20%;
+  animation-delay: 2s;
+}
+
+.form-container {
+  max-width: 500px;
+  width: 100%;
+}
+
+@keyframes shimmer {
+  0% {
+    transform: scale(1);
+    opacity: 0.5;
+  }
+  50% {
+    transform: scale(1.5);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 0.5;
+  }
+}
+
+.gradient-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+}
