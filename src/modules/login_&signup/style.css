@@ -1,0 +1,22 @@
+.login_img_section {
+  background: url("../../util/images/pixelcut-export.jpeg") center center;
+}
+
+.custom-btn {
+  font-family: "Montserrat", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 700;
+  font-style: normal;
+}
+
+.form-field-custom {
+  font-family: "Poppins", sans-serif;
+  font-weight: 200;
+  font-style: normal;
+  border: 1px solid gray;
+}
+
+.form-field-custom:focus{
+  outline: none;
+
+}
