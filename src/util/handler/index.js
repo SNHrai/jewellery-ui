@@ -1,12 +1,20 @@
-// utils/authUtils.js
-import jwtDecode from "jwt-decode";
+import * as jwt_decode from "jwt-decode";
 
 // Function to set the JWT token in localStorage
 export const setAuthToken = (token) => {
-  if (token) {
-    localStorage.setItem("token", token);
-  } else {
-    localStorage.removeItem("token");
+  try {
+    if (token) {
+      localStorage.setItem("token", token);
+    } else {
+      localStorage.removeItem("token");
+    }
+  } catch (e) {
+    if (e.name === 'QuotaExceededError') {
+      console.error("Storage quota exceeded");
+      // Handle quota exceeded error
+    } else {
+      throw e;
+    }
   }
 };
 
@@ -27,12 +35,11 @@ export const isAuthenticated = () => {
 };
 
 // Function to get user roles from the JWT token
-// Function to get user roles from the JWT token
 export const getUserRoles = () => {
   const token = getAuthToken();
   if (!token) return [];
 
-  const decodedToken = jwtDecode(token);
+  const decodedToken = jwt_decode(token);
 
   // Assuming roles are stored as an array in the token, remove "ROLE_" prefix
   return (decodedToken.roles || []).map((role) => role.replace(/^ROLE_/, ""));

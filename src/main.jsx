@@ -14,7 +14,7 @@ import AiCreation from './components/ai-creation/AiCreation.jsx';
 import LoginAndSignUp from './modules/login_&signup/index.jsx';
 import Login from './modules/login_&signup/Login.jsx';
 import SignUp from './modules/login_&signup/SignUp.jsx';
-import ProtectedRoute from './components/ProtectedRoute'; // Import the ProtectedRoute component
+import ProtectedRoute from './modules/protected/ProtectedRoute.jsx'; // Import the ProtectedRoute component
 
 function Main() {
   const [isSidebarOpen, setIsSidebarOpen] = React.useState(false);
