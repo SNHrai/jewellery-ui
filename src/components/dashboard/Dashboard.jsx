@@ -1,13 +1,13 @@
-import React from "react";
-import Sidebar from "../sidebar/Sidebar";
+// import React from "react";
+// import Sidebar from "../sidebar/Sidebar";
 
-function Dashboard() {
-  return (
-    <div>
-      {/* <Sidebar /> */}
+// function Dashboard() {
+//   return (
+//     <div>
+//       {/* <Sidebar /> */}
        
-    </div>
-  );
-}
+//     </div>
+//   );
+// }
 
-export default Dashboard;
+// export default Dashboard;

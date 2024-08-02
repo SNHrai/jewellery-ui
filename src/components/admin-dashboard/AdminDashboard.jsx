@@ -1,12 +1,12 @@
-import React from "react";
-import Sidebar from "../sidebar/Sidebar";
+// import React from "react";
+// import Sidebar from "../sidebar/Sidebar";
 
-function AdminDashboard() {
-  return (
-    <div>
-      {/* <Sidebar /> */}
-    </div>
-  );
-}
+// function AdminDashboard() {
+//   return (
+//     <div>
+//       {/* <Sidebar /> */}
+//     </div>
+//   );
+// }
 
-export default AdminDashboard;
+// export default AdminDashboard;

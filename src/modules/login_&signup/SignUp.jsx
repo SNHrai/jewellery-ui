@@ -54,48 +54,52 @@ const SignUp = () => {
         toast.success("User Authenticated Successfully");
         navigate("/dashboard");
       } catch (e) {
-        if (e.name === 'QuotaExceededError') {
-          setError("Storage quota exceeded. Please clear some space or try again later.");
-          toast.error("Storage quota exceeded. Please clear some space or try again later.");
+        if (e.name === "QuotaExceededError") {
+          setError(
+            "Storage quota exceeded. Please clear some space or try again later."
+          );
+          toast.error(
+            "Storage quota exceeded. Please clear some space or try again later."
+          );
         } else {
           throw e;
         }
       }
     } catch (err) {
       setError(err.message);
-      toast.error(err.message);
+      toast.error("Email is already in use!");
     } finally {
       setLoading(false);
     }
   };
 
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen bg-[#161920] text-white relative">
-      <div className="absolute flex items-center justify-end gap-2 top-4 right-4">
-        <p className="mt-3">Already have an account?</p>
+    <div className="flex flex-col items-center justify-center min-h-screen bg-[#fdfefd] text-[#9d5e7b] relative">
+      <div className="absolute flex items-center justify-end gap-2 top-2 right-3">
+        <p className="mt-3 text-[#9d5e7b] custom-btn">Already have an account?</p>
         <Link
           to="/login"
-          className="px-4 py-2 text-white rounded-md bg-gradient-to-r from-blue-500 to-purple-500 hover:bg-gradient-to-l focus:outline-none focus:ring-2 focus:ring-blue-500 custom-btn">
+          className="px-4 custom-btn py-2 text-white rounded-md bg-gradient-to-r from-[#9d5e7b] to-[#b59481] hover:bg-gradient-to-l focus:outline-none focus:ring-2 focus:ring-[#9d5e7b]">
           Login
         </Link>
       </div>
 
-      <div className="w-full max-w-md p-8 rounded-lg shadow-md">
-        <h2 className="mb-6 text-2xl font-bold text-center">Sign Up</h2>
+      <div className="w-full max-w-lg p-8 bg-[#fdfefd] rounded-lg ">
+        <h2 className="mb-6 text-2xl font-bold text-center text-[#9d5e7b]">Sign Up</h2>
         <div className="flex flex-col items-center mb-6">
-          <button className="flex items-center justify-center w-full py-2 mb-4 text-white bg-blue-800 rounded-md hover:bg-blue-900">
+          <button className="flex form-signup-custom  items-center justify-center w-full py-2 mb-4 text-white bg-[#9d5e7b] rounded-md hover:bg-[#b59481]">
             <FcGoogle size={24} className="mr-2" />
             Continue with Google
           </button>
-          <button className="flex items-center justify-center w-full py-2 text-white bg-black rounded-md hover:bg-gray-800">
+          <button className="flex form-signup-custom  items-center justify-center w-full py-2 text-white bg-[#000] rounded-md hover:bg-gray-800">
             <FaApple size={24} className="mr-2" />
             Continue with Apple
           </button>
         </div>
         <div className="flex items-center mb-6">
-          <div className="w-full h-px bg-gray-600"></div>
-          <span className="mx-4 text-gray-400">or </span>
-          <div className="w-full h-px bg-gray-600"></div>
+          <div className="w-full h-px bg-[#9d5e7b]"></div>
+          <span className="mx-4 text-[#9d5e7b]">or</span>
+          <div className="w-full h-px bg-[#9d5e7b]"></div>
         </div>
 
         <form onSubmit={handleSubmit}>
@@ -107,7 +111,7 @@ const SignUp = () => {
                 placeholder="First Name"
                 value={formData.firstName}
                 onChange={handleChange}
-                className="w-full px-4 py-2 text-white bg-[#161920] rounded-md border-gray-200"
+                className="w-full px-4 py-2 form-field-custom text-[#9d5e7b] bg-[#fdfefd] rounded-md border-[#b59481] border"
               />
             </div>
             <div className="w-1/2 px-2">
@@ -117,7 +121,7 @@ const SignUp = () => {
                 placeholder="Last Name"
                 value={formData.lastName}
                 onChange={handleChange}
-                className="w-full px-4 py-2 text-white bg-[#161920] rounded-md border-gray-200"
+                className="w-full px-4 py-2 form-field-custom text-[#9d5e7b] bg-[#fdfefd] rounded-md border-[#b59481] border"
               />
             </div>
           </div>
@@ -128,7 +132,7 @@ const SignUp = () => {
               placeholder="Email"
               value={formData.email}
               onChange={handleChange}
-              className="w-full px-4 py-2 text-white bg-[#161920] rounded-md border-gray-200"
+              className="w-full px-4 py-2 form-field-custom text-[#9d5e7b] bg-[#fdfefd] rounded-md border-[#b59481] border"
             />
           </div>
           <div className="mb-4">
@@ -138,7 +142,7 @@ const SignUp = () => {
               placeholder="Password"
               value={formData.password}
               onChange={handleChange}
-              className="w-full px-4 py-2 text-white bg-[#161920] rounded-md border-gray-200"
+              className="w-full px-4 py-2 form-field-custom text-[#9d5e7b] bg-[#fdfefd] rounded-md border-[#b59481] border"
             />
           </div>
           <div className="flex mb-4 -mx-2">
@@ -147,7 +151,7 @@ const SignUp = () => {
                 name="profession"
                 value={formData.profession}
                 onChange={handleChange}
-                className="w-full px-4 py-2 text-white bg-[#161920] rounded-md border-gray-200">
+                className="w-full px-4 py-2 form-field-custom text-[#9d5e7b] bg-[#fdfefd] rounded-md border-[#b59481] border">
                 <option value="">Profession</option>
                 <option value="Designer">Designer</option>
                 <option value="Sales">Sales</option>
@@ -162,7 +166,7 @@ const SignUp = () => {
                 placeholder="Country"
                 value={formData.country}
                 onChange={handleChange}
-                className="w-full px-4 py-2 text-white bg-[#161920] rounded-md border-gray-200"
+                className="w-full px-4 py-2 form-field-custom text-[#9d5e7b] bg-[#fdfefd] rounded-md border-[#b59481] border"
               />
             </div>
           </div>
@@ -172,9 +176,9 @@ const SignUp = () => {
               name="termsAccepted"
               checked={formData.termsAccepted}
               onChange={handleCheckboxChange}
-              className="mr-2 text-blue-500 focus:ring-blue-500"
+              className="mr-2 text-[#9d5e7b] focus:ring-[#9d5e7b]"
             />
-            <label htmlFor="termsAccepted" className="text-sm text-gray-400">
+            <label htmlFor="termsAccepted" className="text-sm text-[#9d5e7b]">
               I accept the terms and conditions
             </label>
           </div>
@@ -182,33 +186,14 @@ const SignUp = () => {
           <button
             type="submit"
             disabled={loading}
-            className="relative w-full py-2 text-white rounded-md bg-gradient-to-r from-blue-500 to-purple-500 hover:bg-gradient-to-l focus:outline-none focus:ring-2 focus:ring-blue-500"
-          >
-            {loading ? (
+            className="relative custom-btn w-full py-2 text-white rounded-md bg-gradient-to-r from-[#9d5e7b] to-[#b59481] hover:bg-gradient-to-l focus:outline-none focus:ring-2 focus:ring-[#9d5e7b]">
+            <span className={`${loading ? "opacity-0" : "opacity-100"}`}>
+              Sign Up
+            </span>
+            {loading && (
               <div className="absolute inset-0 flex items-center justify-center">
-                <svg
-                  className="w-6 h-6 text-white animate-spin"
-                  xmlns="http://www.w3.org/2000/svg"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                >
-                  <circle
-                    className="opacity-25"
-                    cx="12"
-                    cy="12"
-                    r="10"
-                    stroke="currentColor"
-                    strokeWidth="4"
-                  ></circle>
-                  <path
-                    className="opacity-75"
-                    fill="currentColor"
-                    d="M4 12a8 8 0 0112.905-6.064A5.995 5.995 0 0120 12a5.995 5.995 0 01-3.095 5.064A8 8 0 014 12z"
-                  ></path>
-                </svg>
+                <div className="w-6 h-6 border-t-2 border-b-2 border-white rounded-full animate-spin"></div>
               </div>
-            ) : (
-              "Sign Up"
             )}
           </button>
         </form>
