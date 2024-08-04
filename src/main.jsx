@@ -11,6 +11,8 @@ import SignUp from "./modules/login_&signup/SignUp.jsx";
 import ProtectedRoute from "./modules/protected/ProtectedRoute.jsx"; // Import the ProtectedRoute component
 import UserDashboard from "./modules/dashboard/Dashboard.jsx";
 import AuthenticatePage from "./modules/auth_page/AuthenticatePage.jsx";
+import Pricing from "./modules/pricing/pricing.jsx";
+import Home from "./modules/home/home.jsx"
 
 function Main() {
   const [isSidebarOpen, setIsSidebarOpen] = React.useState(false);
@@ -63,6 +65,18 @@ function Main() {
     {
       path: "/unauthorized",
       element: <AuthenticatePage />,
+      errorElement: <div>Error</div>,
+    },
+
+    {
+      path: "/pricing",
+      element: <Pricing />,
+      errorElement: <div>Error</div>,
+    },
+
+    {
+      path: "/home",
+      element: <Home />,
       errorElement: <div>Error</div>,
     },
     // {

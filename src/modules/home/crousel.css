@@ -1,0 +1,37 @@
+/* Add this CSS file in the same directory as your CustomCarousel component */
+
+/* Custom styles for carousel arrows */
+.carousel-control-prev-icon,
+.carousel-control-next-icon {
+  background-color: rgba(0, 0, 0, 0.5); /* Optional: Add background color to make arrows visible */
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  position: relative; /* Enable relative positioning */
+  transition: transform 0.3s ease-in-out; /* Smooth transition effect */
+}
+
+.carousel-control-prev-icon:hover,
+.carousel-control-next-icon:hover {
+  transform: translateY(-5px); /* Move the arrow up on hover */
+}
+
+
+.carousel-control-next, .carousel-control-prev {
+  position: absolute;
+  top: 50%;
+  bottom: 0;
+  z-index: 1;
+  height: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 15%;
+  padding: 0;
+  color: #fff;
+  text-align: center;
+  background: 0 0;
+  border: 0;
+  opacity: .5;
+  transition: opacity .15s ease;
+}

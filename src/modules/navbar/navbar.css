@@ -1,0 +1,100 @@
+/* Navbar.css */
+
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 90px;
+  background: #333;
+  padding: 0 20px;
+  color: #fff;
+  position: relative;
+}
+
+.navbar-logo {
+  text-decoration: none;
+  color: #fff;
+  font-size: 24px;
+  font-weight: bold;
+  width: 50px;
+}
+
+.navbar-hamburger {
+  display: none;
+  cursor: pointer;
+}
+
+.navbar-menu {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  margin-left: auto;
+  margin-right: auto;
+  font-size: 20px;
+  transition: transform 0.3s ease-in-out;
+}
+
+.navbar-menu-item {
+  text-decoration: none;
+  color: #fff;
+  margin-left: 30px; /* Increase this value for more space */
+  margin-right: 30px; /* Increase this value for more space */
+}
+
+.navbar-menu-item:first-child {
+  margin-left: 0; /* Optional: Remove left margin for the first item */
+}
+
+.navbar-menu-item:last-child {
+  margin-right: 0; /* Optional: Remove right margin for the last item */
+}
+
+.navbar-menu-item:hover {
+  color: #57D8C6;
+}
+
+@media (max-width: 768px) {
+  .navbar-hamburger {
+    display: block;
+  }
+
+  .navbar-menu {
+    position: absolute;
+    top: 60px;
+    left: 0;
+    right: 0;
+    background: #333;
+    flex-direction: column;
+    transform: translateY(-100vh);
+  }
+
+  .navbar-menu.open {
+    transform: translateY(0);
+  }
+
+  .navbar-menu-item {
+    margin: 20px 0;
+  }
+}
+
+
+/* Add this to your Navbar.css */
+
+.navbar {
+  position: fixed; /* Make the navbar stick to the top of the page */
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000; /* Ensure the navbar stays on top of other content */
+  transition: all 0.3s ease; /* Smooth transition for sticky effect */
+}
+
+/* Add a class for the sticky state */
+.navbar.sticky {
+  background: linear-gradient(to right, #A46E7D, #B0897F); /* Change background color when sticky, optional */
+}
+
+/* Optional: Add padding to the body to avoid content jump */
+body {
+  padding-top: 90px; /* This should match the height of your navbar */
+}

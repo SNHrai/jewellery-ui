@@ -5,7 +5,7 @@ import videoSource from "../../util/videos/VIDEO-2024-08-02-10-33-59.mp4";
 
 function LoginAndSignUp() {
   return (
-    <div className="flex h-screen">
+    <div className="flex h-screen" style={{marginTop:"-90px"}}>
       <div className="hidden lg:flex lg:w-1/2">
         <div className="relative w-full h-full">
           <video
