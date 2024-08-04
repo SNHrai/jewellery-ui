@@ -3,8 +3,12 @@ import { FcGoogle } from "react-icons/fc";
 import { FaApple } from "react-icons/fa";
 import { Link, useNavigate } from "react-router-dom";
 import { toast } from "sonner";
+import { GoogleLogin, useGoogleLogin } from "@react-oauth/google";
+import { jwtDecode } from "jwt-decode";
+import axios from "axios";
+import "./style.css"
 
-const SignUp = () => {
+const SignUp = ({signupClickHandler}) => {
   const [formData, setFormData] = useState({
     firstName: "",
     lastName: "",
@@ -12,6 +16,7 @@ const SignUp = () => {
     password: "",
     profession: "",
     country: "",
+    phone:"",
     termsAccepted: false,
   });
   const [loading, setLoading] = useState(false);
@@ -36,7 +41,7 @@ const SignUp = () => {
     setError(null);
 
     try {
-      const response = await fetch("http://localhost:8081/api/auth/register", {
+      const response = await fetch("http://localhost:8080/api/auth/register", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -49,22 +54,9 @@ const SignUp = () => {
       }
 
       const data = await response.json();
-      try {
-        localStorage.setItem("token", data.token); // Assuming token is returned in the response
-        toast.success("User Authenticated Successfully");
-        navigate("/dashboard");
-      } catch (e) {
-        if (e.name === "QuotaExceededError") {
-          setError(
-            "Storage quota exceeded. Please clear some space or try again later."
-          );
-          toast.error(
-            "Storage quota exceeded. Please clear some space or try again later."
-          );
-        } else {
-          throw e;
-        }
-      }
+      localStorage.setItem("token", data.token);
+      toast.success("User Authenticated Successfully");
+      navigate("/dashboard");
     } catch (err) {
       setError(err.message);
       toast.error("Email is already in use!");
@@ -73,25 +65,145 @@ const SignUp = () => {
     }
   };
 
+  const login = useGoogleLogin({
+    onSuccess: async (response) => {
+      try {
+        // Use the access token to get user info from Google
+        const res = await axios.get(
+          "https://www.googleapis.com/oauth2/v3/userinfo",
+          {
+            headers: {
+              Authorization: `Bearer ${response.access_token}`,
+            },
+          }
+        );
+
+        if (res.status === 200) {
+          const user = res.data;
+
+          // Collect user details
+          const userDetails = {
+            idToken: response.access_token, // Use access token or idToken depending on your backend
+            email: user.email,
+            firstName: user.given_name,
+            lastName: user.family_name,
+            profilePic: user.picture, // Optional
+          };
+
+          // Send ID token and additional info to backend
+          const googleResponse = await fetch(
+            "http://localhost:8080/api/auth/google-login",
+            {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify(userDetails),
+            }
+          );
+
+          if (!googleResponse.ok) {
+            throw new Error("Google login failed.");
+          }
+
+          const data = await googleResponse.json();
+          localStorage.setItem("token", data.token);
+          toast.success("User Authenticated Successfully");
+          navigate("/dashboard");
+        } else {
+          throw new Error("Failed to fetch user info from Google.");
+        }
+      } catch (error) {
+        console.error("Token Error:", error.message);
+        toast.error(error.message);
+      }
+    },
+    onError: (error) => {
+      console.error("Login Error:", error);
+      toast.error("Login failed.");
+    },
+  });
+
+  // const handleGoogleSuccess = async (response) => {
+  //   const { credential } = response; // This is the Google ID token
+
+  //   try {
+  //     // Decode the token to inspect its contents
+  //     const decodedToken = jwtDecode(credential);
+  //     console.log("Decoded Token:", decodedToken);
+
+  //     // Check token expiration
+  //     const currentTime = Math.floor(Date.now() / 1000);
+  //     if (decodedToken.exp < currentTime) {
+  //       throw new Error("Token has expired");
+  //     }
+
+  //     // Collect user details from decoded token
+  //     const userDetails = {
+  //       idToken: credential,
+  //       email: decodedToken.email,
+  //       firstName: decodedToken.given_name,
+  //       lastName: decodedToken.family_name,
+  //       profilePic: decodedToken.picture, // Optional
+  //     };
+
+  //     // Send ID token and additional info to backend
+  //     const googleResponse = await fetch(
+  //       "http://localhost:8080/api/auth/google-login",
+  //       {
+  //         method: "POST",
+  //         headers: {
+  //           "Content-Type": "application/json",
+  //         },
+  //         body: JSON.stringify(userDetails),
+  //       }
+  //     );
+
+  //     if (!googleResponse.ok) {
+  //       throw new Error("Google login failed.");
+  //     }
+
+  //     const data = await googleResponse.json();
+  //     localStorage.setItem("token", data.token);
+  //     toast.success("User Authenticated Successfully");
+  //     navigate("/dashboard");
+  //   } catch (error) {
+  //     console.error("Token Error:", error.message);
+  //     toast.error(error.message);
+  //   }
+  // };
+
+  // const handleGoogleFailure = (error) => {
+  //   console.error("Google Login Failed", error);
+  //   toast.error("Google Login Failed");
+  // };
+
   return (
     <div className="flex flex-col items-center justify-center min-h-screen bg-[#fdfefd] text-[#9d5e7b] relative">
       <div className="absolute flex items-center justify-end gap-2 top-2 right-3">
-        <p className="mt-3 text-[#9d5e7b] custom-btn">Already have an account?</p>
-        <Link
-          to="/login"
+        <p className="mt-3 text-[#9d5e7b] custom-btn">
+          Already have an account?
+        </p>
+        <button
+          onClick={signupClickHandler}
           className="px-4 custom-btn py-2 text-white rounded-md bg-gradient-to-r from-[#9d5e7b] to-[#b59481] hover:bg-gradient-to-l focus:outline-none focus:ring-2 focus:ring-[#9d5e7b]">
           Login
-        </Link>
+        </button>
       </div>
 
       <div className="w-full max-w-lg p-8 bg-[#fdfefd] rounded-lg ">
-        <h2 className="mb-6 text-2xl font-bold text-center text-[#9d5e7b]">Sign Up</h2>
+        <h2 className="mb-6 text-2xl font-bold text-center text-[#9d5e7b]">
+          Sign Up
+        </h2>
         <div className="flex flex-col items-center mb-6">
-          <button className="flex form-signup-custom  items-center justify-center w-full py-2 mb-4 text-white bg-[#9d5e7b] rounded-md hover:bg-[#b59481]">
+          <button
+            onClick={() => login()}
+            className="flex items-center justify-center w-full py-2 mb-4 text-white bg-[#9d5e7b] rounded-md form-signup-custom hover:bg-[#b59481]">
             <FcGoogle size={24} className="mr-2" />
             Continue with Google
           </button>
-          <button className="flex form-signup-custom  items-center justify-center w-full py-2 text-white bg-[#000] rounded-md hover:bg-gray-800">
+
+          <button className="flex form-signup-custom items-center justify-center w-full py-2 text-white bg-[#000] rounded-md hover:bg-gray-800">
             <FaApple size={24} className="mr-2" />
             Continue with Apple
           </button>
@@ -125,7 +237,8 @@ const SignUp = () => {
               />
             </div>
           </div>
-          <div className="mb-4">
+          <div className="flex mb-4 -mx-2">
+            <div className="w-1/2 px-2">
             <input
               type="email"
               name="email"
@@ -134,6 +247,17 @@ const SignUp = () => {
               onChange={handleChange}
               className="w-full px-4 py-2 form-field-custom text-[#9d5e7b] bg-[#fdfefd] rounded-md border-[#b59481] border"
             />
+          </div>
+          <div className="w-1/2 px-2">
+            <input
+              type="text"
+              name="phone"
+              placeholder="phone"
+              value={formData.phone}
+              onChange={handleChange}
+              className="w-full px-4 py-2 form-field-custom text-[#9d5e7b] bg-[#fdfefd] rounded-md border-[#b59481] border"
+            />
+          </div>
           </div>
           <div className="mb-4">
             <input
@@ -147,17 +271,14 @@ const SignUp = () => {
           </div>
           <div className="flex mb-4 -mx-2">
             <div className="w-1/2 px-2">
-              <select
+              <input
+                type="text"
                 name="profession"
+                placeholder="Profession"
                 value={formData.profession}
                 onChange={handleChange}
-                className="w-full px-4 py-2 form-field-custom text-[#9d5e7b] bg-[#fdfefd] rounded-md border-[#b59481] border">
-                <option value="">Profession</option>
-                <option value="Designer">Designer</option>
-                <option value="Sales">Sales</option>
-                <option value="Founder">Founder</option>
-                <option value="Student">Student</option>
-              </select>
+                className="w-full px-4 py-2 form-field-custom text-[#9d5e7b] bg-[#fdfefd] rounded-md border-[#b59481] border"
+              />
             </div>
             <div className="w-1/2 px-2">
               <input
@@ -166,35 +287,32 @@ const SignUp = () => {
                 placeholder="Country"
                 value={formData.country}
                 onChange={handleChange}
-                className="w-full px-4 py-2 form-field-custom text-[#9d5e7b] bg-[#fdfefd] rounded-md border-[#b59481] border"
+                className="w-full custom-input-style  px-4 py-2 form-field-custom text-[#9d5e7b] bg-[#fdfefd] rounded-md border-[#b59481] border"
               />
             </div>
           </div>
-          <div className="flex items-center mb-6">
+          <div className="flex items-center mb-4">
             <input
               type="checkbox"
               name="termsAccepted"
               checked={formData.termsAccepted}
               onChange={handleCheckboxChange}
-              className="mr-2 text-[#9d5e7b] focus:ring-[#9d5e7b]"
+              className="form-checkbox-custom"
             />
-            <label htmlFor="termsAccepted" className="text-sm text-[#9d5e7b]">
-              I accept the terms and conditions
+            <label htmlFor="termsAccepted" className="ml-2 text-[#9d5e7b] form-login-field-custom">
+              I accept the{" "}
+              <a href="/terms" className="text-[#b59481] hover:underline form-login-field-custom">
+                terms and conditions
+              </a>
             </label>
           </div>
           {error && <p className="mb-4 text-red-500">{error}</p>}
           <button
             type="submit"
-            disabled={loading}
-            className="relative custom-btn w-full py-2 text-white rounded-md bg-gradient-to-r from-[#9d5e7b] to-[#b59481] hover:bg-gradient-to-l focus:outline-none focus:ring-2 focus:ring-[#9d5e7b]">
-            <span className={`${loading ? "opacity-0" : "opacity-100"}`}>
-              Sign Up
-            </span>
-            {loading && (
-              <div className="absolute inset-0 flex items-center justify-center">
-                <div className="w-6 h-6 border-t-2 border-b-2 border-white rounded-full animate-spin"></div>
-              </div>
-            )}
+            className={`w-full py-2 form-signup-custom text-white rounded-md bg-gradient-to-r from-[#9d5e7b] to-[#b59481] hover:bg-gradient-to-l focus:outline-none focus:ring-2 focus:ring-[#9d5e7b] ${
+              loading ? "opacity-50 cursor-not-allowed" : ""
+            }`}>
+            {loading ? "Registering..." : "Sign Up"}
           </button>
         </form>
       </div>
