@@ -9,7 +9,7 @@ import Eye from "../../util/images/eye.svg"
 import SpeedoMeter from "../../util/images/speedometer.svg"
 import ThumbsUpIcon from  "../../util/images/thumbs-up.svg"
 // import SliderDetails from "./SliderDetails"
-import CarouselComponent from "./CarouselComponent"
+import Carousel from "./CarouselComponent"
 import Contact from "./contact"
 import Footer from "./Footer"
 
@@ -89,7 +89,7 @@ function home() {
           </div>
         </div>
       </div>
-      <CarouselComponent/>
+      <Carousel/>
       <Contact/>
       <Footer/>
     </div>

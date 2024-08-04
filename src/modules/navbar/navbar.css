@@ -45,6 +45,7 @@
   margin-left: 0; /* Optional: Remove left margin for the first item */
 }
 
+
 .navbar-menu-item:last-child {
   margin-right: 0; /* Optional: Remove right margin for the last item */
 }
@@ -94,7 +95,6 @@
   background: linear-gradient(to right, #A46E7D, #B0897F); /* Change background color when sticky, optional */
 }
 
-/* Optional: Add padding to the body to avoid content jump */
-body {
-  padding-top: 90px; /* This should match the height of your navbar */
+.navbar.sticky:hover{
+  color: #000;
 }
