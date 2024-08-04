@@ -2,6 +2,7 @@
 
 .slick-slide {
   transition: transform 0.5s ease, opacity 0.5s ease;
+  margin-bottom: 100px;
 }
 
 .slick-slide img {
@@ -18,11 +19,13 @@
 }
 
 .slick-prev {
-  left: 50px;
+  left: 45% !important;
+  top: 90%;
 }
 
 .slick-next {
-  right: 50px;
+  right: 45% !important;
+  top: 90%;
 }
 
 .slick-prev:before, .slick-next:before {
