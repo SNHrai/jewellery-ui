@@ -1,4 +1,3 @@
-// Main.jsx
 import React, { Suspense, useState } from "react";
 import ReactDOM from "react-dom/client";
 import "./index.css";
@@ -13,6 +12,9 @@ import UserDashboard from "./modules/dashboard/Dashboard.jsx";
 import AuthenticatePage from "./modules/auth_page/AuthenticatePage.jsx";
 import Pricing from "./modules/pricing/pricing.jsx";
 import Home from "./modules/home/home.jsx"
+import { GoogleOAuthProvider } from '@react-oauth/google';
+import ForgotPassword from "./modules/forgot_password/ForgotPassword.jsx";
+import Profile from "./modules/profile/Profile.jsx";
 
 function Main() {
   const [isSidebarOpen, setIsSidebarOpen] = React.useState(false);
@@ -43,6 +45,17 @@ function Main() {
       errorElement: <div>Error</div>,
     },
     {
+      path: "/forgot-password",
+      element: <ForgotPassword />,
+      errorElement: <div>Error</div>,
+    },
+    {
+      path: "/profile",
+      element: <Profile />,
+      errorElement: <div>Error</div>,
+    },
+    
+    {
       path: "/dashboard",
       element: (
         <ProtectedRoute requiredRoles={['ROLE_USER']}>
@@ -62,6 +75,11 @@ function Main() {
     //   ),
     //   errorElement: <div>Error</div>,
     // },
+    {
+      path: "/unauthorized",
+      element: <AuthenticatePage />,
+      errorElement: <div>Error</div>,
+    },
     {
       path: "/unauthorized",
       element: <AuthenticatePage />,
@@ -104,10 +122,12 @@ function Main() {
   return (
     <Suspense fallback={<div>Loading...</div>}>
       <React.StrictMode>
+        <GoogleOAuthProvider clientId="104704098738-d9t0nqvhfubvhjp1lk8rnchbifhq5dtl.apps.googleusercontent.com">
         <Toaster />
         {/* <UserProvider> */}
           <RouterProvider router={router} />
         {/* </UserProvider> */}
+        </GoogleOAuthProvider>
       </React.StrictMode>
     </Suspense>
   );
