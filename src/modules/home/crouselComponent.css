@@ -3,6 +3,7 @@
 .slick-slide {
   transition: transform 0.5s ease, opacity 0.5s ease;
   margin-bottom: 100px;
+  /* margin-left: 10px; */
 }
 
 .slick-slide img {

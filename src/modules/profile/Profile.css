@@ -54,7 +54,7 @@
   }
   
   /* Add necessary styles to ensure smooth transitions and layout */
-.container {
+/* .container {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -62,7 +62,7 @@
     background-color: #fdfefd;
     padding: 12px;
     position: relative;
-  }
+  } */
   
   .back-button {
     position: absolute;
