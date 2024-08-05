@@ -10,6 +10,7 @@ import SpeedoMeter from "../../util/images/speedometer.svg"
 import ThumbsUpIcon from  "../../util/images/thumbs-up.svg"
 // import SliderDetails from "./SliderDetails"
 import Carousel from "./CarouselComponent"
+import OurReview from "./ReviewSection"
 import Contact from "./contact"
 import Footer from "./Footer"
 
@@ -90,6 +91,7 @@ function home() {
         </div>
       </div>
       <Carousel/>
+      <OurReview/>
       <Contact/>
       <Footer/>
     </div>

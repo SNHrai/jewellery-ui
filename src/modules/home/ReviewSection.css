@@ -1,0 +1,52 @@
+.review-section {
+  max-width: 1200px;
+  margin: auto;
+  padding: 20px;
+}
+
+.review-company {
+  display: flex;
+  align-items: center;
+  margin-bottom: 40px;
+}
+
+.company-logo img {
+  width: 60px;
+  height: 60px;
+  margin-right: 20px;
+}
+
+.company-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.company-name {
+  font-size: 1.2em;
+  font-weight: bold;
+}
+
+.company-rating {
+  color: #f5c518;
+  margin-top: 8px;
+}
+
+.company-reviews-count {
+  color: #777;
+  margin-top: 8px;
+}
+
+.write-review-button {
+  margin-top: 8px;
+  padding: 10px 20px;
+  color: white;
+  background-color: #1e90ff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.reviews {
+  display: flex;
+  justify-content: space-between;
+}

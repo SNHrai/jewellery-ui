@@ -9,7 +9,7 @@ function crousel() {
     <Carousel>
       <Carousel.Item>
         <img
-          className="d-block w-100"
+          className="d-block w-100 home-section"
           src={Jewelley1}
           alt="Jewelry 1"
         />
@@ -19,7 +19,7 @@ function crousel() {
       </Carousel.Item>
       <Carousel.Item>
         <img
-          className="d-block w-100"
+          className="d-block w-100 home-section"
           src={Jewelley1}
           alt="Jewelry 2"
         />

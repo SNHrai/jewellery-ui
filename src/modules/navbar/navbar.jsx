@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import './navbar.css'; // Import the CSS file
 import { FaBars, FaTimes } from 'react-icons/fa';
-import JewellwryIcon from "../../util/images/pearl-necklace.png";
+// import JewellwryIcon from "../../util/images/pearl-necklace.png";
+import JewellwryIcon from "../../util/images/JewealityLogo.png"
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -24,6 +25,9 @@ const Navbar = () => {
 
   return (
     <nav className={`navbar ${isSticky ? 'sticky' : ''}`}>
+    <div className='navbar-section'>
+     <img src={JewellwryIcon} className="navbar-logo" alt="Logo"/>
+    </div>
       <div className="navbar-hamburger" onClick={toggleNav}>
         {isOpen ? <FaTimes /> : <FaBars />}
       </div>
@@ -32,7 +36,6 @@ const Navbar = () => {
         <a href="/about" className="navbar-menu-item">About Us</a>
         <a href="/contact" className="navbar-menu-item">Contact</a>
       </div>
-      <img src={JewellwryIcon} className="navbar-logo" alt="Logo"/>
     </nav>
   );
 };

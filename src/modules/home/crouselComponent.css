@@ -8,7 +8,8 @@
 
 .slick-slide img {
   width: 100%;
-  border-radius: 8px; /* Optional: for rounded corners */
+  border-radius: 25px; /* Optional: for rounded corners */
+  padding: 10px;
 }
 
 .slick-prev, .slick-next {
