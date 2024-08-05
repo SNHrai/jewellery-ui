@@ -64,17 +64,6 @@ function Main() {
       ),
       errorElement: <AuthenticatePage />,
     },
-    // {
-    //   path: "/user-dashboard",
-    //   element: (
-    //     <ProtectedRoute requiredRoles={'ROLE_USER'}>
-    //       <Sidebar isOpen={isSidebarOpen} toggleSidebar={toggleSidebar}>
-    //         <UserDashboard />
-    //       </Sidebar>
-    //     </ProtectedRoute>
-    //   ),
-    //   errorElement: <div>Error</div>,
-    // },
     {
       path: "/unauthorized",
       element: <AuthenticatePage />,

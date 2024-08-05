@@ -1,176 +1,165 @@
+/* pricing.css */
 .dashboard-container {
-  padding: 20px;
-  background-color: #F6F7FB;
-  height: 100vh;
-  font-family: "Montserrat", sans-serif;
+  position: relative;
+  background: linear-gradient(to bottom right, #f0ebea, #fdfefd);
 }
 
-.diagonal-bg {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-around;
-  align-items: center;
-  margin-bottom: 50px;
+.card-container {
+  width: 300px;
+  margin: 20px;
   position: relative;
-  height: 70px; /* Adjust height as needed */
   overflow: hidden;
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease-in-out;
+  cursor: pointer;
 }
 
-.diagonal-bg::before {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 50%;
-  height: 100%;
-  background-color: #F6F7FB;
-  z-index: 1;
-  transform: skewX(-20deg); /* Adjust the angle as needed */
-  transform-origin: bottom left;
-}
-
-.diagonal-bg::after {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: unset;
-  right: -140px;
-  width: 55%;
-  height: 100%;
-  background-color: #F7D9BF;
-  z-index: 1;
-  transform: skewX(50deg);
-  transform-origin: bottom right;
-}
-
-.package-header {
-  display: flex;
-  justify-content: space-around;
-  width: 100%;
-  position: relative;
-  z-index: 2;
-}
-
-.package-header h2 {
-  text-align: center;
-  font-size: 20px;
-  margin: 0;
-}
-
-.content {
-  display: flex;
-  justify-content: space-around;
-  flex-wrap: wrap;
+.card-container:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
 }
 
 .card {
   padding: 20px;
-  background-color: #ffffff;
-  border: 1px solid #b59481;
+  background-color: white;
   border-radius: 10px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  width: 280px;
   text-align: center;
-  margin: 10px;
+  transition: background-color 0.3s ease-in-out;
+  position: relative;
+}
+
+.card-container:hover .card {
+  background-color: rgba(255, 255, 255, 0.3); /* Adjust this for a lighter effect */
+}
+
+.payment-icon {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background-color: #9d5e7b;
+  color: white;
+  padding: 10px;
+  border-radius: 50%;
+  opacity: 0; /* Initially hidden */
   cursor: pointer;
-  transition: all 0.5s ease; /* Apply transition to the initial state */
+  transition: opacity 0.3s ease-in-out;
+  z-index: 10; /* Ensure the icon is on top */
 }
 
-.card:hover{
-  background-color: #F0F5F8;
-  border: 2px solid #57D8C6;
-  transition: all .5s;
-  transform : translateY(-10px);
+.card-container:hover .payment-icon {
+  opacity: 1; /* Fully visible on hover */
 }
 
-.card h2 {
-  color: #000;
-  margin-bottom: 10px;
-  margin-top: 20px;
-  font-size: 25px;
-}
-
-.card h1 {
-  font-size: 30px;
-  margin-top: 50px;
-  color: #FEB458;
-}
-
-.card p {
-  color: #333;
-  margin-bottom: 5px;
-}
-
-.price-monthly {
-  margin-bottom: 50px;
+.package-header h2 {
+  color: #9d5e7b;
 }
 
 .terms-container {
+  margin-top: 20px;
   display: flex;
-  align-items: center;
-  margin: 60px;
-  margin-left: 90px;
+  flex-direction: column;
+  text-align: center;
 }
 
-input[type="checkbox"] {
-  margin-right: 10px;
+.terms-container input[type="checkbox"] {
+  margin-bottom: 10px;
+}
+
+@media (min-width: 640px) {
+  .terms-container {
+    flex-direction: row;
+    text-align: left;
+  }
+
+  .terms-container input[type="checkbox"] {
+    margin-bottom: 0;
+  }
+}
+
+.highlight {
+  color: #9d5e7b;
+  font-weight: bold;
   cursor: pointer;
 }
 
-label {
-  font-size: 14px;
-  line-height: 1.5;
+.toggle-button {
+  padding: 10px 20px;
+  background-color: #9d5e7b;
+  color: #fdfefd;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.3s ease;
 }
 
-span.highlight {
-  color: #f4a742; /* Adjust the color to match the one in the image */
-  text-decoration: none;
+.toggle-button:hover {
+  background-color: #b59481;
+  transform: scale(1.05);
 }
 
-a.highlight:hover {
-  text-decoration: underline;
+.card-container {
+  width: 300px;
+  margin: 20px;
+  transition: transform 0.5s ease;
 }
 
-/* Media Queries for Responsiveness */
-@media (max-width: 768px) {
-  .package-header {
-    flex-direction: column;
-  }
+.price-monthly, .price-annual {
+  opacity: 1;
+}
 
-  .package-header h2 {
-    font-size: 18px;
-  }
+.price-annual {
+  opacity: 0;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+}
 
-  .card {
-    width: 90%;
-  }
+.package-header .toggle-button {
+  margin-top: 20px;
+}
 
+.monthly .price-monthly {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.monthly .price-annual {
+  opacity: 0;
+  transform: translateX(-100%);
+}
+
+.annual .price-monthly {
+  opacity: 0;
+  transform: translateX(100%);
+}
+
+.annual .price-annual {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.terms-container {
+  flex-direction: column;
+  text-align: center;
+}
+
+.terms-container input[type="checkbox"] {
+  margin-bottom: 10px;
+}
+
+@media (min-width: 640px) {
   .terms-container {
-    margin: 30px 20px;
+    flex-direction: row;
+    text-align: left;
+  }
+
+  .terms-container input[type="checkbox"] {
+    margin-bottom: 0;
   }
 }
 
-@media (max-width: 480px) {
-  .package-header {
-    flex-direction: column;
-  }
-
-  .package-header h2 {
-    font-size: 16px;
-  }
-
-  .card {
-    width: 100%;
-  }
-
-  .terms-container {
-    margin: 20px 10px;
-    flex-direction: column;
-    align-items: flex-start;
-  }
-
-  input[type="checkbox"] {
-    margin-bottom: 10px;
-    cursor: pointer;
-  }
+.highlight {
+  font-weight: bold;
 }

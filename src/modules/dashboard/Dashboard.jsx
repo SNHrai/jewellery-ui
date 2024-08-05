@@ -1,9 +1,11 @@
 import React, { useState, useRef } from "react";
 import "./Dashboard.css";
 import ProfileDropdown from "../profile/ProfileDropdown";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import History from "../history/History";
 
 const UserDashboard = () => {
+  const navigate = useNavigate();
   const [isCreateWithText, setIsCreateWithText] = useState(true);
   const [isCreateWithImage, setIsCreateWithImage] = useState(false);
   const [isCreateWithTextAndImage, setIsCreateWithTextAndImage] =
@@ -15,8 +17,15 @@ const UserDashboard = () => {
   const [selectedImage, setSelectedImage] = useState(null);
   const inputRef = useRef(null);
   const [isLoading, setIsLoading] = useState(false);
+  // New states for dropdowns
+  const [designType, setDesignType] = useState("");
+  const [numImages, setNumImages] = useState(1);
+  const [showDesignTypeDropdown, setShowDesignTypeDropdown] = useState(true);
+  const [showImageNumberDropdown, setShowImageNumberDropdown] = useState(false);
+  const [downloadedImages, setDownloadedImages] = useState([]);
 
   const handleCreateWithText = () => {
+    setShowDesignTypeDropdown(true);
     setIsCreateWithText(true);
     setIsCreateWithImage(false);
     setIsCreateWithTextAndImage(false);
@@ -36,6 +45,16 @@ const UserDashboard = () => {
 
   const handleTextChange = (e) => {
     setTextValue(e.target.value);
+  };
+
+  const handleDesignTypeChange = (e) => {
+    setDesignType(e.target.value);
+    // setShowDesignTypeDropdown(false);
+    setShowImageNumberDropdown(true);
+  };
+
+  const handleImageNumberChange = (e) => {
+    setNumImages(Number(e.target.value));
   };
 
   const handleDrag = (e) => {
@@ -112,6 +131,24 @@ const UserDashboard = () => {
     setSelectedImage(image);
   };
 
+  const onClickHandler = () => {
+    navigate("/pricing");
+  };
+
+  const handleDownload = (image) => {
+    const link = document.createElement("a");
+    link.href = image;
+    link.download = `image_${Date.now()}.png`;
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+    setDownloadedImages((prev) => [...prev, image]);
+  };
+
+  const closeModal = () => {
+    setSelectedImage(null);
+  };
+
   return (
     <div className="min-h-screen p-8 bg-[#fdfefd]">
       <div className="">
@@ -121,7 +158,9 @@ const UserDashboard = () => {
               REMAINING FREE CREATIVE CREDITS: 1{" "}
             </span>
 
-            <button className="custom-btn relative px-4 py-2 text-white rounded-md bg-gradient-to-r from-[#9d5e7b] to-[#b59481] hover:bg-gradient-to-l focus:outline-none focus:ring-2 focus:ring-[#9d5e7b]">
+            <button
+              className="custom-btn relative px-4 py-2 text-white rounded-md bg-gradient-to-r from-[#9d5e7b] to-[#b59481] hover:bg-gradient-to-l focus:outline-none focus:ring-2 focus:ring-[#9d5e7b]"
+              onClick={() => onClickHandler()}>
               Subscribe Now
             </button>
           </div>
@@ -244,6 +283,62 @@ const UserDashboard = () => {
               </button>
             </div>
 
+            <div className="transition-all duration-500">
+              <div
+                className={`${
+                  showDesignTypeDropdown
+                    ? "opacity-100"
+                    : "opacity-0 -translate-y-8"
+                } transition-all duration-500`}>
+                {isCreateWithText && showDesignTypeDropdown && (
+                  <div className="mt-8">
+                    <h2 className="text-2xl cursor-pointer button-fonts  font-bold text-[#9d5e7b] custom-btn">
+                      Select your design type to begin your designing journey
+                    </h2>
+                    <div className="mt-4">
+                      <select
+                        className="w-full cursor-pointer button-fonts  p-4 rounded-lg bg-[#f0ebea] text-[#9d5e7b] focus:outline-none focus:ring-2 focus:ring-[#9d5e7b]"
+                        value={designType}
+                        onChange={handleDesignTypeChange}>
+                        <option value="">Select Design Type</option>
+                        <option value="cinematic">Cinematic</option>
+                        <option value="photographic">Photographic</option>
+                        <option value="3d-models">3D Models</option>
+                        <option value="no-styles">No Styles</option>
+                      </select>
+                    </div>
+                  </div>
+                )}
+              </div>
+            </div>
+            <div className="transition-all duration-500">
+              <div
+                className={`${
+                  showImageNumberDropdown
+                    ? "opacity-100"
+                    : "opacity-0 -translate-y-8"
+                } transition-all duration-500`}>
+                {showImageNumberDropdown && (
+                  <div className="mt-8">
+                    <h2 className="text-2xl font-bold text-[#9d5e7b] custom-btn">
+                      Select the number of images you want to generate
+                    </h2>
+                    <div className="mt-4">
+                      <select
+                        className="w-full cursor-pointer p-4 rounded-lg bg-[#f0ebea] text-[#9d5e7b] focus:outline-none focus:ring-2 focus:ring-[#9d5e7b]"
+                        value={numImages}
+                        onChange={handleImageNumberChange}>
+                        {[1, 2, 3, 4, 5].map((num) => (
+                          <option key={num} value={num}>
+                            {num}
+                          </option>
+                        ))}
+                      </select>
+                    </div>
+                  </div>
+                )}
+              </div>
+            </div>
             <div className="transition-all duration-500">
               <div
                 className={`${
@@ -449,21 +544,50 @@ const UserDashboard = () => {
               ) : (
                 <div className="grid grid-cols-2 gap-4">
                   {generatedImages.map((image, index) => (
-                    <img
-                      key={index}
-                      src={image}
-                      alt={`Generated ${index + 1}`}
-                      className={`cursor-pointer rounded-lg ${
-                        selectedImage === image ? "ring-4 ring-[#9d5e7b]" : ""
-                      }`}
-                      onClick={() => handleImageSelect(image)}
-                    />
+                    <div key={index} className="relative image-container">
+                      <img
+                        src={image}
+                        alt={`Generated ${index + 1}`}
+                        className={`cursor-pointer rounded-lg`}
+                        onClick={() => handleImageSelect(image)}
+                      />
+                      <button
+                        onClick={() => handleDownload(image)}
+                        className="download-icon">
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          className="h-6 w-6 text-[#9d5e7b]"
+                          viewBox="0 0 24 24"
+                          fill="none"
+                          stroke="currentColor"
+                          strokeWidth="2"
+                          strokeLinecap="round"
+                          strokeLinejoin="round">
+                          <path d="M12 3v12.09a1 1 0 0 0 1.492.87l5-4.55a1 1 0 0 0 0-1.4l-5-4.55A1 1 0 0 0 13 3z" />
+                          <path d="M4 15h4a4 4 0 0 1 4-4h4a4 4 0 0 1 4 4h4" />
+                        </svg>
+                      </button>
+                    </div>
                   ))}
                 </div>
               )}
             </div>
+
+            {selectedImage && (
+              <div className="modal-overlay active">
+                <div className="modal-content">
+                  <button className="close-modal" onClick={closeModal}>
+                    X
+                  </button>
+                  <img src={selectedImage} alt="Selected" />
+                </div>
+              </div>
+            )}
           </div>
         </div>
+      </div>
+      <div className="mt-8">
+        <History />
       </div>
     </div>
   );
