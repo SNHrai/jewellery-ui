@@ -12,3 +12,6 @@ input::placeholder {
     font-style: normal;
   }
   
+body{
+    font-family: "Poppins", sans-serif;
+}

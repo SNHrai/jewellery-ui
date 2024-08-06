@@ -4,12 +4,11 @@ import { setAuthToken } from "../../util/handler";
 import { toast } from "sonner";
 import "./style.css"
 
-function Login({ loginClickHandler }) {
+function Login() {
   const [showEmail, setShowEmail] = useState(false);
   const [formData, setFormData] = useState({
     email: "",
     password: "",
-    phone: "",
     rememberMe: false,
   });
   const [loading, setLoading] = useState(false);
@@ -58,6 +57,10 @@ function Login({ loginClickHandler }) {
     setShowEmail(!showEmail);
   };
 
+  const loginClickHandler = () => {
+    navigate("/signup");
+  }
+
   return (
     <div className="flex justify-center h-screen d-flex align-items-center">
       <div className="flex items-center justify-center w-full lg:w-1/2">
@@ -67,7 +70,7 @@ function Login({ loginClickHandler }) {
               Don't have an account?
             </p>
             <button
-              onClick={loginClickHandler}
+              onClick={() => loginClickHandler()}
               className="px-4 py-2 custom-btn text-white rounded-md bg-gradient-to-r from-[#9d5e7b] to-[#b59481] hover:bg-gradient-to-l focus:outline-none focus:ring-2 focus:ring-[#9d5e7b]">
               Sign Up
             </button>
@@ -83,9 +86,9 @@ function Login({ loginClickHandler }) {
               }`}>
               <input
                 type="text"
-                name="phone"
+                name="email"
                 placeholder="Phone"
-                value={formData.phone}
+                value={formData.email}
                 onChange={handleChange}
                 className="w-full px-4 custom-input-style py-2 form-field-custom text-[#9d5e7b] bg-[#fdfefd] rounded-md border-[#b59481] border"
               />

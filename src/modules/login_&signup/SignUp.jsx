@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { FcGoogle } from "react-icons/fc";
-import { FaApple } from "react-icons/fa";
+import { FaApple, FaLinkedin, FaLinkedinIn } from "react-icons/fa";
 import { Link, useNavigate } from "react-router-dom";
 import { toast } from "sonner";
 import { GoogleLogin, useGoogleLogin } from "@react-oauth/google";
@@ -8,7 +8,7 @@ import { jwtDecode } from "jwt-decode";
 import axios from "axios";
 import "./style.css"
 
-const SignUp = ({signupClickHandler}) => {
+const SignUp = () => {
   const [formData, setFormData] = useState({
     firstName: "",
     lastName: "",
@@ -178,6 +178,11 @@ const SignUp = ({signupClickHandler}) => {
   //   toast.error("Google Login Failed");
   // };
 
+  const signupClickHandler = () => {
+    console.log("clicked button login...");
+    navigate("/login");
+  }
+
   return (
     <div className="flex flex-col items-center justify-center min-h-screen bg-[#fdfefd] text-[#9d5e7b] relative">
       <div className="absolute flex items-center justify-end gap-2 top-2 right-3">
@@ -203,9 +208,9 @@ const SignUp = ({signupClickHandler}) => {
             Continue with Google
           </button>
 
-          <button className="flex form-signup-custom items-center justify-center w-full py-2 text-white bg-[#000] rounded-md hover:bg-gray-800">
-            <FaApple size={24} className="mr-2" />
-            Continue with Apple
+          <button className="flex items-center justify-center w-full py-2 text-white bg-blue-900 rounded-md form-signup-custom hover:bg-blue-950">
+            <FaLinkedinIn size={22} className="mr-2" />
+            Continue with LinkedIn
           </button>
         </div>
         <div className="flex items-center mb-6">

@@ -124,7 +124,7 @@ const CardsContainer = styled.div`
 `;
 
 const Card = styled(motion.div)`
-  background-color: #fdfefd;
+  background-color: #ffffff;
   padding: 16px;
   border-radius: 8px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
@@ -140,9 +140,18 @@ const Card = styled(motion.div)`
   }
 `;
 
-const Query = styled.p`
+const CardTitle = styled.h2`
   color: #9d5e7b;
   font-size: 1rem;
+  font-family: "Montserrat", sans-serif;
+  font-optical-sizing: auto;
+`;
+
+const Query = styled.p`
+  color: #9d5e7b;
+  font-size: 0.875rem;
+  font-family: "Poppins", sans-serif;
+  font-weight: 300;
 `;
 
 const ViewAllContainer = styled.div`
@@ -162,7 +171,7 @@ const ViewAllLink = styled.a`
 
 const Profile = () => {
   const [showHistory, setShowHistory] = useState(false);
-  const [showMoreImages, setShowMoreImages] = useState(false); // Added state
+  const [showMoreImages, setShowMoreImages] = useState(false);
 
   const navigate = useNavigate();
 
@@ -170,10 +179,8 @@ const Profile = () => {
     { id: 1, query: "Text to Image: Sunset over the mountains" },
     { id: 2, query: "Image to Text: Recipe for a chocolate cake" },
     { id: 3, query: "Text to Image: A futuristic cityscape" },
-    // Add more history items as needed
   ];
 
-  // Hardcoded user information
   const userInfo = {
     firstName: "John",
     lastName: "Doe",
@@ -284,10 +291,11 @@ const Profile = () => {
                 transition={{ duration: 0.3 }}
               >
                 <img src={item.src} alt={item.alt} />
-                <h2 className="text-lg font-medium text-[#9d5e7b]">
-                  {item.alt}
-                </h2>
-                <Query>Photo booth fam kinfolk cold-pressed sriracha leggings jianbing microdosing tousled waistcoat.</Query>
+                <CardTitle>{item.alt}</CardTitle>
+                <Query>
+                  Photo booth fam kinfolk cold-pressed sriracha leggings jianbing
+                  microdosing tousled waistcoat.
+                </Query>
               </Card>
             ))}
           </CardsContainer>
@@ -301,4 +309,3 @@ const Profile = () => {
 };
 
 export default Profile;
-

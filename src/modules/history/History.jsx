@@ -100,9 +100,9 @@ function History() {
               <div className="p-4">
                 <div className="overflow-hidden border-2 border-gray-200 rounded-lg border-opacity-60">
                   <div className="p-6">
-                    <h2 className="mb-1 text-xs font-medium tracking-widest text-gray-400 title-font">
+                    {/* <h2 className="mb-1 text-xs font-medium tracking-widest text-gray-400 title-font">
                       CATEGORY
-                    </h2>
+                    </h2> */}
                     <h1 className="mb-3 text-lg font-medium text-gray-900 title-font">
                       {item.query}
                     </h1>

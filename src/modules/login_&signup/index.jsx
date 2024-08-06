@@ -1,19 +1,28 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { useLocation } from "react-router-dom";
 import "./style.css";
 import SignUp from "./SignUp";
 import videoSource from "../../util/videos/VIDEO-2024-08-02-10-33-59.mp4";
 import Login from "./Login";
 
-
 function LoginAndSignUp() {
+  const location = useLocation();
   const [showLogin, setShowLogin] = useState(true);
 
+  useEffect(() => {
+    if (location.pathname.includes("signup")) {
+      setShowLogin(false);
+    } else if (location.pathname.includes("login")) {
+      setShowLogin(true);
+    }
+  }, [location.pathname]);
+
   const signupClickHandler = () => {
-    setShowLogin(true);
+    setShowLogin(false);
   };
 
   const loginClickHandler = () => {
-    setShowLogin(false);
+    setShowLogin(true);
   };
 
   return (
@@ -37,14 +46,14 @@ function LoginAndSignUp() {
               showLogin ? "opacity-100" : "opacity-0"
             }`}
           >
-            <Login loginClickHandler={loginClickHandler} />
+            <Login />
           </div>
           <div
             className={`transition-opacity duration-500 ${
               showLogin ? "opacity-0" : "opacity-100"
             }`}
           >
-            <SignUp signupClickHandler={signupClickHandler} />
+            <SignUp />
           </div>
         </div>
       </div>

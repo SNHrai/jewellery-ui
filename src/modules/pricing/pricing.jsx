@@ -238,7 +238,7 @@ function Pricing() {
         <input type="checkbox" id="terms" name="terms" className="mr-2" />
         <TermsLabel htmlFor="terms">
           I agree to the
-          <span className="highlight">《JewelryHunt AI Creation Service Terms》</span>
+          <span className="highlight">《Jeweality AI Creation Service Terms》</span>
           including the
           <span className="highlight">《User Service Agreement》</span>
           and

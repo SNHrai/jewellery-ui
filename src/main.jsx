@@ -30,20 +30,16 @@ function Main() {
       errorElement: <div>Error</div>,
     },
     {
+      path: "/login",
+      element: <LoginAndSignUp />,
+      errorElement: <div>Error</div>,
+    },
+    {
       path: "/signup",
       element: <LoginAndSignUp />,
       errorElement: <div>Error</div>,
     },
-    // {
-    //   path: "/login",
-    //   element: <Login />,
-    //   errorElement: <div>Error</div>,
-    // },
-    {
-      path: "/signup",
-      element: <SignUp />,
-      errorElement: <div>Error</div>,
-    },
+    
     {
       path: "/forgot-password",
       element: <ForgotPassword />,
@@ -77,27 +73,7 @@ function Main() {
       path: "/home",
       element: <Home />,
       errorElement: <div>Error</div>,
-    },
-    // {
-    //   path: "/admin-dashboard",
-    //   element: (
-    //     <ProtectedRoute requiredRoles={["ROLE_ADMIN"]}>
-    //       <Sidebar isOpen={isSidebarOpen} toggleSidebar={toggleSidebar}>
-    //         <AdminDashboard />
-    //       </Sidebar>
-    //     </ProtectedRoute>
-    //   ),
-    //   errorElement: <div>Error</div>,
-    // },
-    // {
-    //   path: "/ai-creation",
-    //   element: (
-    //     <ProtectedRoute>
-    //       <AiCreation />
-    //     </ProtectedRoute>
-    //   ),
-    //   errorElement: <div>Error</div>,
-    // },
+    }
   ]);
 
   return (

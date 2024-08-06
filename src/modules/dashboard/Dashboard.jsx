@@ -86,12 +86,10 @@ const UserDashboard = () => {
     setIsLoading(true);
 
     setTimeout(() => {
-      const dummyImages = [
-        "https://via.placeholder.com/300x200?text=Image+1",
-        "https://via.placeholder.com/300x200?text=Image+2",
-        "https://via.placeholder.com/300x200?text=Image+3",
-        "https://via.placeholder.com/300x200?text=Image+4",
-      ];
+      const dummyImages = Array.from(
+        { length: numImages },
+        (_, i) => `https://via.placeholder.com/300x200?text=Image+${i + 1}`
+      );
       setGeneratedImages(dummyImages);
       setIsLoading(false);
     }, Math.random() * 2000 + 4000);
@@ -152,68 +150,26 @@ const UserDashboard = () => {
   return (
     <div className="min-h-screen p-8 bg-[#fdfefd]">
       <div className="">
-        <div className="bg-[#f0ebea] rounded-lg h-24 p-6 flex items-center justify-between">
-          <div className="flex items-center gap-3">
-            <span className="text-[#9d5e7b] font-semibold form-labels">
-              REMAINING FREE CREATIVE CREDITS: 1{" "}
+        <div className="bg-[#f0ebea] rounded-lg p-6 flex flex-col md:flex-row items-center justify-between h-auto md:h-24">
+          <div className="flex items-center gap-3 mb-4 md:mb-0">
+            <span className="text-[#9d5e7b] font-semibold form-labels text-sm md:text-base">
+              REMAINING FREE CREATIVE CREDITS: 1
             </span>
 
             <button
-              className="custom-btn relative px-4 py-2 text-white rounded-md bg-gradient-to-r from-[#9d5e7b] to-[#b59481] hover:bg-gradient-to-l focus:outline-none focus:ring-2 focus:ring-[#9d5e7b]"
+              className="custom-btn px-4 py-2 text-white rounded-md bg-gradient-to-r from-[#9d5e7b] to-[#b59481] hover:bg-gradient-to-l focus:outline-none focus:ring-2 focus:ring-[#9d5e7b]"
               onClick={() => onClickHandler()}>
               Subscribe Now
             </button>
           </div>
 
           <div className="flex items-center gap-4">
-            {/* <Link
-              to="/home"
-              className="relative text-gray-600 transition-colors duration-300 hover:text-gray-800 group">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                className="w-8 h-8"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor">
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"
-                />
-              </svg>
-              <span className="absolute bottom-0 px-2 py-1 text-xs text-white transition-opacity duration-300 transform -translate-x-1/2 translate-y-full bg-gray-800 rounded-md opacity-0 left-1/2 group-hover:opacity-100">
-                Home
-              </span>
-            </Link>
-
-            <Link
-              to="/history"
-              className="relative text-gray-600 transition-colors duration-300 hover:text-gray-800 group">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                className="w-8 h-8"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor">
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"
-                />
-              </svg>
-              <span className="absolute bottom-0 px-2 py-1 text-xs text-white transition-opacity duration-300 transform -translate-x-1/2 translate-y-full bg-gray-800 rounded-md opacity-0 left-1/2 group-hover:opacity-100">
-                History
-              </span>
-            </Link> */}
-
             <Link
               to="/profile"
               className="relative text-[#9d5e7b] transition-colors duration-300 hover:text-[#b59481] group">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
-                className="w-8 h-8"
+                className="w-6 h-6 md:w-8 md:h-8"
                 fill="none"
                 viewBox="0 0 24 24"
                 stroke="currentColor">
@@ -228,35 +184,15 @@ const UserDashboard = () => {
                 Profile
               </span>
             </Link>
-
-            {/* <Link
-              to="/logout"
-              className="relative text-gray-600 transition-colors duration-300 hover:text-gray-800 group">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                className="w-8 h-8"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor">
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"
-                />
-              </svg>
-              <span className="absolute bottom-0 px-2 py-1 text-xs text-white transition-opacity duration-300 transform -translate-x-1/2 translate-y-full bg-gray-800 rounded-md opacity-0 left-1/2 group-hover:opacity-100">
-                Logout
-              </span>
-            </Link> */}
           </div>
         </div>
+
         <div className="flex flex-wrap gap-10 mt-8">
           <div className="flex-1 min-w-[300px]">
-            <div className="flex gap-4 mt-2">
+            <div className="flex flex-wrap gap-4 mt-2">
               <button
                 onClick={handleCreateWithText}
-                className={`w-64 px-7 py-7 rounded-lg transition-all duration-300 custom-btn ${
+                className={`flex-1 min-w-[200px] px-5 py-4 rounded-lg transition-all duration-300 custom-btn ${
                   isCreateWithText
                     ? "bg-gradient-to-r from-[#9d5e7b] to-[#b59481] hover:bg-gradient-to-l focus:outline-none focus:ring-2 focus:ring-[#9d5e7b] text-white scale-105"
                     : "bg-[#f0ebea] text-[#9d5e7b] hover:bg-gradient-to-r hover:from-[#b59481] hover:to-[#f0ebea] hover:scale-105"
@@ -265,7 +201,7 @@ const UserDashboard = () => {
               </button>
               <button
                 onClick={handleCreateWithImage}
-                className={`w-64 px-7 py-7 ml-2 rounded-lg transition-all duration-300 custom-btn ${
+                className={`flex-1 min-w-[200px] px-5 py-4 rounded-lg transition-all duration-300 custom-btn ${
                   isCreateWithImage
                     ? "bg-gradient-to-r from-[#9d5e7b] to-[#b59481] hover:bg-gradient-to-l focus:outline-none focus:ring-2 focus:ring-[#9d5e7b] text-white scale-105"
                     : "bg-[#f0ebea] text-[#9d5e7b] hover:bg-gradient-to-r hover:from-[#b59481] hover:to-[#f0ebea] hover:scale-105"
@@ -274,7 +210,7 @@ const UserDashboard = () => {
               </button>
               <button
                 onClick={handleCreateWithTextAndImage}
-                className={`w-64 px-7 py-7 ml-2 rounded-lg transition-all duration-300 custom-btn ${
+                className={`flex-1 min-w-[200px] px-5 py-4 rounded-lg transition-all duration-300 custom-btn ${
                   isCreateWithTextAndImage
                     ? "bg-gradient-to-r from-[#9d5e7b] to-[#b59481] hover:bg-gradient-to-l focus:outline-none focus:ring-2 focus:ring-[#9d5e7b] text-white scale-105"
                     : "bg-[#f0ebea] text-[#9d5e7b] hover:bg-gradient-to-r hover:from-[#b59481] hover:to-[#f0ebea] hover:scale-105"
@@ -586,7 +522,7 @@ const UserDashboard = () => {
           </div>
         </div>
       </div>
-      <div className="mt-8">
+      <div className="mt-8 border-t-blue-800">
         <History />
       </div>
     </div>
