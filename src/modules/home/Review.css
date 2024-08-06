@@ -35,6 +35,7 @@
 
 .review-info {
   flex-grow: 1;
+  font-family: "Montserrat", sans-serif;
 }
 
 .review-name {
@@ -56,6 +57,7 @@
 
 .review-text {
   color: #333;
+  font-family: "Montserrat", sans-serif;
 }
 
 .review-read-more {

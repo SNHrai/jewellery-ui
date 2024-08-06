@@ -13,6 +13,11 @@ a:active {
   outline: none;
 }
 
+*{
+  font-family: "Montserrat", sans-serif;
+}
+
+
 a,
 a:active,
 a:focus {
@@ -52,11 +57,24 @@ a:hover {
 .feat{
   font-family: "Poppins", sans-serif;
 }
+
+.feat .row {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.feat .col-lg-4, .feat .col-sm-6 {
+  display: flex;
+  justify-content: center;
+}
+
 .section-head h4 {
   position: relative;
   padding: 0;
+  margin-top: 100px;
   color: #f91942;
   line-height: 1;
+  font-family: "Montserrat", sans-serif;
   letter-spacing: 0.3px;
   font-size: 34px;
   font-weight: 700;
@@ -78,6 +96,7 @@ a:hover {
 .section-head h4 span {
   font-weight: 700;
   padding-bottom: 5px;
+  font-family: "Montserrat", sans-serif;
   color: #2f2f2f;
 }
 p.service_text {
@@ -129,7 +148,12 @@ p.awesome_line {
   margin-bottom: 30px;
   -webkit-transition: all 0.5s ease 0;
   transition: all 0.5s ease 0;
-  transition: all 0.5s ease 0s;
+  height: 500px; /* Set a fixed height */
+  width: 100%; /* Ensure full width of the parent column */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 .item:hover {
   background: linear-gradient(to right, #A46E7D, #B0897F);
@@ -189,11 +213,13 @@ p.awesome_line {
 }
 .item p {
   font-size: 15px;
+  font-family: "Montserrat", sans-serif;
   line-height: 26px;
   text-align: left;
 }
 .item h6 {
   margin-bottom: 20px;
+  font-family: "Montserrat", sans-serif;
   color: #2f2f2f;
   text-align: left;
 }

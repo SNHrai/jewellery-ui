@@ -71,6 +71,7 @@ body::after {
 .section-header h2 {
   color: #FFF;
   font-weight: bold;
+  font-family: "Montserrat", sans-serif;
   padding-top: 30px;
   font-size: 3em;
   margin-bottom: 20px;
@@ -78,6 +79,7 @@ body::after {
 
 .section-header p {
   color: #FFF;
+  font-family: "Montserrat", sans-serif;
 }
 
 .row  {
@@ -116,12 +118,14 @@ body::after {
 .contact-info-content h4 {
   color: #000;
   font-size: 1.4em;
+  font-family: "Montserrat", sans-serif;
   margin-bottom: 5px;
 }
 
 .contact-info-content p {
   color: #FFF;
   font-size: 1em;
+  font-family: "Montserrat", sans-serif;
 }
 
 .contact-form {
@@ -136,6 +140,7 @@ body::after {
   font-weight: bold;
   font-size: 2em;
   margin-bottom: 10px;
+  font-family: "Montserrat", sans-serif;
   color: #333;
 }
 
@@ -162,6 +167,7 @@ body::after {
   left: 0;
   padding: 5px 0;
   font-size: 16px;
+  font-family: "Montserrat", sans-serif;
   margin: 10px 0;
   pointer-events: none;
   transition: 0.5s;

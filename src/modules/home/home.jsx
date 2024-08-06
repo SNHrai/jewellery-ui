@@ -7,10 +7,15 @@ import Clock from "../../util/images/clock.svg"
 import Code from "../../util/images/code.svg"
 import Eye from "../../util/images/eye.svg"
 import SpeedoMeter from "../../util/images/speedometer.svg"
-import ThumbsUpIcon from  "../../util/images/thumbs-up.svg"
-// import SliderDetails from "./SliderDetails"
+import ThumbsUpIcon from "../../util/images/thumbs-up.svg"
+import RevolutionDesign from "../../util/images/revolution-design.png"
+import WorldClassDesign from "../../util/images/world-class-jewel.png"
+import Infinity from "../../util/images/infinity.png"
+import Easy from "../../util/images/easy.png"
+import LeadInnovation from "../../util/images/lead-innovation.png"
 import Carousel from "./CarouselComponent"
 import OurReview from "./ReviewSection"
+import GifSection from "./GifSection"
 import Contact from "./contact"
 import Footer from "./Footer"
 
@@ -19,6 +24,8 @@ function home() {
     <div>
       <Navbar />
       <Crousel />
+      <Carousel />
+      <GifSection />
       <div className="feat bg-gray pt-5 pb-5">
         <div className="container">
           <div className="row">
@@ -31,69 +38,98 @@ function home() {
               <div className="item">
                 {" "}
                 <span className="icon feature_box_col_three">
-                <img className="jewwllery-icon" src={Clock} alt="" />
+                  <img className="jewwllery-icon" src={RevolutionDesign} alt="" />
                 </span>
-                <h6>Time-Saving Solutions</h6>
-                <p>Jeweality offers rapid, efficent jewelery design services, transforming your ideas into beautiful, practical concepts quickly.</p>
+                <h6>Jewelry Design Revolutionized</h6>
+                <p>At Jeweality, we've transformed jewelry design by using advanced AI technology. Our platform helps designers turn their ideas into detailed and beautiful jewelry designs in seconds. Say goodbye to long and complicated design processes and embrace a new era of creativity and innovation.</p>
               </div>
             </div>
             <div className="col-lg-4 col-sm-6">
               <div className="item">
                 {" "}
                 <span className="icon feature_box_col_two">
-                <img className="jewwllery-icon" src={SpeedoMeter} alt="" />
+                  <img className="jewwllery-icon" src={Easy} alt="" />
                 </span>
-                <h6>Diverse Range of Ideas</h6>
-                <p>We embrace creativity and individuality, offering a diverse range of jewelry concepts for every style-form timeless classics to bold, unconventional designs.</p>
+                <h6>Easy to Use</h6>
+                <p>Jeweality is made for you. Our easy-to-use interface means anyone can create beautiful jewelry designs without needing technical skills. Just input your ideas, and our AI will bring them to life, making the design process simple and enjoyable.</p>
               </div>
             </div>
             <div className="col-lg-4 col-sm-6">
               <div className="item">
                 {" "}
                 <span className="icon feature_box_col_five">
-                  <img className="jewwllery-icon" src={GroupIcon} alt="" />
+                  <img className="jewwllery-icon" src={WorldClassDesign} alt="" />
                 </span>
-                <h6>Expert Design Team</h6>
-                <p>Our design team is the heart of our operation, comprised of seasoned experts who merge creativity with technicaal known how to transform abstract ideas into stunning, feasible jewelry.</p>
+                <h6>World-Class Designs</h6>
+                <p>Jeweality is more than just a tool; we're your creative partner. Our platform supports and enhances your design journey, giving you the resources and inspiration to bring your best ideas to life. Trust Jeweality to be with you every step of the way.</p>
+              </div>
+            </div>
+            <div className="col-lg-4 col-sm-6">
+              <div className="item">
+                {" "}
+                <span className="icon feature_box_col_three">
+                  <img className="jewwllery-icon" src={Infinity} alt="" />
+                </span>
+                <h6>Endless Possibilities</h6>
+                <p>Discover endless design options with Jeweality. Our platform lets you experiment with different styles, materials, and settings. Whether you're making a classic piece or something modern, the possibilities are limitless.</p>
+              </div>
+            </div>
+            <div className="col-lg-4 col-sm-6">
+              <div className="item">
+                {" "}
+                <span className="icon feature_box_col_two">
+                  <img className="jewwllery-icon" src={SpeedoMeter} alt="" />
+                </span>
+                <h6>Accessible Anytime, Anywhere</h6>
+                <p>Design whenever and wherever inspiration hits. Jeweality's cloud-based platform lets you use our powerful AI tools from anywhere in the world. Whether you're in the office, at home, or on the go, your next great design is just a click away.</p>
+              </div>
+            </div>
+            <div className="col-lg-4 col-sm-6">
+              <div className="item">
+                {" "}
+                <span className="icon feature_box_col_five">
+                  <img className="jewwllery-icon" src={LeadInnovation} alt="" />
+                </span>
+                <h6>Lead in Innovation</h6>
+                <p>Stay ahead with Jeweality’s cutting-edge technology. We continuously update our tools to bring you the latest in AI and design, ensuring you have the best resources to create amazing jewelry pieces.</p>
+              </div>
+            </div>
+            <div className="col-lg-4 col-sm-6">
+              <div className="item">
+                {" "}
+                <span className="icon feature_box_col_five">
+                  <img className="jewwllery-icon" src={Code} alt="" />
+                </span>
+                <h6>Instant Creativity</h6>
+                <p>Bring your creative ideas to life instantly. Jeweality’s AI tools work quickly, letting you see your designs come to life in seconds. This fast turnaround boosts your creativity and helps you get your products to market faster.</p>
               </div>
             </div>
             <div className="col-lg-4 col-sm-6">
               <div className="item">
                 {" "}
                 <span className="icon feature_box_col_six">
-                <img className="jewwllery-icon" src={Eye} alt="" />
+                  <img className="jewwllery-icon" src={Clock} alt="" />
                 </span>
-                <h6>Tailored to your Vision</h6>
-                <p>We tailor our jewelery design services to each client's unique visions and taste From your initial contact, we focus.</p>
+                <h6>Time-Saving Solutions</h6>
+                <p>Save time with Jeweality. Our efficient design process cuts out tedious manual work, allowing you to focus on refining your concepts and expanding your collection. Get your designs ready faster and start impressing your audience sooner.</p>
               </div>
             </div>
             <div className="col-lg-4 col-sm-6">
               <div className="item">
                 {" "}
                 <span className="icon feature_box_col_four">
-                  <img className="jewwllery-icon-thumbs-up" src={ThumbsUpIcon} alt="" />
+                  <img className="jewwllery-icon" src={GroupIcon} alt="" />
                 </span>
-                <h6>Conceptual Focus</h6>
-                <p>We start with a collaborative conceptualization process, where your ideas can take shape and expand.</p>
-              </div>
-            </div>
-            <div className="col-lg-4 col-sm-6">
-              <div className="item">
-                {" "}
-                <span className="icon feature_box_col_five">
-                <img className="jewwllery-icon" src={Code} alt="" />
-                </span>
-                <h6>Rapdi Modification</h6>
-                <p>By simplifying our processes and making them more efficient, we can deliver results within deadlines without sacrificing.</p>
+                <h6>Your Creative Partner</h6>
+                <p>Jeweality is more than just a tool; we're your creative partner. Our platform supports and enhances your design journey, giving you the resources and inspiration to bring your best ideas to life. Trust Jeweality to be with you every step of the way.</p>
               </div>
             </div>
           </div>
         </div>
       </div>
-      <Carousel/>
-      <OurReview/>
-      <Contact/>
-      <Footer/>
+      <OurReview />
+      <Contact />
+      <Footer />
     </div>
   )
 }

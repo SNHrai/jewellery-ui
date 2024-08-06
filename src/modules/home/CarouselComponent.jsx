@@ -43,7 +43,7 @@ function CarouselComponent() {
 
   return (
     <>
-      <div className="section-head col-sm-12">
+      <div className="section-head col-sm-12" style={{marginTop:"100px"}}>
         <h4>
           <span>AI</span> Creations
         </h4>
