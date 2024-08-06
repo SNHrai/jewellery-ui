@@ -203,7 +203,7 @@ width: 70px;
 
 .container-signup{
   min-height: 100px;
-  justify-content: center;
+  justify-content: left;
   align-items: center;
   display: flex;
   text-align: center;
@@ -255,7 +255,9 @@ width: 70px;
 
 .follow-us-link{
   margin-left: -190px;
+  justify-content: center;
 }
+
 
 .footer-sign-up .btn:hover{
   border: 1px solid rgba(104, 85, 224, 1);

@@ -6,28 +6,27 @@ import "./crousel.css"
 
 function crousel() {
   return (
-    <Carousel>
-      <Carousel.Item>
-        <img
-          className="d-block w-100 home-section"
-          src={Jewelley1}
-          alt="Jewelry 1"
-        />
-        <Carousel.Caption>
-          <h3>Beautiful Jewelry Piece 1</h3>
-        </Carousel.Caption>
-      </Carousel.Item>
-      <Carousel.Item>
-        <img
-          className="d-block w-100 home-section"
-          src={Jewelley1}
-          alt="Jewelry 2"
-        />
-        <Carousel.Caption>
-          <h3>Elegant Jewelry Piece 2</h3>
-        </Carousel.Caption>
-      </Carousel.Item>
-    </Carousel>
+    <>
+      <div class="sub-main">
+        <button class="button-two">
+          <span>Explore</span>
+        </button>
+      </div>
+      <Carousel>
+        <Carousel.Item>
+          <img className="d-block w-100 home-section" src={Jewelley1} alt="Jewelry 1" />
+          <Carousel.Caption>
+            <h3>Beautiful Jewelry Piece 1</h3>
+          </Carousel.Caption>
+        </Carousel.Item>
+        <Carousel.Item>
+          <img className="d-block w-100 home-section" src={Jewelley1} alt="Jewelry 2" />
+          <Carousel.Caption>
+            <h3>Elegant Jewelry Piece 2</h3>
+          </Carousel.Caption>
+        </Carousel.Item>
+      </Carousel>
+    </>
   )
 }
 

@@ -78,14 +78,15 @@ const Footer = () => {
                 </div>
               </div>
             </div> */}
+
             <div className="col-xl-4 col-lg-4 col-md-6 mb-30">
               <div className="footer-widget">
                 <div className="footer-widget-heading">
                   <h3>Follow Us On</h3>
                 </div>
                 <div className="container-signup follow-us-link">
-                  <div className="d-flex" >
-                  <img src={FaceBook} alt="Jewellery We App" />
+                  <div className="d-flex">
+                    <img src={FaceBook} alt="Jewellery We App" />
                     <img src={Twitter} alt="Jewellery We App" />
                     <img src={Instagram} alt="Jewellery We App" />
                     <img src={Youtube} alt="Jewellery We App" />
@@ -93,6 +94,29 @@ const Footer = () => {
                 </div>
               </div>
             </div>
+
+            <div className="col-xl-4 col-lg-4 col-md-6 mb-30">
+              <div className="footer-widget">
+                <div className="footer-widget-heading" style={{paddingTop:"45px"}}>
+                  <h3>Useful Links</h3>
+                </div>
+                <ul className="d-grid">
+                  <li>
+                    <a href="#">Home</a>
+                  </li>
+                  <li>
+                    <a href="#">About Us</a>
+                  </li>
+                  <li>
+                    <a href="#">Contact Us</a>
+                  </li>
+                  <li>
+                    <a href="#">Team</a>
+                  </li>
+                </ul>
+              </div>
+            </div>
+            
             {/* <div className="col-xl-4 col-lg-4 col-md-6 mb-30">
               <div className="footer-widget">
                 <div className="footer-widget-heading">
@@ -109,24 +133,24 @@ const Footer = () => {
             <div className="col-xl-4 col-lg-4 col-md-6 mb-30">
               <div className="footer-widget">
                 <div className="footer-widget-heading">
-                <h3>Ways to use our Application</h3>
+                  <h3>Ways to use our Application</h3>
                 </div>
                 <div className="d-flex">
-                <div className="container-signup">
-                <div className="subscribe-form footer-sign-up">
-                  <a className="btn" onClick={handleLogin}>
-                    "Login"
-                  </a>
-                </div>
-                </div>
-                <h3 style={{paddingTop:"35px", paddingLeft:"10px", paddingRight:"10px"}}>OR</h3>
-                <div className="container-signup footer-sign-up">
-                <div className="subscribe-form">
-                  <a className="btn" onClick={handleSignup}>
-                    "sign-up"
-                  </a>
-                </div>
-                </div>
+                  <div className="container-signup">
+                    <div className="subscribe-form footer-sign-up">
+                      <a className="btn" onClick={handleLogin}>
+                        "Login"
+                      </a>
+                    </div>
+                  </div>
+                  <h3 style={{ paddingTop: "35px", paddingLeft: "10px", paddingRight: "10px" }}>OR</h3>
+                  <div className="container-signup footer-sign-up">
+                    <div className="subscribe-form">
+                      <a className="btn" onClick={handleLogin}>
+                        "sign-up"
+                      </a>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
@@ -146,16 +170,16 @@ const Footer = () => {
               </div>
             </div> */}
             <div className="col-xl-4 col-lg-4 col-md-6 mb-30">
-              <div className="footer-widget" style={{marginLeft:"100px"}}>
+              <div className="footer-widget" style={{ marginTop: "20px" }}>
                 <div className="footer-widget-heading">
-                <h3>Subscribe</h3>
+                  <h3>Subscribe</h3>
                 </div>
                 <div className="container-signup footer-sign-up">
-                <div className="subscribe-form">
-                  <a className="btn" onClick={handleSubmit}>
-                    "Subscribe Here"
-                  </a>
-                </div>
+                  <div className="subscribe-form">
+                    <a className="btn" onClick={handleSubmit}>
+                      "Subscribe Here"
+                    </a>
+                  </div>
                 </div>
               </div>
             </div>
