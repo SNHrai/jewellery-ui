@@ -244,25 +244,25 @@ const SignUp = () => {
           </div>
           <div className="flex mb-4 -mx-2">
             <div className="w-1/2 px-2">
-            <input
-              type="email"
-              name="email"
-              placeholder="Email"
-              value={formData.email}
-              onChange={handleChange}
-              className="w-full px-4 py-2 form-field-custom text-[#9d5e7b] bg-[#fdfefd] rounded-md border-[#b59481] border"
-            />
-          </div>
-          <div className="w-1/2 px-2">
-            <input
-              type="text"
-              name="phone"
-              placeholder="phone"
-              value={formData.phone}
-              onChange={handleChange}
-              className="w-full px-4 py-2 form-field-custom text-[#9d5e7b] bg-[#fdfefd] rounded-md border-[#b59481] border"
-            />
-          </div>
+              <input
+                type="email"
+                name="email"
+                placeholder="Email"
+                value={formData.email}
+                onChange={handleChange}
+                className="w-full px-4 py-2 form-field-custom text-[#9d5e7b] bg-[#fdfefd] rounded-md border-[#b59481] border"
+              />
+            </div>
+            <div className="w-1/2 px-2">
+              <input
+                type="text"
+                name="phone"
+                placeholder="Phone"
+                value={formData.phone}
+                onChange={handleChange}
+                className="w-full px-4 py-2 form-field-custom text-[#9d5e7b] bg-[#fdfefd] rounded-md border-[#b59481] border"
+              />
+            </div>
           </div>
           <div className="mb-4">
             <input
@@ -276,14 +276,17 @@ const SignUp = () => {
           </div>
           <div className="flex mb-4 -mx-2">
             <div className="w-1/2 px-2">
-              <input
-                type="text"
+              <select
                 name="profession"
-                placeholder="Profession"
                 value={formData.profession}
                 onChange={handleChange}
                 className="w-full px-4 py-2 form-field-custom text-[#9d5e7b] bg-[#fdfefd] rounded-md border-[#b59481] border"
-              />
+              >
+                <option value="" disabled>Select Profession</option>
+                <option value="Cinematic">Cinematic</option>
+                <option value="Photographic">Photographic</option>
+                <option value="3D Models">3D Models</option>
+              </select>
             </div>
             <div className="w-1/2 px-2">
               <input
@@ -292,7 +295,7 @@ const SignUp = () => {
                 placeholder="Country"
                 value={formData.country}
                 onChange={handleChange}
-                className="w-full custom-input-style  px-4 py-2 form-field-custom text-[#9d5e7b] bg-[#fdfefd] rounded-md border-[#b59481] border"
+                className="w-full px-4 py-2 form-field-custom text-[#9d5e7b] bg-[#fdfefd] rounded-md border-[#b59481] border"
               />
             </div>
           </div>
@@ -323,6 +326,7 @@ const SignUp = () => {
       </div>
     </div>
   );
+
 };
 
 export default SignUp;

@@ -3,6 +3,7 @@ import "./Dashboard.css";
 import ProfileDropdown from "../profile/ProfileDropdown";
 import { Link, useNavigate } from "react-router-dom";
 import History from "../history/History";
+import axios from "axios";
 
 const UserDashboard = () => {
   const navigate = useNavigate();
@@ -23,6 +24,9 @@ const UserDashboard = () => {
   const [showDesignTypeDropdown, setShowDesignTypeDropdown] = useState(true);
   const [showImageNumberDropdown, setShowImageNumberDropdown] = useState(false);
   const [downloadedImages, setDownloadedImages] = useState([]);
+  const [enhancedText, setEnhancedText] = useState("");
+  const [isEnhancing, setIsEnhancing] = useState(false);
+  const [enhancingLoading, setEnhancingLoading] = useState(false);
 
   const handleCreateWithText = () => {
     setShowDesignTypeDropdown(true);
@@ -82,19 +86,51 @@ const UserDashboard = () => {
     }
   };
 
-  const handleGenerateImageWithText = () => {
+  const handleGenerateImageWithText = async () => {
+    if (!textValue || !designType || !numImages) return;
+
     setIsLoading(true);
 
-    setTimeout(() => {
-      const dummyImages = Array.from(
-        { length: numImages },
-        (_, i) => `https://via.placeholder.com/300x200?text=Image+${i + 1}`
+    try {
+      const response = await axios.post(
+        "https://aecd-54-234-84-39.ngrok-free.app",
+        {
+          prompt: textValue,
+          style: designType,
+          number: numImages,
+        }
       );
-      setGeneratedImages(dummyImages);
+
+      setGeneratedImages(response.data.image_urls);
+    } catch (error) {
+      console.error("Error generating image:", error);
+    } finally {
       setIsLoading(false);
-    }, Math.random() * 2000 + 4000);
+    }
   };
 
+  const handleEnhanceText = async () => {
+    if (!textValue) return;
+
+    setIsEnhancing(true);
+    setIsLoading(true);
+
+    try {
+      const response = await axios.post(
+        "https://e2ad-54-234-84-39.ngrok-free.app",
+        { text: textValue }
+      );
+
+      const enhancedPrompt = response.data.enhanced_prompt;
+      setEnhancedText(enhancedPrompt.replace(/"/g, "")); // Remove extra quotes
+      setTextValue(enhancedPrompt.replace(/"/g, "")); // Update textarea with enhanced text
+    } catch (error) {
+      console.error("Error enhancing text:", error);
+    } finally {
+      setIsEnhancing(false);
+      setIsLoading(false);
+    }
+  };
   const handleGenerateImageWithImage = () => {
     setIsLoading(true);
 
@@ -215,7 +251,7 @@ const UserDashboard = () => {
                     ? "bg-gradient-to-r from-[#9d5e7b] to-[#b59481] hover:bg-gradient-to-l focus:outline-none focus:ring-2 focus:ring-[#9d5e7b] text-white scale-105"
                     : "bg-[#f0ebea] text-[#9d5e7b] hover:bg-gradient-to-r hover:from-[#b59481] hover:to-[#f0ebea] hover:scale-105"
                 }`}>
-                Create Text with Image
+                Image with text
               </button>
             </div>
 
@@ -264,7 +300,7 @@ const UserDashboard = () => {
                         className="w-full cursor-pointer p-4 rounded-lg bg-[#f0ebea] text-[#9d5e7b] focus:outline-none focus:ring-2 focus:ring-[#9d5e7b]"
                         value={numImages}
                         onChange={handleImageNumberChange}>
-                        {[1, 2, 3, 4, 5].map((num) => (
+                        {[1, 2, 3, 4].map((num) => (
                           <option key={num} value={num}>
                             {num}
                           </option>
@@ -290,17 +326,22 @@ const UserDashboard = () => {
                     </p>
                     <div className="relative">
                       <textarea
-                        className="w-full p-4 rounded-lg bg-[#f0ebea] text-[#9d5e7b] focus:outline-none focus:ring-2 focus:ring-[#9d5e7b]"
+                        className={`w-full p-4 rounded-lg bg-[#f0ebea] text-[#9d5e7b] focus:outline-none focus:ring-2 focus:ring-[#9d5e7b] ${
+                          isLoading ? "opacity-50 cursor-not-allowed" : ""
+                        }`}
                         rows="4"
                         placeholder="Enter your text here..."
                         value={textValue}
-                        onChange={handleTextChange}></textarea>
+                        onChange={handleTextChange}
+                        disabled={isLoading}></textarea>
                       <button
                         className={`absolute bottom-4 right-4 flex items-center justify-center px-4 py-2 rounded-md bg-gradient-to-r from-[#9d5e7b] to-[#b59481] text-white hover:bg-gradient-to-l focus:outline-none focus:ring-2 focus:ring-[#9d5e7b] transition-all duration-300 ${
                           textValue
                             ? "scale-100 opacity-100"
                             : "scale-0 opacity-0"
-                        } group`}>
+                        } group`}
+                        onClick={handleEnhanceText}
+                        disabled={isLoading}>
                         <span className="mr-2 animate-wiggle form-labels">
                           🧙‍♂️ Enhance your text
                         </span>

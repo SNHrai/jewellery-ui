@@ -20,13 +20,17 @@ const Footer = () => {
 
   const handleLogin = (e) => {
     e.preventDefault()
+    navigate("/login")
+  }
+  const handleSignup = (e) => {
+    e.preventDefault()
     navigate("/signup")
   }
 
   return (
     <footer className="footer-section">
       <div className="container">
-        <div className="footer-cta pt-5 pb-5">
+        <div className="pt-5 pb-5 footer-cta">
           <div className="row">
             {/* <div className="col-xl-4 col-md-4 mb-30">
               <div className="single-cta d-flex">
@@ -59,7 +63,7 @@ const Footer = () => {
             </div> */}
           </div>
         </div>
-        <div className="footer-content pt-5 pb-5">
+        <div className="pt-5 pb-5 footer-content">
           <div className="row">
             {/* <div className="col-xl-4 col-lg-4 mb-30">
               <div className="footer-widget">
@@ -118,7 +122,7 @@ const Footer = () => {
                 <h3 style={{paddingTop:"35px", paddingLeft:"10px", paddingRight:"10px"}}>OR</h3>
                 <div className="container-signup footer-sign-up">
                 <div className="subscribe-form">
-                  <a className="btn" onClick={handleLogin}>
+                  <a className="btn" onClick={handleSignup}>
                     "sign-up"
                   </a>
                 </div>
@@ -161,14 +165,14 @@ const Footer = () => {
       <div className="copyright-area">
         <div className="container-fluid">
           <div className="row">
-            <div className="col-xl-6 col-lg-6 text-center text-lg-left">
+            <div className="text-center col-xl-6 col-lg-6 text-lg-left">
               <div className="copyright-text">
                 <p>
                   Copyright &copy; 2024, All Right Reserved <a href="https://codepen.io/anupkumar92/">《JEWEALITY》</a> (where imagination meets reality)
                 </p>
               </div>
             </div>
-            <div className="col-xl-6 col-lg-6 d-none d-lg-block text-center">
+            <div className="text-center col-xl-6 col-lg-6 d-none d-lg-block">
               <div className="footer-menu">
                 <ul>
                   <li>
