@@ -273,7 +273,7 @@ const UserDashboard = () => {
                         value={designType}
                         onChange={handleDesignTypeChange}>
                         <option value="">Select Design Type</option>
-                        <option value="cinematic">Cinematic</option>
+                        {/* <option value="cinematic">Cinematic</option> */}
                         <option value="photographic">Photographic</option>
                         <option value="3d-models">3D Models</option>
                         <option value="no-styles">No Styles</option>

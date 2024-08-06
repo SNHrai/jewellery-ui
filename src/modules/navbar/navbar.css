@@ -1,34 +1,37 @@
 .navbar {
-  background-color: #0e0e30;
-  padding: 10px 20px;
+  background-color: #bd9f87; /* Color to match hero image */
+  padding: 8px 10px; /* Reduced padding */
   width: 100%;
   color: white;
-  font-family: 'Arial, sans-serif';
+  font-family: "Arial, sans-serif";
   position: relative;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Subtle shadow */
 }
 
 .navbar-header {
   display: flex;
   justify-content: space-between;
-  width: 100%;
   align-items: center;
+  height: auto; /* Allow height to adjust based on content */
 }
 
 .navbar-logo {
-  font-size: 24px;
+  font-size: 22px; /* Slightly reduced font size */
   margin-left: auto;
   margin-right: auto;
-  padding-left: 50px;
-  letter-spacing: 2px;
+  padding-left: 30px; /* Reduced padding */
+  letter-spacing: 1px; /* Adjust letter spacing */
 }
 
-.navbar-logo-text{
-  margin-left: auto;
-  margin-right: auto;
+.navbar-logo-text {
+  /* margin-left: auto;
+  margin-right: auto; */
+  margin-left: 180px;
 }
 
-.navbar-logo-text span{
-  color: #8B5B45;
+.navbar-logo-text span {
+  color: #8b5b45;
+  font-size: 1rem; /* Reduced font size for slogan */
 }
 
 .hamburger {
@@ -39,66 +42,11 @@
 }
 
 .hamburger .line {
-  width: 25px;
+  width: 22px; /* Reduced width */
   height: 2px;
   background-color: white;
-  margin: 3px 0;
+  margin: 2px 0; /* Reduced margin */
 }
-
-.navbar-links {
-  flex-direction: column;
-  position: absolute;
-  top: 60px;
-  margin-top: 40px;
-  justify-content: center;
-  left: 0;
-  width: 100%;
-  background-color: #0e0e30;
-  overflow: hidden;
-  max-height: 0;
-  transition: max-height 0.5s ease, opacity 0.5s ease; /* Transition for smooth effect */
-}
-
-.navbar-links {
-  display: none; /* Hide by default */
-}
-
-.navbar-links.open {
-  display: block; /* Show when the 'open' class is added */
-}
-
-
-.navbar-links a {
-  color: white;
-  text-decoration: none;
-  padding: 10px 20px;
-  border-top: 1px solid rgba(255, 255, 255, 0.1);
-}
-
-.navbar-links.open {
-  max-height: 300px;
-  display: flex;
-}
-
-@media (min-width: 768px) {
-  .navbar-header {
-    justify-content: space-between;
-  }
-
-  .navbar-links {
-    /* display: flex; */
-    flex-direction: row;
-    position: static;
-    max-height: none;
-  }
-
-  .navbar-links a {
-    border-top: none;
-    margin-left: 20px;
-  }
-
-}
-
 
 .cross-icon {
   display: flex;
@@ -108,21 +56,20 @@
 }
 
 .cross-icon .line {
-  width: 40px;
+  width: 35px; /* Reduced width */
   height: 3px;
   background-color: #fff;
-  margin: 0px 0px -3px;
-    transform: rotate(45deg);
+  margin: 0;
+  transition: transform 0.3s ease; /* Smooth rotation */
 }
 
-.cross-icon .line {
-  transform: rotate(45deg); /* Rotate to create a cross */
+.cross-icon .line:nth-of-type(1) {
+  transform: rotate(45deg);
 }
 
 .cross-icon .line:nth-of-type(2) {
-  transform: rotate(-45deg); /* Rotate in the opposite direction */
+  transform: rotate(-45deg);
 }
-
 
 .menu-icon {
   display: flex;
@@ -131,4 +78,85 @@
   z-index: 2;
 }
 
+.navbar-links {
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+  top: 50px; /* Adjust top position */
+  margin-top: 0; /* Remove margin-top */
+  justify-content: center;
+  left: 0;
+  width: 100%;
+  background-color: #bd9f87; /* Updated color */
+  overflow: hidden;
+  max-height: 0;
+  transition: max-height 0.5s ease, opacity 0.5s ease; /* Transition for smooth effect */
+}
 
+.navbar-links a {
+  color: white;
+  text-decoration: none;
+  padding: 8px 20px; /* Reduced padding */
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.navbar-links.open {
+  display: flex;
+  max-height: 200px; /* Adjust max-height */
+}
+
+@media (min-width: 768px) {
+  .navbar-header {
+    height: auto; /* Reset height for larger screens */
+  }
+
+  .navbar-logo-img img {
+    width: 90px; /* Adjust logo size */
+  }
+
+  .navbar-logo {
+    font-size: 22px; /* Slightly reduced font size */
+    padding-left: 30px; /* Reduced padding */
+  }
+
+  .navbar-links {
+    flex-direction: row;
+    position: static;
+    max-height: none;
+  }
+
+  .navbar-links a {
+    border-top: none;
+    margin-left: 15px; /* Adjust margin */
+  }
+}
+
+.logo-fonts {
+  font-family: "Poppins", sans-serif;
+  font-weight: 300;
+  font-style: normal;
+  font-size: 2rem;
+}
+
+.custom-btn {
+  font-family: "Montserrat", sans-serif;
+  font-optical-sizing: auto;
+  font-style: normal;
+  font-size: 1.25rem;
+}
+
+.subscribe-button {
+  background-color: #8b5b45; /* Color for the button, matching theme */
+  color: white;
+  border: none;
+  padding: 10px 20px; /* Adjust padding as needed */
+  font-size: 16px; /* Font size for the button text */
+  cursor: pointer;
+  border-radius: 5px; /* Rounded corners */
+  transition: background-color 0.3s ease, transform 0.3s ease; /* Smooth transition */
+}
+
+.subscribe-button:hover {
+  background-color: #7a4d35; /* Darker shade on hover */
+  transform: scale(1.05); /* Slightly enlarge on hover */
+}
