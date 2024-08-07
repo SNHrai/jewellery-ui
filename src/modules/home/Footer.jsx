@@ -13,11 +13,6 @@ import { useNavigate } from "react-router-dom"
 const Footer = () => {
   const navigate = useNavigate()
 
-  const handleSubmit = (e) => {
-    e.preventDefault()
-    navigate("/pricing")
-  }
-
   const handleLogin = (e) => {
     e.preventDefault()
     navigate("/login")
@@ -27,194 +22,106 @@ const Footer = () => {
     navigate("/signup")
   }
 
+  const handleClick = (e) =>{
+    e.preventDefault()
+    navigate("/pricing")
+  }
   return (
-    <footer className="footer-section">
-      <div className="container">
-        <div className="pt-5 pb-5 footer-cta">
-          <div className="row">
-            {/* <div className="col-xl-4 col-md-4 mb-30">
-              <div className="single-cta d-flex">
-                <img src={Location} alt="Jewellery We App" />
-                <div className="cta-text">
-                  <h4>Find us</h4>
-                  <span>1010 Avenue, sw 54321, Chandigarh</span>
-                </div>
-              </div>
-            </div> */}
-            {/* <div className="col-xl-4 col-md-4 mb-30">
-              <div className="single-cta d-flex"> */}
-            {/* <FontAwesomeIcon icon={faPhone} /> */}
-            {/* <img src={Contact} alt="Jewellery We App" />
-                <div className="cta-text">
-                  <h4>Call us</h4>
-                  <span>9876543210</span>
-                </div>
-              </div>
-            </div> */}
-            {/* <div className="col-xl-4 col-md-4 mb-30">
-              <div className="single-cta d-flex"> */}
-            {/* <FontAwesomeIcon icon={faEnvelopeOpen} /> */}
-            {/* <img className="mail-footer" src={MailBox} alt="Jewellery We App" />
-                <div className="cta-text">
-                  <h4>Mail us</h4>
-                  <span>mail@info.com</span>
-                </div>
-              </div>
-            </div> */}
+    <footer className="footer">
+      <div className="footer-container">
+        {/* <div className="footer-subscribe d-flex">
+          <h4>Subscribe to our news</h4>
+          <div className="subscribe">
+            <button type="button">Subscribe</button>
           </div>
-        </div>
-        <div className="pt-5 pb-5 footer-content">
-          <div className="row">
-            {/* <div className="col-xl-4 col-lg-4 mb-30">
-              <div className="footer-widget">
-                <div className="footer-logo"></div>
-                <div className="footer-social-icon">
-                  <span>Follow us</span>
-                  <div className="d-flex">
-                    <img src={FaceBook} alt="Jewellery We App" />
-                    <img src={Twitter} alt="Jewellery We App" />
-                    <img src={FaceBook} alt="Jewellery We App" />
-                  </div>
-                </div>
-              </div>
-            </div> */}
-
-            <div className="col-xl-4 col-lg-4 col-md-6 mb-30">
-              <div className="footer-widget">
-                <div className="footer-widget-heading">
-                  <h3>Follow Us On</h3>
-                </div>
-                <div className="container-signup follow-us-link">
-                  <div className="d-flex">
-                    <img src={FaceBook} alt="Jewellery We App" />
-                    <img src={Twitter} alt="Jewellery We App" />
-                    <img src={Instagram} alt="Jewellery We App" />
-                    <img src={Youtube} alt="Jewellery We App" />
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <div className="col-xl-4 col-lg-4 col-md-6 mb-30">
-              <div className="footer-widget">
-                <div className="footer-widget-heading" style={{paddingTop:"45px"}}>
-                  <h3>Useful Links</h3>
-                </div>
-                <ul className="d-grid">
-                  <li>
-                    <a href="#">Home</a>
-                  </li>
-                  <li>
-                    <a href="#">About Us</a>
-                  </li>
-                  <li>
-                    <a href="#">Contact Us</a>
-                  </li>
-                  <li>
-                    <a href="#">Team</a>
-                  </li>
-                </ul>
-              </div>
-            </div>
-            
-            {/* <div className="col-xl-4 col-lg-4 col-md-6 mb-30">
-              <div className="footer-widget">
-                <div className="footer-widget-heading">
-                  <h3>Ways to use our Application</h3>
-                </div>
-                <div className="container-signup">
-                  <div className="d-flex" >
-                    <button className="log">Login</button>
-                    <button className="reg">Sign up</button>
-                  </div>
-                </div>
-              </div>
-            </div> */}
-            <div className="col-xl-4 col-lg-4 col-md-6 mb-30">
-              <div className="footer-widget">
-                <div className="footer-widget-heading">
-                  <h3>Ways to use our Application</h3>
-                </div>
-                <div className="d-flex">
-                  <div className="container-signup">
-                    <div className="subscribe-form footer-sign-up">
-                      <a className="btn" onClick={handleLogin}>
-                        "Login"
-                      </a>
-                    </div>
-                  </div>
-                  <h3 style={{ paddingTop: "35px", paddingLeft: "10px", paddingRight: "10px" }}>OR</h3>
-                  <div className="container-signup footer-sign-up">
-                    <div className="subscribe-form">
-                      <a className="btn" onClick={handleLogin}>
-                        "sign-up"
-                      </a>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            {/* <div className="col-xl-4 col-lg-4 col-md-6 mb-50">
-              <div className="footer-widget" style={{marginLeft:"100px"}}>
-                <div className="footer-widget-heading">
-                  <h3>Subscribe</h3>
-                </div>
-                <div className="footer-text mb-25">
-                  <p>Don’t miss to subscribe.</p>
-                </div>
-                <div className="subscribe-form">
-                  <a className="btn" onClick={handleSubmit}>
-                    "Subscribe Here"
-                  </a>
-                </div>
-              </div>
-            </div> */}
-            <div className="col-xl-4 col-lg-4 col-md-6 mb-30">
-              <div className="footer-widget" style={{ marginTop: "20px" }}>
-                <div className="footer-widget-heading">
-                  <h3>Subscribe</h3>
-                </div>
-                <div className="container-signup footer-sign-up">
-                  <div className="subscribe-form">
-                    <a className="btn" onClick={handleSubmit}>
-                      "Subscribe Here"
-                    </a>
-                  </div>
-                </div>
-              </div>
+        </div> */}
+        <div className="col-lg-8 col-sm-6">
+          <div className="footer-subscribe d-flex">
+            {" "}
+            {/* <span className="icon feature_box_col_three">
+              <img className="jewwllery-icon" src={RevolutionDesign} alt="" />
+            </span> */}
+            <h4>Don’t miss to subscribe.</h4>
+            {/* <p>At Jeweality, we've transformed jewelry design by using advanced AI technology. Our platform helps designers turn their ideas into detailed and beautiful jewelry designs in seconds. Say goodbye to long and complicated design processes and embrace a new era of creativity and innovation.</p> */}
+            <div className="subscribe">
+              <button type="button" onClick={handleClick}>Subscribe</button>
             </div>
           </div>
         </div>
-      </div>
-      <div className="copyright-area">
-        <div className="container-fluid">
-          <div className="row">
-            <div className="text-center col-xl-6 col-lg-6 text-lg-left">
-              <div className="copyright-text">
-                <p>
-                  Copyright &copy; 2024, All Right Reserved <a href="https://codepen.io/anupkumar92/">《JEWEALITY》</a> (where imagination meets reality)
-                </p>
+        {/* <h2 className="footer-title">Footer</h2> */}
+        <div className="col-lg-12 footer-title d-flex">
+          <h2>Jeweality</h2>
+        </div>
+        <div className="footer-sections">
+          <div className="footer-column">
+            <b>
+              <h4>USEFUL LINKS</h4>
+            </b>
+            <ul>
+              <li>Home</li>
+              <li>About Us</li>
+              <li>Contact Us</li>
+              <li>Team</li>
+            </ul>
+          </div>
+          <div className="footer-column">
+            <h4>FOLLOW US ON</h4>
+            <ul>
+              <li>Facebook</li>
+              <li>Twitter</li>
+              <li>Instagram</li>
+              <li>Youtube</li>
+            </ul>
+          </div>
+          <div className="footer-column">
+            <h4>WAYS TO USE APPLICATIONS</h4>
+            <div class="d-flex flex-row gap-3">
+              <button class="subscribe-button ml-3" onClick={handleLogin}>Login</button>
+              <div>
+                <h4>OR</h4>
               </div>
+              <button class="subscribe-button ml-3" onClick={handleSignup}>Sign-Up</button>
             </div>
-            <div className="text-center col-xl-6 col-lg-6 d-none d-lg-block">
-              <div className="footer-menu">
-                <ul>
-                  <li>
-                    <a href="#">Home</a>
-                  </li>
-                  <li>
-                    <a href="#">Terms</a>
-                  </li>
-                  <li>
-                    <a href="#">Privacy</a>
-                  </li>
-                  <li>
-                    <a href="#">Policy</a>
-                  </li>
-                  <li>
-                    <a href="#">Contact</a>
-                  </li>
-                </ul>
+          </div>
+        </div>
+        <div className="container-signup follow-us-link">
+            <div className="d-flex">
+              <img src={FaceBook} alt="Jewellery We App" />
+              <img src={Twitter} alt="Jewellery We App" />
+              <img src={Instagram} alt="Jewellery We App" />
+              <img src={Youtube} alt="Jewellery We App" />
+            </div>
+          </div>
+        <div className="copyright-area">
+          <div className="container-fluid">
+            <div className="row">
+              <div className="text-center col-xl-6 col-lg-6 text-lg-left">
+                <div className="copyright-text">
+                  <p>
+                    Copyright &copy; 2024, All Right Reserved <a href="https://codepen.io/anupkumar92/">《JEWEALITY》</a> (where imagination meets reality)
+                  </p>
+                </div>
+              </div>
+              <div className="text-center col-xl-6 col-lg-6 d-none d-lg-block">
+                <div className="footer-menu">
+                  <ul>
+                    <li>
+                      <a href="#">Home</a>
+                    </li>
+                    <li>
+                      <a href="#">Terms</a>
+                    </li>
+                    <li>
+                      <a href="#">Privacy</a>
+                    </li>
+                    <li>
+                      <a href="#">Policy</a>
+                    </li>
+                    <li>
+                      <a href="#">Contact</a>
+                    </li>
+                  </ul>
+                </div>
               </div>
             </div>
           </div>

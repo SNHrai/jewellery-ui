@@ -3,6 +3,7 @@ import './Review.css';
 
 const Review = ({ review }) => {
   return (
+    <div>
     <div className="review">
       <div className="review-header">
         <div className="review-avatar">
@@ -19,6 +20,8 @@ const Review = ({ review }) => {
         <div className="review-read-more">Read more</div>
       </div>
     </div>
+    </div>
+    
   );
 };
 

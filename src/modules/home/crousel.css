@@ -41,47 +41,33 @@
   margin-top: 130px;
 } */
 
-.sub-main{
-  width: 30%;
-  margin: 22px;
-  right: 0;
-  position: absolute;
-  float: left;
-}
 
-/*Button Two*/
-.button-two {
-  border-radius: 4px;
-  background-color:#d35400;
-  border: none;
+.slide__content {
+  position: absolute;
+  right: 50px;
+  top: 10%;
+  margin-left: -30px;
+  margin-top: 48px;
+  max-width: 900px;
   color: #fff;
-  padding: 20px;
-  width: 200px;
-  transition: all 0.5s;
 }
 
 
-.button-two span {
-  cursor: pointer;
+.slide__heading {
+  margin-top: -20px;
+  font-size: 50px;
+  line-height: 70px;
   display: inline-block;
-  position: relative;
-  transition: 0.5s;
+  color: #06a33d;
+  font-weight: 900;
+  font-family: "Source Sans Pro";
 }
 
-.button-two span:after {
-  content: '»';
-  position: absolute;
-  opacity: 0;
-  top: 0;
-  right: -20px;
-  transition: 0.5s;
+.insure-policy {
+  color: #000000;
 }
 
-.button-two:hover span {
-  padding-right: 25px;
-}
-
-.button-two:hover span:after {
-  opacity: 1;
-  right: 0;
+.we-offered {
+  color: #803D3B !important;
+  font-family: "Source Sans Pro", sans-serif;
 }

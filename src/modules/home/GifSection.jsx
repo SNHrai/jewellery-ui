@@ -4,6 +4,7 @@ import GifVideo from "../../util/images/diamond.gif"
 
 function GifSection() {
   return (
+    <>
     <div className="section-head col-sm-12">
       <h4>
         <span>Jeweality</span> Gif
@@ -11,7 +12,7 @@ function GifSection() {
       <h1 className="text-center" style={{ paddingTop: "50px" }}>
         Struggling With Conceptualizing
       </h1>
-      <span className="text-center w-100">Jewellery Collection</span>
+      <h3 className="text-center w-100">Jewellery Collection</h3>
       <p className="text-center">Jeweality AI Prompt will help expand your brief ideas, providing you with more details for reference</p>
       {/* Placeholder for the GIF */}
       <div className="text-center gif-video">
@@ -20,6 +21,15 @@ function GifSection() {
         <img src={GifVideo} alt="" />
       </div>
     </div>
+    <div className="d-flex justify-content-center aligns-items-center">
+      <button className="subscribe-button ml-3" style={{marginLeft:"20px"}}>
+      How it works!
+      </button>
+      <button className="subscribe-button ml-3">
+      Try Now!
+      </button>
+      </div>
+      </>
   )
 }
 

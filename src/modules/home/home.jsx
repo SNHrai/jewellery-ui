@@ -1,4 +1,4 @@
-import React from "react"
+import React, {useState} from "react"
 import Navbar from "../navbar/navbar"
 import Crousel from "./crousel"
 import "./home.css"
@@ -18,8 +18,15 @@ import OurReview from "./ReviewSection"
 import GifSection from "./GifSection"
 import Contact from "./contact"
 import Footer from "./Footer"
+import RatingWidget from "./RatingWidget"
 
 function home() {
+  const [showReview, setShowReview] = useState(false)
+
+  const toggleReview = () => {
+    setShowReview(!showReview)
+  }
+
   return (
     <div>
       <Navbar />
@@ -27,6 +34,11 @@ function home() {
       <Carousel />
       <GifSection />
       <div className="feat bg-gray pt-5 pb-5">
+        <div className="sub-main">
+          <button className="button-two">
+            <span>Explore</span>
+          </button>
+        </div>
         <div className="container">
           <div className="row">
             <div className="section-head col-sm-12">
@@ -127,7 +139,13 @@ function home() {
           </div>
         </div>
       </div>
-      <OurReview />
+       <OurReview />
+       <div className="d-flex justify-content-center align-items-center">
+      <button className="subscribe-button ml-3" onClick={toggleReview}>
+        {showReview ? "Close" : "Add Reviw"}
+      </button>
+      </div>
+      {showReview &&  <RatingWidget />}
       <Contact />
       <Footer />
     </div>

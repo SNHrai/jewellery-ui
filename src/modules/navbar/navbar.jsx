@@ -1,22 +1,31 @@
 import React, { useState } from "react";
-import { motion, useAnimation } from "framer-motion";
+import { motion } from "framer-motion";
 import "./navbar.css";
 import JewealityLogo from "../../util/images/JewealityLogoWhite.png";
+import DownArrow from "../../util/images/down-arrow.png";
 import { FaUser } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
 
 const Navbar = () => {
   const [menuOpen, setMenuOpen] = useState(true);
-  const controls = useAnimation();
+  const [featuresOpen, setFeaturesOpen] = useState(false);
   const navigate = useNavigate();
 
   const toggleMenu = () => {
     setMenuOpen(!menuOpen);
-    controls.start({ opacity: menuOpen ? 0 : 1 });
+  };
+
+  const toggleFeatures = () => {
+    setFeaturesOpen(!featuresOpen);
   };
 
   const navigationHandler = () => {
     navigate("/profile");
+  };
+  
+  const handleClick = (e) =>{
+    e.preventDefault()
+    navigate("/pricing")
   }
 
   return (
@@ -38,7 +47,7 @@ const Navbar = () => {
           <span className="custom-btn">where imagination meets reality</span>
         </div>
         <div className="d-flex flex-row gap-3">
-          <button className="subscribe-button ml-3" onClick={""}>
+          <button className="subscribe-button ml-3" onClick={handleClick}>
             Subscribe
           </button>
           <div className="d-flex justify-center align-items-center fs-4 cursor-pointer" onClick={navigationHandler}>
@@ -69,6 +78,18 @@ const Navbar = () => {
         animate={{ maxHeight: menuOpen ? 300 : 0 }}
         transition={{ duration: 0.5 }}>
         <a href="#">HOME</a>
+        <a href="#!">Services</a>
+          <ul class="nav-dropdown">
+            <li>
+              <a href="#!">Web Design</a>
+            </li>
+            <li>
+              <a href="#!">Web Development</a>
+            </li>
+            <li>
+              <a href="#!">Graphic Design</a>
+            </li>
+          </ul>
         <a href="#">ABOUT US</a>
         <a href="#">CONTACT US</a>
       </motion.div>
