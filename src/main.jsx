@@ -15,6 +15,7 @@ import Home from "./modules/home/home.jsx";
 import { GoogleOAuthProvider } from '@react-oauth/google';
 import ForgotPassword from "./modules/forgot_password/ForgotPassword.jsx";
 import Profile from "./modules/profile/Profile.jsx";
+import ComingSoonPage from "./modules/page/ComingSoonPage.jsx";
 
 function Main() {
   const [isSidebarOpen, setIsSidebarOpen] = React.useState(false);
@@ -72,6 +73,11 @@ function Main() {
     {
       path: "/home",
       element: <Home />,
+      errorElement: <div>Error</div>,
+    },
+    {
+      path: "/comingsoon",
+      element: <ComingSoonPage />,
       errorElement: <div>Error</div>,
     }
   ]);

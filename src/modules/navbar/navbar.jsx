@@ -1,10 +1,9 @@
 import React, { useState } from "react";
 import { motion } from "framer-motion";
 import "./navbar.css";
-import JewealityLogo from "../../util/images/JewealityLogoWhite.png";
-import DownArrow from "../../util/images/down-arrow.png";
-import { FaUser } from "react-icons/fa";
+import { FaUser, FaChevronDown } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
+import Logo from "../../util/images/logo.png";
 
 const Navbar = () => {
   const [menuOpen, setMenuOpen] = useState(true);
@@ -22,40 +21,33 @@ const Navbar = () => {
   const navigationHandler = () => {
     navigate("/profile");
   };
-  
-  const handleClick = (e) =>{
-    e.preventDefault()
-    navigate("/pricing")
-  }
+
+  const handleClick = () => {
+    navigate("/pricing");
+  };
 
   return (
     <motion.nav
-      className="navbar p-3"
+      className="navbar"
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       transition={{ duration: 0.5 }}>
-      <div className="navbar-header d-flex justify-between w-full">
-        <div className="navbar-logo-img">
-          {/* <img
-            src={JewealityLogo}
-            alt="Jeweality Logo"
-            style={{ width: "100px" }}
-          /> */}
+      <div className="navbar-container">
+        <div>
+         
         </div>
-        <div className="navbar-logo-text">
-          <h1 className="navbar-logo logo-fonts">JEWEALITY</h1>
-          <span className="custom-btn">where imagination meets reality</span>
+        <div className="m-auto d-flex navbar-logo ">
+        <img src={Logo} alt="logo" className="nav-logo-icon"/>
+          <h1 className="m-auto logo-fonts "> EWEALITY</h1>
         </div>
-        <div className="d-flex flex-row gap-3">
-          <button className="subscribe-button ml-3" onClick={handleClick}>
+        <div className="navbar-actions">
+          <button className="subscribe-button bg-[#7a4d35] p-2 rounded-md border-white " onClick={handleClick}>
             Subscribe
           </button>
-          <div className="d-flex justify-center align-items-center fs-4 cursor-pointer" onClick={navigationHandler}>
-            <FaUser />
+          <div className=" user-icon" onClick={navigationHandler}>
+            <FaUser className="user-img"/>
           </div>
-          <div
-            className="menu-icon d-flex justify-center align-items-center"
-            onClick={toggleMenu}>
+          <div className="menu-icon" onClick={toggleMenu}>
             {menuOpen ? (
               <div className="cross-icon">
                 <div className="line"></div>
@@ -71,27 +63,38 @@ const Navbar = () => {
           </div>
         </div>
       </div>
-      <hr />
       <motion.div
-        className={`navbar-links ${menuOpen ? "open" : ""}`}
-        initial={{ maxHeight: 0 }}
-        animate={{ maxHeight: menuOpen ? 300 : 0 }}
+        className={`navbar-links mt-4 ${menuOpen ? "open" : ""}`}
+        initial={{ opacity: 0, height: 0 }}
+        animate={{ opacity: menuOpen ? 1 : 0, height: menuOpen ? "auto" : 0 }}
         transition={{ duration: 0.5 }}>
-        <a href="#">HOME</a>
-        <a href="#!">Services</a>
-          <ul class="nav-dropdown">
-            <li>
-              <a href="#!">Web Design</a>
-            </li>
-            <li>
-              <a href="#!">Web Development</a>
-            </li>
-            <li>
-              <a href="#!">Graphic Design</a>
-            </li>
-          </ul>
-        <a href="#">ABOUT US</a>
-        <a href="#">CONTACT US</a>
+        <a href="#">Home</a>
+        <div className="features-dropdown">
+          <a href="#" onClick={toggleFeatures} className="features-link">
+            Features
+            <FaChevronDown
+              className={`transition-transform ${
+                featuresOpen ? "rotate-180" : ""
+              }`}
+            />
+          </a>
+          <motion.div
+            className={`sub-links ${featuresOpen ? "open" : ""}`}
+            initial={{ opacity: 0, height: 0 }}
+            animate={{
+              opacity: featuresOpen ? 1 : 0,
+              height: featuresOpen ? "auto" : 0,
+            }}
+            transition={{ duration: 0.5 }}>
+            <a href="/dashboard">Create with Text</a>
+            <a href="/dashboard">Create with Image</a>
+            <a href="/dashboard">Create Image with Image</a>
+          </motion.div>
+        </div>
+        <a href="/comingsoon">How it works</a>
+        <a href="/comingsoon">Blogs</a>
+        <a href="/comingsoon">About Us</a>
+        <a href="/comingsoon">Contact Us</a>
       </motion.div>
     </motion.nav>
   );

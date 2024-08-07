@@ -3,3 +3,22 @@
   justify-content: center;
   align-items: center;
 }
+
+.gif-buttons{
+  margin-right: 55px;
+}
+
+
+.form-field-custom {
+  font-family: "Poppins", sans-serif;
+  font-weight: 300;
+  font-style: normal;
+  border: 1px solid black;
+}
+
+.form-login-field-custom {
+  font-family: "Poppins", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+}
+

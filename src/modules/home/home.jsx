@@ -19,12 +19,18 @@ import GifSection from "./GifSection"
 import Contact from "./contact"
 import Footer from "./Footer"
 import RatingWidget from "./RatingWidget"
+import { useNavigate } from "react-router-dom"
 
-function home() {
+function Home() {
   const [showReview, setShowReview] = useState(false)
+  const navigate = useNavigate();
 
   const toggleReview = () => {
     setShowReview(!showReview)
+  }
+
+  const onClickHandler = () => {
+    navigate("/dashboard");
   }
 
   return (
@@ -33,9 +39,9 @@ function home() {
       <Crousel />
       <Carousel />
       <GifSection />
-      <div className="feat bg-gray pt-5 pb-5">
+      <div className="pt-5 pb-5 feat bg-gray">
         <div className="sub-main">
-          <button className="button-two">
+          <button className="button-two subscribe-button" onClick={onClickHandler}>
             <span>Explore</span>
           </button>
         </div>
@@ -141,8 +147,8 @@ function home() {
       </div>
        <OurReview />
        <div className="d-flex justify-content-center align-items-center">
-      <button className="subscribe-button ml-3" onClick={toggleReview}>
-        {showReview ? "Close" : "Add Reviw"}
+      <button className="ml-3 subscribe-button bg-[#7a4d35] p-3 rounded-md text-white" onClick={toggleReview}>
+        {showReview ? "Close" : "Add Review"}
       </button>
       </div>
       {showReview &&  <RatingWidget />}
@@ -152,4 +158,4 @@ function home() {
   )
 }
 
-export default home
+export default Home

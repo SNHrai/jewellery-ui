@@ -75,12 +75,12 @@ const Footer = () => {
           </div>
           <div className="footer-column">
             <h4>WAYS TO USE APPLICATIONS</h4>
-            <div class="d-flex flex-row gap-3">
-              <button class="subscribe-button ml-3" onClick={handleLogin}>Login</button>
+            <div className="flex-row gap-3 d-flex">
+              <button className="w-24 p-3 ml-3 rounded-lg h-14 subscribe-button" onClick={handleLogin}>Login</button>
               <div>
                 <h4>OR</h4>
               </div>
-              <button class="subscribe-button ml-3" onClick={handleSignup}>Sign-Up</button>
+              <button className="w-24 ml-3 rounded-lg h-14 subscribe-button" onClick={handleSignup}>Sign-Up</button>
             </div>
           </div>
         </div>
