@@ -220,6 +220,7 @@ input::placeholder {
 /* styles.css */
 .image-container {
   position: relative;
+  cursor: pointer;
 }
 
 .image-container img {
@@ -242,6 +243,7 @@ input::placeholder {
   cursor: pointer;
   opacity: 0;
   transition: opacity 0.3s ease-in-out;
+  z-index: 99;
 }
 
 .image-container:hover .download-icon {
@@ -274,7 +276,8 @@ input::placeholder {
   background-color: #fff;
   padding: 20px;
   border-radius: 10px;
-  width: 60%;
+  width: 40%;
+  cursor: pointer;
 }
 
 .modal-content img {
@@ -296,3 +299,46 @@ input::placeholder {
   cursor: pointer;
 }
 
+.single-image-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: auto;
+  height: 75vh;
+  width: 30vw;
+  margin-left: 80px;
+  cursor: pointer;
+   /* Set the height to 100% of the viewport height */
+}
+
+.single-image-container {
+  position: relative;
+  overflow: hidden;
+}
+
+.single-image-container {
+  position: relative;
+}
+
+.single-image-container img {
+  transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+  z-index: 10;
+}
+
+.single-image-container img:hover {
+  transform: scale(1.05);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+.single-image-container:hover .download-icon {
+  opacity: 1;
+}
+
+
+.custom-generated-div{
+  z-index: 99;
+}
+
+.custom-card-div{
+  width:30vw;
+}
