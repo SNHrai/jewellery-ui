@@ -56,6 +56,7 @@
 .slide__heading {
   margin-top: -20px;
   font-size: 50px;
+  padding-left: 290px;
   line-height: 70px;
   display: inline-block;
   color: #06a33d;
@@ -70,4 +71,52 @@
 .we-offered {
   color: #803D3B !important;
   font-family: "Source Sans Pro", sans-serif;
+}
+
+.sub-main-carousel{
+  margin: 22px;
+  float: left;
+}
+
+/*Button Two*/
+.button-two-carousel {
+  border-radius: 4px;
+  background-color:#7a4d35;
+  border: none;
+  margin-left: 280px;
+  color: #fff;
+  padding: 20px;
+  width: 200px;
+  transition: all 0.5s;
+}
+
+
+.button-two-carousel span {
+  cursor: pointer;
+  display: inline-block;
+  position: relative;
+  transition: 0.5s;
+}
+
+.button-two-carousel span:after {
+  content: '»';
+  position: absolute;
+  opacity: 0;
+  top: 0;
+  right: -20px;
+  transition: 0.5s;
+}
+
+.button-two-carousel:hover span {
+  padding-right: 25px;
+}
+
+.button-two-carousel:hover span:after {
+  opacity: 1;
+  right: 0;
+}
+
+.subscribe-button-carousel{
+  border: 1px solid white;
+  
 }

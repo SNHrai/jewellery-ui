@@ -49,9 +49,9 @@ const Footer = () => {
           </div>
         </div>
         {/* <h2 className="footer-title">Footer</h2> */}
-        <div className="col-lg-12 footer-title d-flex">
+        {/* <div className="col-lg-12 footer-title d-flex">
           <h2>Jeweality</h2>
-        </div>
+        </div> */}
         <div className="footer-sections">
           <div className="footer-column">
             <b>
@@ -85,7 +85,7 @@ const Footer = () => {
           </div>
         </div>
         <div className="container-signup follow-us-link">
-            <div className="d-flex">
+            <div className="d-flex" style={{marginLeft:"-100px"}}>
               <img src={FaceBook} alt="Jewellery We App" />
               <img src={Twitter} alt="Jewellery We App" />
               <img src={Instagram} alt="Jewellery We App" />

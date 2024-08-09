@@ -8,21 +8,21 @@ const reviews = [
     name: "reet sethi",
     date: "11 March 2024",
     rating: 4,
-    text: "Stumbled upon their website online and was impressed by the seamless browsing experience.The collection at...",
+    text: "",
   },
   {
     avatar: "A",
     name: "Akansha Sethi",
     date: "10 March 2024",
     rating: 5,
-    text: "Came across reia on instagram and visited their website and loved their designs. I was genuinely impressed with the...",
+    text: "",
   },
   {
     avatar: "S",
     name: "SHREYA JOHAR",
     date: "7 March 2024",
     rating: 4,
-    text: "The collection at Reia is amazing. Loved all of their jewellery pieces. The design was unique and beautiful. The staff...",
+    text: "",
   },
 ]
 
@@ -40,7 +40,7 @@ const ReviewSection = () => {
           <button className="write-review-button">Write a review</button>
         </div> */}
       </div>
-      <div className="section-head col-sm-12" style={{marginTop:"100px"}}>
+      <div className="section-head col-sm-12" style={{ marginTop: "100px" }}>
         <h4>
           <span>Our</span> Review
         </h4>

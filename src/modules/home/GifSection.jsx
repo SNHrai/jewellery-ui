@@ -35,10 +35,10 @@ function GifSection() {
       </div>
     </div>
     <div className="gap-6 d-flex justify-content-center aligns-items-center gif-buttons">
-      <button className="text-white form-login-field-custom subscribe-button bg-[#7a4d35] p-3 rounded-md" style={{marginLeft:"20px"}} onClick={handleOnClick}>
+      <button className="text-white form-login-field-custom subscribe-button bg-[#7a4d35] p-3 rounded-md" style={{marginLeft:"50px"}} onClick={handleOnClick}>
       How it works!
       </button>
-      <button className="text-white form-login-field-custom subscribe-button  bg-[#7a4d35] p-3 rounded-md" onClick={handleOnClickDashboard}>
+      <button className="text-white form-login-field-custom subscribe-button  bg-[#7a4d35] p-3 rounded-md" onClick={handleOnClickDashboard} style={{marginLeft:"50px", width:"145px"}}>
       Try Now!
       </button>
       </div>

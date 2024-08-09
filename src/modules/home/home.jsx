@@ -29,9 +29,6 @@ function Home() {
     setShowReview(!showReview)
   }
 
-  const onClickHandler = () => {
-    navigate("/dashboard");
-  }
 
   return (
     <div>
@@ -40,11 +37,6 @@ function Home() {
       <Carousel />
       <GifSection />
       <div className="pt-5 pb-5 feat bg-gray">
-        <div className="sub-main">
-          <button className="button-two subscribe-button" onClick={onClickHandler}>
-            <span>Explore</span>
-          </button>
-        </div>
         <div className="container">
           <div className="row">
             <div className="section-head col-sm-12">

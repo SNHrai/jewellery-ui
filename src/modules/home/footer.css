@@ -1,72 +1,75 @@
-@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap");
 
 .footer {
-    background-color: #803D3B;
-    color: white;
-    padding: 20px;
-    display: flex;
-    justify-content: center;
-    font-family: 'Montserrat', sans-serif;
+  background-color: #803d3b;
+  color: white;
+  padding: 20px;
+  display: flex;
+  justify-content: center;
+  font-family: "Montserrat", sans-serif;
 }
 
 .footer-container {
-    width: 100%;
-    max-width: 1200px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+  width: 100%;
+  max-width: 1200px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .footer-subscribe {
-    text-align: center;
-    justify-content: center;
-    align-items: center;
-    box-shadow: rgba(17, 12, 46, 0.15) 0px 48px 100px 0px;
-    margin-bottom: 20px;
+  text-align: center;
+  justify-content: center;
+  align-items: center;
+  box-shadow: rgba(17, 12, 46, 0.15) 0px 48px 100px 0px;
+  margin-bottom: 20px;
 }
 
+/* Adjust text size */
 .footer-subscribe h4 {
-    margin: 0;
-    font-size: 30px;
-    margin-bottom: 10px;
-    color: #000;
+  margin: 0;
+  font-size: 1.8rem; /* Use rem for responsive font sizing */
+  color: #fff;
+  margin-right: 10px;
 }
 
+/* Subscribe button styling */
 .subscribe {
-    justify-content: center;
-    margin-left: 120px;
+  margin-left: 0; /* Remove the left margin for better centering */
 }
 
 .subscribe input {
-    padding: 10px;
-    border: none;
-    border-radius: 5px 0 0 5px;
-    font-family: 'Montserrat', sans-serif;
+  padding: 10px;
+  border: none;
+  border-radius: 5px 0 0 5px;
+  font-family: "Montserrat", sans-serif;
 }
 
 .subscribe button {
-    padding: 10px;
-    border: none;
-    width: 200px;
-    border-radius: 15px;
-    height: 60px;
-    background-color: #8b5b45;
-    color: white;
-    cursor: pointer;
-    font-family: 'Montserrat', sans-serif;
-    transition: background-color 0.3s ease;
+  padding: 20px;
+  border: none;
+  margin-left: 20px;
+  border-radius: 15px;
+  height: 60px;
+  background-color: #fff;
+  color: #000;
+  box-shadow: rgba(17, 12, 46, 0.15) 0px 48px 100px 0px;
+  cursor: pointer;
+  font-family: "Montserrat", sans-serif;
+  transition: background-color 0.3s ease;
+  font-size: 1rem; /* Adjust button text size */
 }
 
 .subscribe button:hover {
-    background-color: #8b5b45;
-    border: 0.5px solid #000;
-    box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px;
+  background-color: #fff;
+  border: 0.5px solid #000;
+  box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px;
 }
 
 .footer-title {
-    padding-left: 100px;
-    width: 100%;
-    margin: 20px 0 30px;
+  padding-left: 100px;
+  width: 100%;
+  margin: 20px 0 30px;
 }
 
 .footer-title h2 {
@@ -100,14 +103,51 @@
   color: #2f2f2f;
 }
 
+/* Responsive layout using Flexbox */
 .footer-sections {
-    display: flex;
-    justify-content: space-around;
-    width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  width: 100%;
+  flex-wrap: wrap;
 }
 
 .footer-column {
-    text-align: left;
+  flex: 1;
+  min-width: 200px; /* Set a minimum width to control layout on small screens */
+  padding: 10px;
+}
+
+/* Media Query for smaller screens */
+@media (max-width: 768px) {
+  .footer-sections {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .footer-column {
+    width: 100%;
+    text-align: center;
+    margin-bottom: 20px;
+  }
+
+  .subscribe {
+    margin-left: 0; /* Align the subscribe button in the center */
+    width: 100%; /* Ensure full width */
+  }
+
+  .footer-title h2 {
+    text-align: center;
+  }
+
+  .follow-us-link {
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .copyright-text p {
+    text-align: center;
+  }
 }
 
 .footer-column h4 {
@@ -118,136 +158,201 @@
 }
 
 .footer-column ul {
-    list-style: none;
-    padding: 0;
-    margin: 0;
+  list-style: none;
+  padding: 0;
+  margin: 0;
 }
 
 .footer-column ul li {
-    margin-bottom: 5px;
-    transition: color 0.3s ease;
+  margin-bottom: 5px;
+  padding-left: 15px;
+  transition: color 0.3s ease;
 }
 
 .footer-column ul li:hover {
-    text-decoration: underline;
-    cursor: pointer;
-    color: #000;
+  text-decoration: underline;
+  cursor: pointer;
+  color: #000;
 }
 
-
-.copyright-area{
-  /* background: #202020; */
+.copyright-area {
+  background-color: #803d3b;
+  padding: 20px 0;
+  color: white;
   width: 100%;
-  /* background: linear-gradient(to right, #A46E7D, #B0897F); */
-  padding: 25px 0;
-  padding-top: 100px;
+}
+
+.copyright-text {
+  display: flex; /* Flexbox to keep content in one line */
+  justify-content: center; /* Center the content */
+  align-items: center;
+  width: 100%; /* Ensure it takes up full width */
+  text-align: center;
+}
+
+.copyright-text p {
+  margin: 0;
+  font-size: 1rem; /* Adjust font size as needed */
+  color: #fff;
+  white-space: nowrap; /* Prevent wrapping */
+}
+
+.copyright-text p a {
+  color: #000;
+}
+
+.footer-menu {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 10px;
+}
+
+.footer-menu ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  justify-content: center;
+}
+
+.footer-menu ul li {
+  margin: 0 10px;
+}
+.footer-menu li:hover a {
+  color: #fff;
+}
+.footer-menu ul li a {
+  font-size: 1rem;
+  color: #fff;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.footer-menu li a:hover {
+  font-size: 14px;
+  color: #000;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .copyright-area {
+    text-align: center;
+  }
+
+  .footer-menu {
+    flex-direction: column;
+    margin-top: 20px;
   }
   .copyright-text p {
-  margin: 0;
-  width: max-content;
-  font-size: 14px;
+    font-size: 0.875rem; /* Slightly smaller font size for smaller screens */
+    white-space: normal; /* Allow text to wrap on small screens */
+    text-align: center; /* Center text on small screens */
+  }
+
+  .footer-menu ul {
+    flex-direction: column;
+  }
+
+  .footer-menu ul li {
+    margin: 10px 0;
+  }
+
+  .footer-menu ul li a {
+    font-size: 1rem;
+  }
+}
+
+.footer-subscribe {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 20px;
+  box-shadow: rgba(17, 12, 46, 0.15) 0px 48px 100px 0px;
+  margin-bottom: 20px;
+  background-color: #8b5b45;
+  border-radius: 20px;
+  border: 5px solid rgba(0, 0, 0, 0.07);
+}
+
+.footer-subscribe:hover h4,
+.footer-subscribe:hover p {
   color: #fff;
-  }
-  .copyright-text p a{
-  color: #000;
-  }
-  .footer-menu li {
-  display: inline-block;
-  margin-left: 20px;
-  }
-  .footer-menu li:hover a{
-  color: #fff;
-  }
-  .footer-menu li a {
-  font-size: 14px;
-  color: #fff;
+  -webkit-transition: all 0.5s ease 0;
+  transition: all 0.5s ease 0;
+  transition: all 0.5s ease 0s;
+}
+.footer-subscribe .icon {
+  font-size: 40px;
+  margin-bottom: 25px;
+  color: #f91942;
+  width: 90px;
+  height: 90px;
+  display: flex;
+  line-height: 96px;
+  border-radius: 50px;
+}
+.item .feature_box_col_one {
+  background: rgba(247, 198, 5, 0.2);
+  color: #f91942;
+}
+.item .feature_box_col_two {
+  background: rgba(255, 77, 28, 0.15);
+  color: #f91942;
+}
+.item .feature_box_col_three {
+  background: rgba(0, 147, 38, 0.15);
+  color: #f91942;
+}
+.item .feature_box_col_four {
+  background: rgba(0, 108, 255, 0.15);
+  color: #f91942;
+}
+.item .feature_box_col_five {
+  background: rgba(146, 39, 255, 0.15);
+  color: #f91942;
+}
+.item .feature_box_col_six {
+  background: rgba(23, 39, 246, 0.15);
+  color: #f91942;
+}
+.item p {
+  font-size: 15px;
+  font-family: "Montserrat", sans-serif;
+  line-height: 26px;
+  text-align: left;
+}
+.item h6 {
+  margin-bottom: 20px;
+  font-family: "Montserrat", sans-serif;
+  color: #2f2f2f;
+  text-align: left;
+}
+
+.follow-us-link {
+  margin-left: auto;
+  /* position: absolute; */
+  margin-top: 10px;
+  margin-right: auto;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .footer-subscribe {
+    flex-direction: column; /* Stack elements vertically */
+    padding: 15px;
   }
 
-  .footer-menu li a:hover {
-    font-size: 14px;
-    color: #000;
-    }
-
-
-
-    .footer-subscribe {
-      /* background: linear-gradient(to right, #A46E7D, #B0897F); */
-      text-align: center;
-      padding: 30px 25px;
-      -webkit-box-shadow: 0 0px 25px rgba(0, 0, 0, 0.07);
-      box-shadow: 0 0px 25px rgba(0, 0, 0, 0.07);
-      background: #fff;
-      border-radius: 20px;
-      border: 5px solid rgba(0, 0, 0, 0.07);
-      margin-bottom: 30px;
-      -webkit-transition: all 0.5s ease 0;
-      transition: all 0.5s ease 0;
-      /* height: 500px; Set a fixed height */
-      width: 100%; /* Ensure full width of the parent column */
-      display: flex;
-      margin-top: -50px;
-      /* flex-direction: column; */
-      justify-content: center;
-      align-items: center;
-    }
-    .footer-subscribe:hover h4,
-    .footer-subscribe:hover p {
-      color: #000;
-      -webkit-transition: all 0.5s ease 0;
-      transition: all 0.5s ease 0;
-      transition: all 0.5s ease 0s;
-    }
-    .footer-subscribe .icon {
-      font-size: 40px;
-      margin-bottom: 25px;
-      color: #f91942;
-      width: 90px;
-      height: 90px;
-      display: flex;
-      line-height: 96px;
-      border-radius: 50px;
-    }
-    .item .feature_box_col_one {
-      background: rgba(247, 198, 5, 0.2);
-      color: #f91942;
-    }
-    .item .feature_box_col_two {
-      background: rgba(255, 77, 28, 0.15);
-      color: #f91942;
-    }
-    .item .feature_box_col_three {
-      background: rgba(0, 147, 38, 0.15);
-      color: #f91942;
-    }
-    .item .feature_box_col_four {
-      background: rgba(0, 108, 255, 0.15);
-      color: #f91942;
-    }
-    .item .feature_box_col_five {
-      background: rgba(146, 39, 255, 0.15);
-      color: #f91942;
-    }
-    .item .feature_box_col_six {
-      background: rgba(23, 39, 246, 0.15);
-      color: #f91942;
-    }
-    .item p {
-      font-size: 15px;
-      font-family: "Montserrat", sans-serif;
-      line-height: 26px;
-      text-align: left;
-    }
-    .item h6 {
-      margin-bottom: 20px;
-      font-family: "Montserrat", sans-serif;
-      color: #2f2f2f;
-      text-align: left;
-    }
-
-    .follow-us-link {
-      margin-left: auto;
-      /* position: absolute; */
-      /* margin-top: 160px; */
-      left: 67%;
-      margin-right: 150px;
+  .footer-subscribe h4 {
+    font-size: 1.5rem; /* Smaller font size for smaller screens */
+    margin-bottom: 15px; /* Add margin for spacing */
   }
+
+  .subscribe button {
+    width: 100%; /* Full width button */
+    font-size: 1rem; /* Adjust font size for button */
+    height: 50px;
+  }
+}

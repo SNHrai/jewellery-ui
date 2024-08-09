@@ -1,9 +1,112 @@
+/* Navbar.css */
+.navbar {
+  background-color: #333;
+  height: 80px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 20px;
+
+
+.navbar-logo {
+  color: #fff;
+  text-decoration: none;
+  font-size: 24px;
+}
+
+.nav-links {
+  display: flex;
+  list-style: none;
+}
+
+.nav-links li {
+  padding: 0 20px;
+}
+
+.nav-link {
+  color: #fff;
+  text-decoration: none;
+  font-size: 18px;
+  padding: 8px 16px;
+}
+
+.nav-link:hover {
+  background-color: #575757;
+  border-radius: 4px;
+}
+
+.dropdown {
+  position: relative;
+}
+
+.dropdown-content {
+  display: block;
+  position: absolute;
+  background-color: #333;
+  min-width: 200px;
+  z-index: 1;
+  border-radius: 4px;
+}
+
+.dropdown-content .dropdown-link {
+  display: block;
+  padding: 12px 16px;
+  text-decoration: none;
+  color: #fff;
+}
+
+.dropdown-content .dropdown-link:hover {
+  background-color: #575757;
+}
+
+.mobile-menu-icon {
+  display: none;
+  font-size: 28px;
+  color: #fff;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+@media screen and (max-width: 768px) {
+  .nav-links {
+      display: none;
+      flex-direction: column;
+      width: 100%;
+      position: absolute;
+      top: 80px;
+      left: 0;
+      background-color: #333;
+  }
+
+  .nav-links-mobile {
+      display: flex;
+  }
+
+  .nav-links li {
+      width: 100%;
+      text-align: center;
+      padding: 16px 0;
+  }
+
+  .mobile-menu-icon {
+      display: block;
+  }
+}
+
+}
+
+
+
+/**************************************************************************/
+
 /* Navbar container styling */
 .navbar {
   background-color: #803D3B;
   padding: 10px 20px;
   width: 100%;
   color: white;
+  height: auto;
   font-family: "Arial, sans-serif";
   position: relative;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
@@ -49,12 +152,19 @@
 }
 
 /* Hamburger and cross icon lines */
-.hamburger .line,
+.hamburger .line {
+  width: 30px;
+  height: 3px;
+  background-color: white;
+  margin: 4px 0; /* Space between the lines */
+  transition: all 0.3s ease;
+}
+
 .cross-icon .line {
   width: 30px;
   height: 3px;
   background-color: white;
-  margin: 5px 0;
+  margin: -3px 0;
 }
 
 .cross-icon .line:nth-of-type(1) {
@@ -75,8 +185,10 @@
   width: 100%;
   background-color: #803D3B;
   overflow: hidden;
-  max-height: 0;
-  transition: max-height 0.5s ease, opacity 0.5s ease;
+  height: 0;
+  opacity: 0;
+  transform: translateY(-20px);
+  transition: height 0.5s ease, opacity 0.5s ease, transform 0.5s ease;
 }
 
 /* Link styling */
@@ -94,7 +206,9 @@
 
 /* Open state for the navbar links */
 .navbar-links.open {
-  max-height: 400px; /* Adjust based on content height */
+  height: auto;
+  opacity: 1;
+  transform: translateY(0);
 }
 
 /* Features dropdown styling */
