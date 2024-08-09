@@ -10,9 +10,14 @@ import { motion, AnimatePresence } from "framer-motion";
 import { CopyToClipboard } from "react-copy-to-clipboard";
 import { toast } from "sonner";
 import { FaHome, FaUser } from "react-icons/fa";
+import { saveUserActivity } from "../../app/activity/userActivitySlice";
+import { useDispatch } from "react-redux";
+import { useUser } from "../../context/user";
 
 const UserDashboard = () => {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const { user } = useUser();
   const [isCreateWithText, setIsCreateWithText] = useState(true);
   const [isCreateWithImage, setIsCreateWithImage] = useState(false);
   const [isCreateWithTextAndImage, setIsCreateWithTextAndImage] =
@@ -35,12 +40,16 @@ const UserDashboard = () => {
   const [enhancingLoading, setEnhancingLoading] = useState(false);
   const [generatedText, setGeneratedText] = useState("");
   const [isPopupOpen, setIsPopupOpen] = useState(false);
+  const [showStrength, setShowStrength] = useState(false);
+  const [handleImages, setHandleImages] = useState();
+  const [strengthImages, setStrengthImages] = useState();
 
   const handleCreateWithText = () => {
     setShowDesignTypeDropdown(true);
     setIsCreateWithText(true);
     setIsCreateWithImage(false);
     setIsCreateWithTextAndImage(false);
+    setShowStrength(false);
   };
 
   const handleCreateWithImage = () => {
@@ -49,13 +58,18 @@ const UserDashboard = () => {
     setIsCreateWithTextAndImage(false);
     setShowDesignTypeDropdown(false);
     setShowImageNumberDropdown(false);
+    setShowStrength(false);
   };
+
+  console.log("user {} : ", user);
 
   const handleCreateWithTextAndImage = () => {
     setIsCreateWithText(false);
     setIsCreateWithImage(false);
     setIsCreateWithTextAndImage(true);
     setShowDesignTypeDropdown(false);
+    setShowImageNumberDropdown(true);
+    setShowStrength(true);
   };
 
   const handleTextChange = (e) => {
@@ -71,31 +85,9 @@ const UserDashboard = () => {
   const handleImageNumberChange = (e) => {
     setNumImages(Number(e.target.value));
   };
-
-  // const handleDrag = (e) => {
-  //   e.preventDefault();
-  //   e.stopPropagation();
-  //   if (e.type === "dragenter" || e.type === "dragover") {
-  //     setDragActive(true);
-  //   } else if (e.type === "dragleave") {
-  //     setDragActive(false);
-  //   }
-  // };
-
-  // const handleDrop = (e) => {
-  //   e.preventDefault();
-  //   e.stopPropagation();
-  //   setDragActive(false);
-  //   if (e.dataTransfer.files && e.dataTransfer.files[0]) {
-  //     setImage(URL.createObjectURL(e.dataTransfer.files[0]));
-  //   }
-  // };
-
-  // const handleFileInput = (e) => {
-  //   if (e.target.files && e.target.files[0]) {
-  //     setImage(URL.createObjectURL(e.target.files[0]));
-  //   }
-  // };
+  const handleImageStrengthChange = (e) => {
+    setStrengthImages(Number(e.target.value));
+  };
 
   const handleGenerateImageWithText = async () => {
     if (!textValue || !designType || !numImages) return;
@@ -112,7 +104,44 @@ const UserDashboard = () => {
         }
       );
 
-      setGeneratedImages(response.data.image_urls);
+      // Convert image URLs to base64 with error handling
+      const base64Images = await Promise.all(
+        response.data.image_urls.map(async (url) => {
+          try {
+            const imageResponse = await fetch(url);
+            if (!imageResponse.ok) throw new Error("Failed to fetch image");
+            const blob = await imageResponse.blob();
+            return new Promise((resolve, reject) => {
+              const reader = new FileReader();
+              reader.onloadend = () => resolve(reader.result);
+              reader.onerror = reject;
+              reader.readAsDataURL(blob);
+            });
+          } catch (error) {
+            console.error("Error converting image to base64:", error);
+            return null; // Handle this in the UI as needed
+          }
+        })
+      );
+
+      // Filter out any failed conversions
+      const validBase64Images = base64Images.filter(Boolean);
+
+      // Ensure there are valid images before dispatching
+      if (validBase64Images.length > 0) {
+        // Dispatch the saveUserActivity action with converted images
+        dispatch(
+          saveUserActivity({
+            userId: user.id, // Replace with actual user ID
+            imageUrls: validBase64Images,
+            promptDescription: textValue,
+          })
+        );
+
+        setGeneratedImages(validBase64Images);
+      } else {
+        console.error("No valid images to save or display.");
+      }
     } catch (error) {
       console.error("Error generating image:", error);
     } finally {
@@ -142,42 +171,44 @@ const UserDashboard = () => {
       setEnhancingLoading(false);
     }
   };
-  // const handleGenerateImageWithImage = async() => {
-  //   if (!textValue) return;
 
-  //   setIsEnhancing(true);
-  //   setEnhancingLoading(true);
+  const handleFileInputForImage = (file) => {
+    console.log("file from handleFileInputForImage", file);
+    if (file) {
+      setHandleImages(file); // Set the selected image to handleImages
+    }
+  };
 
-  //   try {
-  //     const response = await axios.post(
-  //       "https://cb15-54-172-116-120.ngrok-free.app",
-  //       { text: textValue }
-  //     );
-
-  //     const enhancedPrompt = response.data.enhanced_prompt;
-  //     setEnhancedText(enhancedPrompt.replace(/"/g, "")); // Remove extra quotes
-  //     setTextValue(enhancedPrompt.replace(/"/g, "")); // Update textarea with enhanced text
-  //   } catch (error) {
-  //     console.error("Error enhancing text:", error);
-  //   } finally {
-  //     setIsEnhancing(false);
-  //     setEnhancingLoading(false);
-  //   }
-  // };
-
-  const handleGenerateImageWithTextAndImage = () => {
+  const handleGenerateImageWithTextAndImage = async () => {
     setIsLoading(true);
+    const formData = new FormData();
+    formData.append("image", handleImages);
+    formData.append("prompt", textValue);
+    formData.append("strength", strengthImages);
+    formData.append("number", numImages);
 
-    setTimeout(() => {
-      const dummyImages = [
-        "https://via.placeholder.com/300x200?text=Image+1",
-        "https://via.placeholder.com/300x200?text=Image+2",
-        "https://via.placeholder.com/300x200?text=Image+3",
-        "https://via.placeholder.com/300x200?text=Image+4",
-      ];
-      setGeneratedImages(dummyImages);
+    console.log("form data", formData);
+    try {
+      const response = await axios.post(
+        "https://68ac-54-83-111-179.ngrok-free.app",
+        formData,
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        }
+      );
+
+      // Assuming the response structure matches the one you've provided:
+      const imageUrls = response.data.image.image_urls;
+      setGeneratedImages(imageUrls); // Save the image URLs into the state
+
+      console.log("response", response);
+    } catch (err) {
+      console.error(err);
+    } finally {
       setIsLoading(false);
-    }, Math.random() * 2000 + 4000);
+    }
   };
 
   const handleImageSelect = (image) => {
@@ -207,57 +238,12 @@ const UserDashboard = () => {
   };
 
   useEffect(() => {
-    console.log(generatedImages);
+    console.log("generatedImages",generatedImages);
   });
 
   const closeModal = () => {
     setSelectedImage(null);
   };
-
-  // const handleDrop = (e) => {
-  //   e.preventDefault();
-  //   e.stopPropagation();
-  //   setDragActive(false);
-  //   if (e.dataTransfer.files && e.dataTransfer.files[0]) {
-  //     handleFileInput(e.dataTransfer.files[0]);
-  //   }
-  // };
-
-  // const handleFileChange = (e) => {
-  //   if (e.target.files && e.target.files[0]) {
-  //     handleFileInput(e.target.files[0]);
-  //   }
-  // };
-
-  // const callApiForText = async (imageData) => {
-  //   try {
-  //     const response = await fetch('https://3600-54-172-116-120.ngrok-free.app', {
-  //       method: 'POST',
-  //       headers: {
-  //         'Content-Type': 'application/json',
-  //       },
-  //       body: JSON.stringify({ image: imageData }),
-  //     });
-
-  //     if (response.ok) {
-  //       const data = await response.json();
-  //       setGeneratedText(data.description);
-  //     } else {
-  //       console.error('Failed to fetch text from the image');
-  //     }
-  //   } catch (error) {
-  //     console.error('Error fetching text from the image:', error);
-  //   }
-  // };
-
-  // const handleFileInput = (file) => {
-  //   const reader = new FileReader();
-  //   reader.onload = () => {
-  //     setImage(reader.result);
-  //     callApiForText(reader.result);
-  //   };
-  //   reader.readAsDataURL(file);
-  // };
 
   const handleDrag = (e) => {
     e.preventDefault();
@@ -309,7 +295,7 @@ const UserDashboard = () => {
     <div className="min-h-screen p-8 bg-[#fdfefd]">
       <div className="">
         <div className="bg-[#f0ebea] rounded-lg p-6 flex flex-col md:flex-row items-center justify-between h-auto md:h-24">
-          <div className="flex items-center gap-3 mb-4 md:mb-0">
+          <div className="flex items-center gap-3 md:mb-0">
             <span className="text-[#9d5e7b] font-semibold form-labels text-sm md:text-base">
               REMAINING FREE CREATIVE CREDITS: 1
             </span>
@@ -325,20 +311,7 @@ const UserDashboard = () => {
             <Link
               to="/profile"
               className="relative text-[#9d5e7b] transition-colors duration-300 hover:text-[#b59481] group">
-                <FaUser className="w-8 h-8"/>
-              {/* <svg
-                xmlns="http://www.w3.org/2000/svg"
-                className="w-6 h-6 md:w-8 md:h-8"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor">
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"
-                />
-              </svg> */}
+              <FaUser className="w-8 h-8" />
               <span className="absolute bottom-0 px-2 py-1 text-xs text-white transition-opacity duration-300 transform -translate-x-1/2 translate-y-full bg-gray-800 rounded-md opacity-0 left-1/2 group-hover:opacity-100">
                 Profile
               </span>
@@ -346,20 +319,7 @@ const UserDashboard = () => {
             <Link
               to="/home"
               className="relative text-[#9d5e7b] d-felx justify-center align-items-center  transition-colors duration-300 hover:text-[#b59481] group ">
-                <FaHome className="w-10 h-10"/>
-              {/* <svg
-                xmlns="http://www.w3.org/2000/svg"
-                className="w-6 h-6 md:w-8 md:h-8"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor">
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M3 12l9-9m0 0l9 9m-9-9v18"
-                />
-              </svg> */}
+              <FaHome className="w-10 h-10" />
               <span className="absolute bottom-0 px-2 py-1 text-xs text-white transition-opacity duration-300 transform -translate-x-1/2 translate-y-full bg-gray-800 rounded-md opacity-0 left-1/2 group-hover:opacity-100">
                 Home
               </span>
@@ -386,7 +346,7 @@ const UserDashboard = () => {
                     ? "bg-gradient-to-r from-[#9d5e7b] to-[#b59481] hover:bg-gradient-to-l focus:outline-none focus:ring-2 focus:ring-[#9d5e7b] text-white scale-105"
                     : "bg-[#f0ebea] text-[#9d5e7b] hover:bg-gradient-to-r hover:from-[#b59481] hover:to-[#f0ebea] hover:scale-105"
                 }`}>
-                Create with Image
+                image to text
               </button>
               <button
                 onClick={handleCreateWithTextAndImage}
@@ -395,8 +355,82 @@ const UserDashboard = () => {
                     ? "bg-gradient-to-r from-[#9d5e7b] to-[#b59481] hover:bg-gradient-to-l focus:outline-none focus:ring-2 focus:ring-[#9d5e7b] text-white scale-105"
                     : "bg-[#f0ebea] text-[#9d5e7b] hover:bg-gradient-to-r hover:from-[#b59481] hover:to-[#f0ebea] hover:scale-105"
                 }`}>
-                Image with text
+                image to image
               </button>
+            </div>
+
+            <div
+              className={`${
+                isCreateWithTextAndImage
+                  ? "opacity-100"
+                  : "opacity-0 -translate-y-8"
+              } transition-all duration-500`}>
+              {isCreateWithTextAndImage && (
+                <div className="">
+                  <h2 className="text-2xl mt-8 font-bold text-[#9d5e7b] custom-btn">
+                    Create with Text and Image
+                  </h2>
+                  <p className="mb-4  text-[#9d5e7b] custom-btn">
+                    Select an image to get started.
+                  </p>
+                  <div
+                    className={`relative w-full p-4 border-2 border-dashed rounded-lg cursor-pointer focus:outline-none focus:ring-2 focus:ring-[#9d5e7b] ${
+                      dragActive ? "border-[#9d5e7b]" : "border-[#f0ebea]"
+                    }`}
+                    onDragEnter={handleDrag}
+                    onDragLeave={handleDrag}
+                    onDragOver={handleDrag}
+                    onDrop={handleDrop}
+                    onClick={() => inputRef.current.click()}>
+                    <input
+                      ref={inputRef}
+                      type="file"
+                      accept="image/*"
+                      className="hidden"
+                      onChange={(e) =>
+                        handleFileInputForImage(e.target.files[0])
+                      }
+                    />
+                    <div
+                      className={`flex flex-col items-center justify-center ${
+                        dragActive ? "opacity-50" : "opacity-100"
+                      }`}>
+                      <p className="text-[#9d5e7b] custom-btn">
+                        Drag & drop an image here, or click to select one
+                      </p>
+                      <p className="text-xs text-[#9d5e7b] custom-btn">
+                        (PNG, JPG, GIF up to 10MB)
+                      </p>
+                    </div>
+                  </div>
+                  <p className="mb-4 mt-4 text-[#9d5e7b] custom-btn">
+                    Add your text.
+                  </p>
+                  <div className="relative">
+                    <textarea
+                      className={`w-full p-4 rounded-lg bg-[#f0ebea] text-[#9d5e7b] focus:outline-none focus:ring-2 focus:ring-[#9d5e7b] ${
+                        enhancingLoading ? "opacity-50 cursor-not-allowed" : ""
+                      }`}
+                      rows="4"
+                      placeholder="Enter your text here..."
+                      value={textValue}
+                      onChange={handleTextChange}
+                      disabled={enhancingLoading}></textarea>
+                    <button
+                      className={`absolute bottom-4 right-4 flex items-center justify-center px-4 py-2 rounded-md bg-gradient-to-r from-[#9d5e7b] to-[#b59481] text-white hover:bg-gradient-to-l focus:outline-none focus:ring-2 focus:ring-[#9d5e7b] transition-all duration-300 ${
+                        textValue
+                          ? "scale-100 opacity-100"
+                          : "scale-0 opacity-0"
+                      } group`}
+                      onClick={handleEnhanceText}
+                      disabled={enhancingLoading}>
+                      <span className="mr-2 animate-wiggle form-labels">
+                        🧙‍♂️ Enhance your text
+                      </span>
+                    </button>
+                  </div>
+                </div>
+              )}
             </div>
 
             <div className="transition-all duration-500">
@@ -458,6 +492,32 @@ const UserDashboard = () => {
             <div className="transition-all duration-500">
               <div
                 className={`${
+                  showStrength ? "opacity-100" : "opacity-0 -translate-y-8"
+                } transition-all duration-500`}>
+                {showStrength && (
+                  <div className="mt-8">
+                    <h2 className="text-2xl font-bold text-[#9d5e7b] custom-btn">
+                      Select the Strangth of the image you want to generate
+                    </h2>
+                    <div className="mt-4">
+                      <select
+                        className="w-full cursor-pointer p-4 rounded-lg bg-[#f0ebea] text-[#9d5e7b] focus:outline-none focus:ring-2 focus:ring-[#9d5e7b]"
+                        value={strengthImages}
+                        onChange={handleImageStrengthChange}>
+                        {[0.1, 0.2, 0.3, 0.4].map((num) => (
+                          <option key={num} value={num}>
+                            {num}
+                          </option>
+                        ))}
+                      </select>
+                    </div>
+                  </div>
+                )}
+              </div>
+            </div>
+            <div className="transition-all duration-500">
+              <div
+                className={`${
                   isCreateWithText ? "opacity-100" : "opacity-0 -translate-y-8"
                 } transition-all duration-500`}>
                 {isCreateWithText && (
@@ -504,6 +564,9 @@ const UserDashboard = () => {
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.5 }}
                     className="mt-8">
+                    <h2 className="text-2xl font-bold text-[#9d5e7b] custom-btn">
+                      Create with image
+                    </h2>
                     <p className="mb-4 text-[#9d5e7b] custom-btn">
                       Select an image to get started.
                     </p>
@@ -569,82 +632,6 @@ const UserDashboard = () => {
                   </motion.div>
                 )}
               </div>
-
-              <div
-                className={`${
-                  isCreateWithTextAndImage
-                    ? "opacity-100"
-                    : "opacity-0 -translate-y-8"
-                } transition-all duration-500`}>
-                {isCreateWithTextAndImage && (
-                  <div className="mt-8">
-                    <h2 className="text-2xl font-bold text-[#9d5e7b] custom-btn">
-                      Create with Text and Image
-                    </h2>
-                    <p className="mb-4 mt-8 text-[#9d5e7b] custom-btn">
-                      Select an image to get started.
-                    </p>
-                    <div
-                      className={`relative w-full mb-3 p-4 border-2 border-dashed rounded-lg cursor-pointer focus:outline-none focus:ring-2 focus:ring-[#9d5e7b] ${
-                        dragActive ? "border-[#9d5e7b]" : "border-[#f0ebea]"
-                      }`}
-                      onDragEnter={handleDrag}
-                      onDragLeave={handleDrag}
-                      onDragOver={handleDrag}
-                      onDrop={""}>
-                      <input
-                        ref={inputRef}
-                        type="file"
-                        accept="image/*"
-                        className="hidden"
-                        onChange={handleFileInput}
-                      />
-                      <div
-                        className={`flex flex-col items-center justify-center ${
-                          dragActive ? "opacity-50" : "opacity-100"
-                        }`}>
-                        {image ? (
-                          <img
-                            src={image}
-                            alt="Selected"
-                            className="max-w-full max-h-64"
-                          />
-                        ) : (
-                          <>
-                            <p className="text-[#9d5e7b] custom-btn">
-                              Drag & drop an image here, or click to select one
-                            </p>
-                            <p className="text-xs text-[#9d5e7b] custom-btn">
-                              (PNG, JPG, GIF up to 10MB)
-                            </p>
-                          </>
-                        )}
-                      </div>
-                    </div>
-                    <p className="mb-4 text-[#9d5e7b] custom-btn">
-                      Your text will Appear here.
-                    </p>
-                    <div className="relative">
-                      <textarea
-                        className="w-full p-4 rounded-lg bg-[#f0ebea] text-[#9d5e7b] focus:outline-none focus:ring-2 focus:ring-[#9d5e7b]"
-                        rows="4"
-                        placeholder=""
-                        value={textValue}
-                        onChange={handleTextChange}></textarea>
-                      <button
-                        className={`absolute right-4 flex items-center justify-center px-4 py-2 rounded-md bg-gradient-to-r from-[#9d5e7b] to-[#b59481] text-white hover:bg-gradient-to-l focus:outline-none focus:ring-2 focus:ring-[#9d5e7b] transition-all duration-300 ${
-                          textValue
-                            ? "scale-100 opacity-100"
-                            : "scale-0 opacity-0"
-                        } group`}>
-                        <span className="mr-2 animate-wiggle form-labels">
-                          🧙‍♂️ Enhance your text
-                        </span>
-                      </button>
-                    </div>
-                  </div>
-                )}
-              </div>
             </div>
 
             {isCreateWithText && (
@@ -654,13 +641,6 @@ const UserDashboard = () => {
                 Generate Images
               </button>
             )}
-            {/* {isCreateWithImage && (
-              <button
-                onClick={handleGenerateImageWithImage}
-                className="w-full mt-4 form-labels px-7 py-7 rounded-lg bg-gradient-to-r from-[#9d5e7b] to-[#b59481] hover:bg-gradient-to-l focus:outline-none focus:ring-2 focus:ring-[#9d5e7b] text-white">
-                Generate Images
-              </button>
-            )} */}
             {isCreateWithTextAndImage && (
               <button
                 onClick={handleGenerateImageWithTextAndImage}

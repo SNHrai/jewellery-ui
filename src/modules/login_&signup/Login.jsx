@@ -2,9 +2,11 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { setAuthToken } from "../../util/handler";
 import { toast } from "sonner";
-import "./style.css"
+import "./style.css";
+import { useUser } from "../../context/user";
 
 function Login() {
+  const { login } = useUser();
   const [showEmail, setShowEmail] = useState(false);
   const [formData, setFormData] = useState({
     email: "",
@@ -29,25 +31,10 @@ function Login() {
     setError(null);
 
     try {
-      const response = await fetch("http://localhost:8080/api/auth/login", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(formData),
-      });
-
-      if (!response.ok) {
-        throw new Error("Login failed.");
-      }
-
-      const data = await response.json();
-      setAuthToken(data.token);
-      toast.success("User Logged in Successfully");
+      await login(formData);
       navigate("/dashboard");
     } catch (err) {
       setError(err.message);
-      toast.error(err.message);
     } finally {
       setLoading(false);
     }
@@ -59,7 +46,7 @@ function Login() {
 
   const loginClickHandler = () => {
     navigate("/signup");
-  }
+  };
 
   return (
     <div className="flex justify-center h-screen d-flex align-items-center">

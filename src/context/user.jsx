@@ -1,86 +1,54 @@
-// import { ID } from "appwrite";
-// import { createContext, useContext, useEffect, useState } from "react";
-// import { account } from "../appwrite/config";
-// import { toast } from "sonner";
-// import { useNavigate } from "react-router-dom";
+import React, { createContext, useContext, useState, useEffect } from "react";
+import axios from "axios";
+import { setAuthToken } from "../util/handler";
+import { toast } from "sonner";
 
-// const UserContext = createContext();
+const UserContext = createContext();
 
-// export function useUser() {
-//   return useContext(UserContext);
-// }
+export const UserProvider = ({ children }) => {
+  const [user, setUser] = useState(null);
+  const [loading, setLoading] = useState(true);
 
-// export function UserProvider(props) {
-//   const [user, setUser] = useState(null);
-//   const [loading, setLoading] = useState(false);
 
-//   async function login(email, password) {
-//     setLoading(true);
-//     try {
-//       await account
-//         .createEmailPasswordSession(email, password)
-//         .then((res) => console.log(res));
-//       const currentUser = await account.get();
-//       setUser(currentUser);
-//       toast.success("Login successful!");
-//       window.location.href = "/dashboard";
-//     } catch (error) {
-//       console.log(error);
-//       toast.error(error.message);
-//       setUser(null);
-//     } finally {
-//       setLoading(false);
-//     }
-//   }
+  const login = async (formData) => {
+    try {
+      const response = await fetch("http://localhost:8080/api/auth/login", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formData),
+      });
 
-//   async function logout() {
-//     console.log("calling logout function...");
-//     try {
-//       await account.deleteSession("current");
-//       setUser(null);
-//       window.location.href = "/";
-//       toast.success("Logout successful!");
-//     } catch (error) {
-//       toast.error(error.message);
-//     }
-//   }
+      if (!response.ok) {
+        throw new Error("Login failed.");
+      }
 
-//   async function register(email, password, name) {
-//     setLoading(true);
-//     try {
-//       await account
-//         .create(ID.unique(), email, password, name)
-//         .then((resp) => {
-//           console.log(resp);
-//           toast.success("Registration successful!");
-//         })
-//         .catch((err) => {
-//           console.log(err);
-//         });
-//       await login(email, password);
-//     } catch (error) {
-//       console.log(error);
-//     } finally {
-//       setLoading(false);
-//     }
-//   }
+      const data = await response.json();
+      setAuthToken(data.token);
+      setUser(data);
+      toast.success("User Logged in Successfully");
 
-//   async function init() {
-//     try {
-//       const currentUser = await account.get();
-//       setUser(currentUser);
-//     } catch (error) {
-//       setUser(null);
-//     }
-//   }
+    } catch (err) {
+      toast.error(err.message);
+    }
+  };
 
-//   useEffect(() => {
-//     init();
-//   }, []);
 
-//   return (
-//     <UserContext.Provider value={{ current: user, login, logout, register, loading }}>
-//       {props.children}
-//     </UserContext.Provider>
-//   );
-// }
+
+  const value = {
+    user,
+    loading,
+    login
+  };
+
+  return <UserContext.Provider value={value}>{children}</UserContext.Provider>;
+};
+
+export const useUser = () => {
+  const context = useContext(UserContext);
+  if (context === undefined) {
+    throw new Error("useUser must be used within a UserProvider");
+  }
+  return context;
+};
