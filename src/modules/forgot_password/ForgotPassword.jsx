@@ -1,22 +1,22 @@
-import React, { useState } from 'react';
-import { Form, Button, Container } from 'react-bootstrap';
-import { CSSTransition } from 'react-transition-group';
-import { useNavigate } from 'react-router-dom';
-import { FaArrowLeft } from 'react-icons/fa';
-import './transitions.css'; // Add your CSS transitions here
-import './ForgotPassword.css'; // Add your custom styles here
+import React, { useState } from "react";
+import { Form, Button, Container } from "react-bootstrap";
+import { CSSTransition } from "react-transition-group";
+import { useNavigate } from "react-router-dom";
+import { FaArrowLeft } from "react-icons/fa";
+import "./transitions.css"; // Add your CSS transitions here
+import "./ForgotPassword.css"; // Add your custom styles here
 
 const ForgotPassword = () => {
-  const [channel, setChannel] = useState('email');
+  const [channel, setChannel] = useState("email");
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
   const toggleChannel = () => {
-    setChannel(channel === 'email' ? 'phone' : 'email');
+    setChannel(channel === "email" ? "phone" : "email");
   };
 
   const handleBackClick = () => {
-    navigate('/');
+    navigate("/");
   };
 
   const handleSubmit = (e) => {
@@ -35,8 +35,7 @@ const ForgotPassword = () => {
       <Button
         variant="link"
         onClick={handleBackClick}
-        className="absolute top-4 left-4 p-0 text-[#9d5e7b] hover:text-[#9d5e7b]"
-      >
+        className="absolute top-4 left-4 p-0 text-[#9d5e7b] hover:text-[#9d5e7b]">
         <FaArrowLeft size={24} />
       </Button>
       <div className="w-full max-w-lg p-6 rounded-lg bg-[#fdfefd]">
@@ -48,26 +47,32 @@ const ForgotPassword = () => {
         </p>
         <div className="flex justify-center mb-4">
           <Button
-            variant={channel === 'email' ? 'primary' : 'outline-primary'}
+            style={{
+              backgroundColor: channel === "email" ? "#9d5e7b" : "transparent",
+              color: channel === "email" ? "#ffffff" : "#9d5e7b",
+              borderColor: "#9d5e7b",
+            }}
             onClick={toggleChannel}
-            className="mr-2 transition-all duration-300 custom-btn"
-          >
+            className="mr-2 transition-all duration-300 custom-btn">
             Email
           </Button>
           <Button
-            variant={channel === 'phone' ? 'primary' : 'outline-primary'}
+            style={{
+              backgroundColor: channel === "phone" ? "#9d5e7b" : "transparent",
+              color: channel === "phone" ? "#ffffff" : "#9d5e7b",
+              borderColor: "#9d5e7b",
+            }}
             onClick={toggleChannel}
-            className="transition-all duration-300 custom-btn"
-          >
+            className="transition-all duration-300 custom-btn">
             Phone
           </Button>
         </div>
+
         <CSSTransition
-          in={channel === 'email'}
+          in={channel === "email"}
           timeout={300}
           classNames="fade"
-          unmountOnExit
-        >
+          unmountOnExit>
           <Form.Group controlId="formEmail">
             <Form.Control
               type="email"
@@ -77,11 +82,10 @@ const ForgotPassword = () => {
           </Form.Group>
         </CSSTransition>
         <CSSTransition
-          in={channel === 'phone'}
+          in={channel === "phone"}
           timeout={300}
           classNames="fade"
-          unmountOnExit
-        >
+          unmountOnExit>
           <Form.Group controlId="formPhone">
             <Form.Control
               type="tel"
@@ -95,13 +99,8 @@ const ForgotPassword = () => {
           type="submit"
           className="mt-4 custom-btn w-full bg-gradient-to-r from-[#9d5e7b] to-[#b59481] hover:bg-gradient-to-l focus:outline-none focus:ring-2 focus:ring-[#9d5e7b] flex items-center justify-center"
           onClick={handleSubmit}
-          disabled={loading}
-        >
-          {loading ? (
-            <div className="">Sending...</div>
-          ) : (
-            'Send Password'
-          )}
+          disabled={loading}>
+          {loading ? <div className="">Sending...</div> : "Send Password"}
         </Button>
       </div>
     </Container>

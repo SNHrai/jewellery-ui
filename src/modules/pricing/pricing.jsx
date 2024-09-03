@@ -3,6 +3,8 @@ import { motion } from "framer-motion";
 import styled from "styled-components";
 import { FaArrowLeft, FaLink } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
+import { getAuthToken } from "../../util/handler";
 
 const PricingContainer = styled.div`
   min-height: 100vh;
@@ -118,8 +120,8 @@ function Pricing() {
   const navigate = useNavigate();
   const [showMonthly, setShowMonthly] = useState(true);
 
-  const navigateToPayment = () => {
-    navigate("/payment"); // Replace with your actual payment page link
+  const navigateToPayment = (amount) => {
+    navigate("/payment-page", { state: { amount } });
   };
 
   const handleToggle = () => {
@@ -144,92 +146,131 @@ function Pricing() {
       <CardContainer>
         {showMonthly ? (
           <>
-            <Card whileHover={{ scale: 1.05 }} transition={{ duration: 0.3 }}>
-              <h2 className="text-2xl font-bold text-[#9d5e7b]">Basic version</h2>
-              <h5 className="text-lg text-[#9d5e7b]">200 Creations</h5>
-              <Price>$0.00/month</Price>
-              <b className="text-[#9d5e7b]">
-                <p>Create 200 times for free</p>
-                <p>4 images per creation</p>
-                <p>Resolution: 1024*1024</p>
-                <p>Get 800 stunning design images</p>
-              </b>
-              <PaymentIcon onClick={navigateToPayment}>
-                <FaLink />
-              </PaymentIcon>
+            <Card
+              whileHover={{ scale: 1.05 }}
+              transition={{ duration: 0.3 }}
+              onClick={() => navigateToPayment(1)}>
+              <div className="flex-col gap-3 d-flex">
+                <h2 className="text-2xl font-bold text-[#9d5e7b]">
+                  Basic version
+                </h2>
+                <h5 className="text-lg text-[#9d5e7b] ">200 Creations</h5>
+                <Price>$0.00/month</Price>
+                <b className="text-[#9d5e7b]">
+                  <p>Create 200 times for free</p>
+                  <p>4 images per creation</p>
+                  <p>Resolution: 1024*1024</p>
+                  <p>Get 800 stunning design images</p>
+                </b>
+                <PaymentIcon onClick={navigateToPayment}>
+                  <FaLink />
+                </PaymentIcon>
+              </div>
             </Card>
-            <Card whileHover={{ scale: 1.05 }} transition={{ duration: 0.3 }}>
-              <h2 className="text-2xl font-bold text-[#9d5e7b]">Advance version</h2>
-              <h5 className="text-lg text-[#9d5e7b]">600 Creations</h5>
-              <Price>$0.00/month</Price>
-              <b className="text-[#9d5e7b]">
-                <p>Create 600 times for free</p>
-                <p>4 images per creation</p>
-                <p>Resolution: 1024*1024</p>
-                <p>Get 800 stunning design images</p>
-              </b>
-              <PaymentIcon onClick={navigateToPayment}>
-                <FaLink />
-              </PaymentIcon>
+            <Card
+              whileHover={{ scale: 1.05 }}
+              transition={{ duration: 0.3 }}
+              onClick={() => navigateToPayment(1)}>
+              <div className="flex-col gap-3 d-flex">
+                <h2 className="text-2xl font-bold text-[#9d5e7b]">
+                  Advance version
+                </h2>
+                <h5 className="text-lg text-[#9d5e7b]">600 Creations</h5>
+                <Price>$0.00/month</Price>
+                <b className="text-[#9d5e7b]">
+                  <p>Create 600 times for free</p>
+                  <p>4 images per creation</p>
+                  <p>Resolution: 1024*1024</p>
+                  <p>Get 800 stunning design images</p>
+                </b>
+                <PaymentIcon onClick={navigateToPayment}>
+                  <FaLink />
+                </PaymentIcon>
+              </div>
             </Card>
-            <Card whileHover={{ scale: 1.05 }} transition={{ duration: 0.3 }}>
-              <h2 className="text-2xl font-bold text-[#9d5e7b]">Business version</h2>
-              <h5 className="text-lg text-[#9d5e7b]">1500 Creations</h5>
-              <Price>$0.00/month</Price>
-              <b className="text-[#9d5e7b]">
-                <p>Create 1500 times for free</p>
-                <p>4 images per creation</p>
-                <p>Resolution: 1024*1024</p>
-                <p>Get 800 stunning design images</p>
-              </b>
-              <PaymentIcon onClick={navigateToPayment}>
-                <FaLink />
-              </PaymentIcon>
+            <Card
+              whileHover={{ scale: 1.05 }}
+              transition={{ duration: 0.3 }}
+              onClick={() => navigateToPayment(1)}>
+              <div className="flex-col gap-3 d-flex">
+                <h2 className="text-2xl font-bold text-[#9d5e7b]">
+                  Business version
+                </h2>
+                <h5 className="text-lg text-[#9d5e7b]">1500 Creations</h5>
+                <Price>$0.00/month</Price>
+                <b className="text-[#9d5e7b]">
+                  <p>Create 1500 times for free</p>
+                  <p>4 images per creation</p>
+                  <p>Resolution: 1024*1024</p>
+                  <p>Get 800 stunning design images</p>
+                </b>
+                <PaymentIcon onClick={navigateToPayment}>
+                  <FaLink />
+                </PaymentIcon>
+              </div>
             </Card>
           </>
         ) : (
           <>
-            <Card whileHover={{ scale: 1.05 }} transition={{ duration: 0.3 }}>
-              <h2 className="text-2xl font-bold text-[#9d5e7b]">Basic version</h2>
-              <h5 className="text-lg text-[#9d5e7b]">480 Creations</h5>
-              <Price>$0.00/year</Price>
-              <b className="text-[#9d5e7b]">
-                <p>Create 480 times for free</p>
-                <p>4 images per creation</p>
-                <p>Resolution: 1024*1024</p>
-                <p>Get 9600 stunning design images</p>
-              </b>
-              <PaymentIcon onClick={navigateToPayment}>
-                <FaLink />
-              </PaymentIcon>
+            <Card
+              whileHover={{ scale: 1.05 }}
+              transition={{ duration: 0.3 }}
+              onClick={() => navigateToPayment(10)}>
+              <div className="flex-col gap-3 d-flex">
+                <h2 className="text-2xl font-bold text-[#9d5e7b]">
+                  Basic version
+                </h2>
+                <h5 className="text-lg text-[#9d5e7b]">480 Creations</h5>
+                <Price>$0.00/year</Price>
+                <b className="text-[#9d5e7b]">
+                  <p>Create 480 times for free</p>
+                  <p>4 images per creation</p>
+                  <p>Resolution: 1024*1024</p>
+                  <p>Get 9600 stunning design images</p>
+                </b>
+                <PaymentIcon onClick={navigateToPayment}>
+                  <FaLink />
+                </PaymentIcon>
+              </div>
             </Card>
             <Card whileHover={{ scale: 1.05 }} transition={{ duration: 0.3 }}>
-              <h2 className="text-2xl font-bold text-[#9d5e7b]">Advance version</h2>
-              <h5 className="text-lg text-[#9d5e7b]">640 Creations</h5>
-              <Price>$0.00/year</Price>
-              <b className="text-[#9d5e7b]">
-                <p>Create 640 times for free</p>
-                <p>4 images per creation</p>
-                <p>Resolution: 1024*1024</p>
-                <p>Get 9600 stunning design images</p>
-              </b>
-              <PaymentIcon onClick={navigateToPayment}>
-                <FaLink />
-              </PaymentIcon>
+              <div className="flex-col gap-3 d-flex">
+                <h2 className="text-2xl font-bold text-[#9d5e7b]">
+                  Advance version
+                </h2>
+                <h5 className="text-lg text-[#9d5e7b]">640 Creations</h5>
+                <Price>$0.00/year</Price>
+                <b className="text-[#9d5e7b]">
+                  <p>Create 640 times for free</p>
+                  <p>4 images per creation</p>
+                  <p>Resolution: 1024*1024</p>
+                  <p>Get 9600 stunning design images</p>
+                </b>
+                <PaymentIcon onClick={navigateToPayment}>
+                  <FaLink />
+                </PaymentIcon>
+              </div>
             </Card>
-            <Card whileHover={{ scale: 1.05 }} transition={{ duration: 0.3 }}>
-              <h2 className="text-2xl font-bold text-[#9d5e7b]">Business version</h2>
-              <h5 className="text-lg text-[#9d5e7b]">2400 Creations</h5>
-              <Price>$0.00/year</Price>
-              <b className="text-[#9d5e7b]">
-                <p>Create 2400 times for free</p>
-                <p>4 images per creation</p>
-                <p>Resolution: 1024*1024</p>
-                <p>Get 9600 stunning design images</p>
-              </b>
-              <PaymentIcon onClick={navigateToPayment}>
-                <FaLink />
-              </PaymentIcon>
+            <Card
+              whileHover={{ scale: 1.05 }}
+              transition={{ duration: 0.3 }}
+              onClick={() => navigateToPayment(1)}>
+              <div className="flex-col gap-3 d-flex">
+                <h2 className="text-2xl font-bold text-[#9d5e7b]">
+                  Business version
+                </h2>
+                <h5 className="text-lg text-[#9d5e7b]">2400 Creations</h5>
+                <Price>$0.00/year</Price>
+                <b className="text-[#9d5e7b]">
+                  <p>Create 2400 times for free</p>
+                  <p>4 images per creation</p>
+                  <p>Resolution: 1024*1024</p>
+                  <p>Get 9600 stunning design images</p>
+                </b>
+                <PaymentIcon onClick={navigateToPayment}>
+                  <FaLink />
+                </PaymentIcon>
+              </div>
             </Card>
           </>
         )}
@@ -238,7 +279,9 @@ function Pricing() {
         <input type="checkbox" id="terms" name="terms" className="mr-2" />
         <TermsLabel htmlFor="terms">
           I agree to the
-          <span className="highlight">《Jeweality AI Creation Service Terms》</span>
+          <span className="highlight">
+            《AI Creation Service Terms》
+          </span>
           including the
           <span className="highlight">《User Service Agreement》</span>
           and

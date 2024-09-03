@@ -1,185 +1,31 @@
 import React, { useState } from "react";
-import {
-  FaPhoneAlt,
-  FaEnvelope,
-  FaGlobe,
-  FaBriefcase,
-  FaUser,
-  FaArrowLeft,
-} from "react-icons/fa";
-import { Button } from "react-bootstrap";
-import { motion } from "framer-motion";
-import styled from "styled-components";
+import { FaImages, FaCoins, FaBusinessTime, FaPhoneAlt, FaEnvelope, FaGlobe } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
+import styled from "styled-components";
+import { motion } from "framer-motion";
+import "./Profile.css";
 
-// Styled Components
-const ProfileContainer = styled.div`
-  min-height: 100vh;
-  background-color: #fdfefd;
-  padding: 48px 16px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-`;
-
-const Title = styled.h2`
-  font-size: 1.875rem; /* 3xl */
-  font-weight: bold;
-  font-family: "Montserrat", sans-serif;
-  font-optical-sizing: auto;
-  color: #9d5e7b;
-  margin-bottom: 16px; /* 4 */
-  text-align: center;
-`;
-
-const Header = styled.div`
-  display: flex;
-  justify-content: center;
-  margin-bottom: 32px;
-`;
-
-const BackButton = styled.button`
-  position: absolute;
-  top: 16px;
-  left: 16px;
-  color: #9d5e7b;
-  background: none;
-  border: none;
-  cursor: pointer;
-  font-size: 24px;
-
-  &:hover {
-    color: #b59481;
-  }
-`;
-
-const ProfileCard = styled.div`
-  background-color: #ffffff;
-  padding: 24px;
-  border-radius: 12px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  border: 2px solid #ebdfd8;
-  max-width: 900px;
-  width: 100%;
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  gap: 24px;
-  position: relative;
-`;
-
-const ProfileImage = styled.div`
-  flex: 0 0 150px;
-  height: 150px;
-  background: #ebdfd8;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 4rem;
-  color: #9d5e7b;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-`;
-
-const ProfileDetails = styled.div`
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-  color: #9d5e7b;
-`;
-
-const DetailItem = styled.div`
-  display: flex;
-  align-items: center;
-  font-size: 1rem;
-
-  & > svg {
-    margin-right: 8px;
-  }
-`;
-
-const ButtonStyled = styled(Button)`
-  color: #9d5e7b;
-  border-color: #9d5e7b;
-  &:hover {
-    background-color: #9d5e7b;
-    color: white;
-  }
-`;
-
-const HistoryContainer = styled.div`
-  background-color: #f0ebea;
-  padding: 24px;
-  border-radius: 8px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  margin-top: 16px;
-`;
-
-const CardsContainer = styled.div`
-  display: flex;
-  flex-wrap: wrap;
-  gap: 16px;
-  justify-content: center;
-`;
-
+// Card Styled Component
 const Card = styled(motion.div)`
-  background-color: #ffffff;
-  padding: 16px;
+  background-color: #fdfefd;
+  padding: 24px;
   border-radius: 8px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  border: 2px solid #ebdfd8;
-  cursor: pointer;
-  width: 280px;
-  text-align: center;
+  /* box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); */
+  /* border: 2px solid #ebdfd8; */
   transition: background-color 0.3s ease, border-color 0.3s ease;
+  cursor: pointer;
+  /* width: 300px; */
+  text-align: center;
+  background-color: #ebdfd8;
 
   &:hover {
-    background-color: #ebdfd8;
     border-color: #9d5e7b;
   }
 `;
 
-const CardTitle = styled.h2`
-  color: #9d5e7b;
-  font-size: 1rem;
-  font-family: "Montserrat", sans-serif;
-  font-optical-sizing: auto;
-`;
-
-const Query = styled.p`
-  color: #9d5e7b;
-  font-size: 0.875rem;
-  font-family: "Poppins", sans-serif;
-  font-weight: 300;
-`;
-
-const ViewAllContainer = styled.div`
-  margin-top: 16px;
-  text-align: right;
-`;
-
-const ViewAllLink = styled.a`
-  color: #9d5e7b;
-  font-weight: bold;
-  transition: color 0.3s ease;
-
-  &:hover {
-    color: #b59481;
-  }
-`;
-
 const Profile = () => {
-  const [showHistory, setShowHistory] = useState(false);
-  const [showMoreImages, setShowMoreImages] = useState(false);
-
   const navigate = useNavigate();
-
-  const searchHistory = [
-    { id: 1, query: "Text to Image: Sunset over the mountains" },
-    { id: 2, query: "Image to Text: Recipe for a chocolate cake" },
-    { id: 3, query: "Text to Image: A futuristic cityscape" },
-  ];
+  const [activeSection, setActiveSection] = useState("AI Creation");
 
   const userInfo = {
     firstName: "John",
@@ -188,123 +34,103 @@ const Profile = () => {
     email: "john.doe@example.com",
     country: "United States",
     profession: "Software Engineer",
+    imagesGenerated: 125,
+    leftTokens: 50,
+    plan: "Business",
   };
-
-  const images = [
-    {
-      id: 1,
-      src: "https://via.placeholder.com/100?text=Item+1",
-      alt: "Search item 1",
-    },
-    {
-      id: 2,
-      src: "https://via.placeholder.com/100?text=Item+2",
-      alt: "Search item 2",
-    },
-    {
-      id: 3,
-      src: "https://via.placeholder.com/100?text=Item+3",
-      alt: "Search item 3",
-    },
-    {
-      id: 4,
-      src: "https://via.placeholder.com/100?text=Item+4",
-      alt: "Search item 4",
-    },
-    {
-      id: 5,
-      src: "https://via.placeholder.com/100?text=Item+5",
-      alt: "Search item 5",
-    },
-    {
-      id: 6,
-      src: "https://via.placeholder.com/100?text=Item+6",
-      alt: "Search item 6",
-    },
-  ];
-
-  const visibleImages = showMoreImages ? images : images.slice(0, 3);
 
   const onClickHandler = () => {
     navigate("/dashboard");
   };
 
   return (
-    <ProfileContainer>
-      <BackButton onClick={onClickHandler}>
-        <FaArrowLeft />
-      </BackButton>
-      <ProfileCard>
-        <ProfileImage>
-          <FaUser />
-        </ProfileImage>
-        <ProfileDetails>
-          <Header>
-            {/* <FaUser className="text-[#9d5e7b] text-6xl mb-4" /> */}
-          </Header>
-          <Title>Profile</Title>
-          <DetailItem>
-            <FaUser />
-            <span>First Name: {userInfo.firstName}</span>
-          </DetailItem>
-          <DetailItem>
-            <FaUser />
-            <span>Last Name: {userInfo.lastName}</span>
-          </DetailItem>
-          <DetailItem>
-            <FaPhoneAlt />
-            <span>Mobile Number: {userInfo.mobileNumber}</span>
-          </DetailItem>
-          <DetailItem>
-            <FaEnvelope />
-            <span>Email: {userInfo.email}</span>
-          </DetailItem>
-          <DetailItem>
-            <FaGlobe />
-            <span>Country: {userInfo.country}</span>
-          </DetailItem>
-          <DetailItem>
-            <FaBriefcase />
-            <span>Profession: {userInfo.profession}</span>
-          </DetailItem>
-          <ButtonStyled
-            variant="outline-secondary"
-            onClick={() => setShowHistory(!showHistory)}
+    <div className="min-h-screen bg-[#fdfefd] flex flex-col items-center py-12">
+      <div className="relative flex flex-col items-center w-full max-w-md p-8 shadow-xl rounded-3xl profile-card">
+        <div className="mb-6 text-center">
+          <h4 className="text-2xl font-bold text-gray-900 form-labels">
+            {userInfo.firstName} {userInfo.lastName}
+          </h4>
+          <p className="text-lg text-gray-500 form-labels-data">
+            {userInfo.profession}
+          </p>
+        </div>
+
+        {/* Toggle Buttons */}
+        <div className="flex space-x-4 mb-6">
+          <button
+            onClick={() => setActiveSection("AI Creation")}
+            className={`px-4 py-2 rounded-full font-semibold shadow-md transition-all duration-300 ${activeSection === "AI Creation" ? "bg-[#9d5e7b] text-white" : "bg-white text-[#9d5e7b] hover:bg-[#ebdfd8]"}`}
           >
-            {showHistory ? "Hide Search History" : "Show Search History"}
-          </ButtonStyled>
-          <ButtonStyled
-            variant="outline-secondary"
-            onClick={() => setShowMoreImages(!showMoreImages)}
+            AI Creation
+          </button>
+          <button
+            onClick={() => setActiveSection("Contact Information")}
+            className={`px-4 py-2 rounded-full font-semibold shadow-md transition-all duration-300 ${activeSection === "Contact Information" ? "bg-[#9d5e7b] text-white" : "bg-white text-[#9d5e7b] hover:bg-[#ebdfd8]"}`}
           >
-            {showMoreImages ? "Show Fewer Images" : "Show More Images"}
-          </ButtonStyled>
-        </ProfileDetails>
-      </ProfileCard>
-      {showHistory && (
-        <HistoryContainer>
-          <CardsContainer>
-            {visibleImages.map((item) => (
-              <Card
-                key={item.id}
-                whileHover={{ scale: 1.05 }}
-                transition={{ duration: 0.3 }}
-              >
-                <img src={item.src} alt={item.alt} />
-                <CardTitle>{item.alt}</CardTitle>
-                <Query>
-                  Photo booth fam kinfolk cold-pressed sriracha leggings jianbing
-                  microdosing tousled waistcoat.
-                </Query>
-              </Card>
-            ))}
-          </CardsContainer>
-          <ViewAllContainer>
-            <ViewAllLink href="/all-history">View All History</ViewAllLink>
-          </ViewAllContainer>
-        </HistoryContainer>
-      )}
-    </ProfileContainer>
+            Contact Information
+          </button>
+        </div>
+
+        {/* AI Creation Section */}
+        {activeSection === "AI Creation" && (
+          <Card
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: 20 }}
+            transition={{ duration: 0.4, ease: "easeInOut" }}
+          >
+            <h5 className="text-lg font-semibold text-[#9d5e7b] mb-4 form-labels">
+              AI Creation
+            </h5>
+            <div className="flex items-center mb-4 text-gray-700 form-labels-data">
+              <FaImages className="mr-2 text-[#9d5e7b]" />
+              Number of Images Generated: {userInfo.imagesGenerated}
+            </div>
+            <div className="flex items-center mb-4 text-gray-700 form-labels-data">
+              <FaCoins className="mr-2 text-[#9d5e7b]" />
+              Left Tokens: {userInfo.leftTokens}
+            </div>
+            <div className="flex items-center mb-4 text-gray-700 form-labels-data">
+              <FaBusinessTime className="mr-2 text-[#9d5e7b]" />
+              Plan: {userInfo.plan}
+            </div>
+          </Card>
+        )}
+
+        {/* Contact Information Section */}
+        {activeSection === "Contact Information" && (
+          <Card
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: 20 }}
+            transition={{ duration: 0.4, ease: "easeInOut" }}
+          >
+            <h5 className="text-lg font-semibold text-[#9d5e7b] mb-4 form-labels">
+              Contact Information
+            </h5>
+            <div className="flex items-center mb-4 text-gray-700 form-labels-data">
+              <FaPhoneAlt className="mr-2 text-[#9d5e7b]" />
+              {userInfo.mobileNumber}
+            </div>
+            <div className="flex items-center mb-4 text-gray-700 form-labels-data">
+              <FaEnvelope className="mr-2 text-[#9d5e7b]" />
+              {userInfo.email}
+            </div>
+            <div className="flex items-center text-gray-700 form-labels-data">
+              <FaGlobe className="mr-2 text-[#9d5e7b]" />
+              {userInfo.country}
+            </div>
+          </Card>
+        )}
+
+        <button
+          onClick={onClickHandler}
+          className="mt-8 px-6 py-2 bg-[#9d5e7b] text-white font-semibold rounded-full shadow-md hover:bg-[#ebdfd8] hover:text-[#9d5e7b] transition-all duration-300 custom-btn button-fonts"
+        >
+          Go to Dashboard
+        </button>
+      </div>
+    </div>
   );
 };
 

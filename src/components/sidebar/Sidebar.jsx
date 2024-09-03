@@ -62,7 +62,7 @@
 //               type="button"
 //               className={`flex items-center justify-between w-full px-4 py-2 rounded-md text-decoration-none ${
 //                 isActiveRoute("/user-dashboard") ||
-//                 isActiveRoute("/ai-creation") ||
+//                 isActiveRoute("/AI-CREATION") ||
 //                 isActiveRoute("/prompt-generation") ||
 //                 isActiveRoute("/creation-history")
 //                   ? "bg-indigo-500 text-white"
@@ -99,9 +99,9 @@
 //                 }`}
 //               >
 //                 <NavLink
-//                   to="/ai-creation"
+//                   to="/AI-CREATION"
 //                   className={`block px-4 py-2 hover:bg-indigo-700 text-white transition-colors duration-300 text-decoration-none flex items-center ${
-//                     isActiveRoute("/ai-creation") ? "bg-indigo-700" : ""
+//                     isActiveRoute("/AI-CREATION") ? "bg-indigo-700" : ""
 //                   }`}
 //                 >
 //                   <FontAwesomeIcon icon={faRobot} className="mr-2" />

@@ -1,0 +1,39 @@
+.sidebar-link {
+    @apply flex items-center p-3 pl-6 pr-6 text-gray-700 rounded-lg hover:bg-gray-200 hover:text-gray-900 transition-all duration-300 ease-in-out ;
+  }
+  
+  .sidebar-link span {
+    @apply mr-3 text-xl;
+  }
+  
+  .sidebar-link:hover {
+    @apply transform translate-x-2;
+  }
+  
+  .sidebar-link:active {
+    @apply transform translate-x-4;
+  }
+  
+  .form-labels {
+    font-family: "Montserrat", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 500;
+    font-style: normal;
+    font-size: 1rem;
+  }
+  
+  .custom-btn {
+    font-family: "Montserrat", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 700;
+    font-style: normal;
+  }
+  
+  .button-fonts {
+    font-family: "Poppins", sans-serif;
+    font-weight: 600;
+    font-style: normal;
+    font-size: 1.25 rem;
+  }
+  
+  

@@ -42,7 +42,7 @@ const Footer = () => {
               <img className="jewwllery-icon" src={RevolutionDesign} alt="" />
             </span> */}
             <h4>Don’t miss to subscribe.</h4>
-            {/* <p>At Jeweality, we've transformed jewelry design by using advanced AI technology. Our platform helps designers turn their ideas into detailed and beautiful jewelry designs in seconds. Say goodbye to long and complicated design processes and embrace a new era of creativity and innovation.</p> */}
+            {/* <p>At AI-CREATION, we've transformed jewelry design by using advanced AI technology. Our platform helps designers turn their ideas into detailed and beautiful jewelry designs in seconds. Say goodbye to long and complicated design processes and embrace a new era of creativity and innovation.</p> */}
             <div className="subscribe">
               <button type="button" onClick={handleClick}>Subscribe</button>
             </div>
@@ -50,7 +50,7 @@ const Footer = () => {
         </div>
         {/* <h2 className="footer-title">Footer</h2> */}
         {/* <div className="col-lg-12 footer-title d-flex">
-          <h2>Jeweality</h2>
+          <h2>AI-CREATION</h2>
         </div> */}
         <div className="footer-sections">
           <div className="footer-column">
@@ -98,7 +98,7 @@ const Footer = () => {
               <div className="text-center col-xl-6 col-lg-6 text-lg-left">
                 <div className="copyright-text">
                   <p>
-                    Copyright &copy; 2024, All Right Reserved <a href="https://codepen.io/anupkumar92/">《JEWEALITY》</a> (where imagination meets reality)
+                    Copyright &copy; 2024, All Right Reserved <a href="https://codepen.io/anupkumar92/">《AI-CREATION》</a> (where imagination meets reality)
                   </p>
                 </div>
               </div>

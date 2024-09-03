@@ -35,8 +35,8 @@ const Navbar = () => {
         <div className="navbar-container">
           <div></div>
           <div className="m-auto d-flex navbar-logo ">
-            <img src={Logo} alt="logo" className="nav-logo-icon" />
-            <h1 className="m-auto logo-fonts "> EWEALITY</h1>
+            {/* <img src={Logo} alt="logo" className="nav-logo-icon" /> */}
+            <h1 className="m-auto logo-fonts ">AI Creration</h1>
           </div>
           <div className="navbar-actions">
             <button className="subscribe-button bg-[#7a4d35] p-2 rounded-md border-white " onClick={handleClick}>

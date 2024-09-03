@@ -43,6 +43,7 @@ const UserDashboard = () => {
   const [showStrength, setShowStrength] = useState(false);
   const [handleImages, setHandleImages] = useState();
   const [strengthImages, setStrengthImages] = useState();
+  const [isLoadingImageUpload, setIsLoadingImageUpload] = useState(false);
 
   const handleCreateWithText = () => {
     setShowDesignTypeDropdown(true);
@@ -201,6 +202,41 @@ const UserDashboard = () => {
 
       // Assuming the response structure matches the one you've provided:
       const imageUrls = response.data.image.image_urls;
+
+      // Convert image URLs to base64 with error handling
+      const base64Images = await Promise.all(
+        response.data.image.image_urls.map(async (url) => {
+          try {
+            const imageResponse = await fetch(url);
+            if (!imageResponse.ok) throw new Error("Failed to fetch image");
+            const blob = await imageResponse.blob();
+            return new Promise((resolve, reject) => {
+              const reader = new FileReader();
+              reader.onloadend = () => resolve(reader.result);
+              reader.onerror = reject;
+              reader.readAsDataURL(blob);
+            });
+          } catch (error) {
+            console.error("Error converting image to base64:", error);
+            return null; // Handle this in the UI as needed
+          }
+        })
+      );
+
+      // Filter out any failed conversions
+      const validBase64Images = base64Images.filter(Boolean);
+
+      // Ensure there are valid images before dispatching
+      if (validBase64Images.length > 0) {
+        // Dispatch the saveUserActivity action with converted images
+        dispatch(
+          saveUserActivity({
+            userId: user.id, // Replace with actual user ID
+            imageUrls: validBase64Images,
+            promptDescription: "",
+          })
+        );
+      }
       setGeneratedImages(imageUrls); // Save the image URLs into the state
 
       console.log("response", response);
@@ -238,7 +274,7 @@ const UserDashboard = () => {
   };
 
   useEffect(() => {
-    console.log("generatedImages",generatedImages);
+    console.log("generatedImages", generatedImages);
   });
 
   const closeModal = () => {
@@ -265,6 +301,7 @@ const UserDashboard = () => {
   };
 
   const handleFileInput = async (file) => {
+    setIsLoadingImageUpload(true);
     const formData = new FormData();
     formData.append("file", file);
 
@@ -284,6 +321,8 @@ const UserDashboard = () => {
       setIsPopupOpen(true);
     } catch (error) {
       console.error("Error uploading image:", error);
+    } finally {
+      setIsLoadingImageUpload(false);
     }
   };
 
@@ -292,7 +331,7 @@ const UserDashboard = () => {
   };
 
   return (
-    <div className="min-h-screen p-8 bg-[#fdfefd]">
+    <div className="container-fluid min-h-screen p-8 bg-[#fdfefd]">
       <div className="">
         <div className="bg-[#f0ebea] rounded-lg p-6 flex flex-col md:flex-row items-center justify-between h-auto md:h-24">
           <div className="flex items-center gap-3 md:mb-0">
@@ -329,7 +368,7 @@ const UserDashboard = () => {
 
         <div className="flex flex-wrap gap-10 mt-8">
           <div className="flex-1 min-w-[300px]">
-            <div className="flex flex-wrap gap-4 mt-2">
+            <div className="flex flex-wrap gap-4">
               <button
                 onClick={handleCreateWithText}
                 className={`flex-1 min-w-[200px] px-5 py-4 rounded-lg transition-all duration-300 custom-btn ${
@@ -337,7 +376,7 @@ const UserDashboard = () => {
                     ? "bg-gradient-to-r from-[#9d5e7b] to-[#b59481] hover:bg-gradient-to-l focus:outline-none focus:ring-2 focus:ring-[#9d5e7b] text-white scale-105"
                     : "bg-[#f0ebea] text-[#9d5e7b] hover:bg-gradient-to-r hover:from-[#b59481] hover:to-[#f0ebea] hover:scale-105"
                 }`}>
-                Create with Text
+                 Text to image
               </button>
               <button
                 onClick={handleCreateWithImage}
@@ -346,7 +385,7 @@ const UserDashboard = () => {
                     ? "bg-gradient-to-r from-[#9d5e7b] to-[#b59481] hover:bg-gradient-to-l focus:outline-none focus:ring-2 focus:ring-[#9d5e7b] text-white scale-105"
                     : "bg-[#f0ebea] text-[#9d5e7b] hover:bg-gradient-to-r hover:from-[#b59481] hover:to-[#f0ebea] hover:scale-105"
                 }`}>
-                image to text
+                Image to text
               </button>
               <button
                 onClick={handleCreateWithTextAndImage}
@@ -355,7 +394,7 @@ const UserDashboard = () => {
                     ? "bg-gradient-to-r from-[#9d5e7b] to-[#b59481] hover:bg-gradient-to-l focus:outline-none focus:ring-2 focus:ring-[#9d5e7b] text-white scale-105"
                     : "bg-[#f0ebea] text-[#9d5e7b] hover:bg-gradient-to-r hover:from-[#b59481] hover:to-[#f0ebea] hover:scale-105"
                 }`}>
-                image to image
+                Image to image
               </button>
             </div>
 
@@ -366,70 +405,79 @@ const UserDashboard = () => {
                   : "opacity-0 -translate-y-8"
               } transition-all duration-500`}>
               {isCreateWithTextAndImage && (
-                <div className="">
-                  <h2 className="text-2xl mt-8 font-bold text-[#9d5e7b] custom-btn">
-                    Create with Text and Image
-                  </h2>
-                  <p className="mb-4  text-[#9d5e7b] custom-btn">
-                    Select an image to get started.
-                  </p>
-                  <div
-                    className={`relative w-full p-4 border-2 border-dashed rounded-lg cursor-pointer focus:outline-none focus:ring-2 focus:ring-[#9d5e7b] ${
-                      dragActive ? "border-[#9d5e7b]" : "border-[#f0ebea]"
-                    }`}
-                    onDragEnter={handleDrag}
-                    onDragLeave={handleDrag}
-                    onDragOver={handleDrag}
-                    onDrop={handleDrop}
-                    onClick={() => inputRef.current.click()}>
-                    <input
-                      ref={inputRef}
-                      type="file"
-                      accept="image/*"
-                      className="hidden"
-                      onChange={(e) =>
-                        handleFileInputForImage(e.target.files[0])
-                      }
-                    />
+                <motion.div
+                  initial={{ opacity: 0, y: -20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.5 }}
+                  className="">
+                  <div className="">
+                    <h2 className="text-2xl mt-8 font-bold text-[#9d5e7b] custom-btn">
+                      Create with Text and Image
+                    </h2>
+                    <p className="mb-4  text-[#9d5e7b] custom-btn">
+                      Select an image to get started.
+                    </p>
                     <div
-                      className={`flex flex-col items-center justify-center ${
-                        dragActive ? "opacity-50" : "opacity-100"
-                      }`}>
-                      <p className="text-[#9d5e7b] custom-btn">
-                        Drag & drop an image here, or click to select one
-                      </p>
-                      <p className="text-xs text-[#9d5e7b] custom-btn">
-                        (PNG, JPG, GIF up to 10MB)
-                      </p>
+                      className={`relative w-full p-4 border-2 border-dashed rounded-lg cursor-pointer focus:outline-none focus:ring-2 focus:ring-[#9d5e7b] ${
+                        dragActive ? "border-[#9d5e7b]" : "border-[#f0ebea]"
+                      }`}
+                      onDragEnter={handleDrag}
+                      onDragLeave={handleDrag}
+                      onDragOver={handleDrag}
+                      onDrop={handleDrop}
+                      onClick={() => inputRef.current.click()}>
+                      <input
+                        ref={inputRef}
+                        type="file"
+                        accept="image/*"
+                        className="hidden"
+                        onChange={(e) =>
+                          handleFileInputForImage(e.target.files[0])
+                        }
+                      />
+                      <div
+                        className={`flex flex-col items-center justify-center ${
+                          dragActive ? "opacity-50" : "opacity-100"
+                        }`}>
+                        <p className="text-[#9d5e7b] custom-btn">
+                          Drag & drop an image here, or click to select one
+                        </p>
+                        <p className="text-xs text-[#9d5e7b] custom-btn">
+                          (PNG, JPG, GIF up to 10MB)
+                        </p>
+                      </div>
+                    </div>
+                    <p className="mb-4 mt-4 text-[#9d5e7b] custom-btn">
+                      Add your text.
+                    </p>
+                    <div className="relative">
+                      <textarea
+                        className={`w-full p-4 pr-40 rounded-lg bg-[#f0ebea] text-[#9d5e7b] focus:outline-none focus:ring-2 focus:ring-[#9d5e7b] resize-none shadow-md ${
+                          enhancingLoading
+                            ? "opacity-50 cursor-not-allowed"
+                            : ""
+                        }`}
+                        rows="6"
+                        placeholder="Enter your text here... Enhance your text"
+                        value={textValue}
+                        onChange={handleTextChange}
+                        disabled={enhancingLoading}></textarea>
+
+                      <button
+                        className={`absolute bottom-4 right-4 flex items-center justify-center px-4 py-2 rounded-md bg-gradient-to-r from-[#9d5e7b] to-[#b59481] text-white hover:bg-gradient-to-l focus:outline-none focus:ring-2 focus:ring-[#9d5e7b] transition-all duration-300 shadow-lg ${
+                          textValue && !enhancingLoading
+                            ? "scale-100 opacity-100"
+                            : "scale-0 opacity-0"
+                        }`}
+                        onClick={handleEnhanceText}
+                        disabled={enhancingLoading}>
+                        <span className="mr-2 animate-wiggle form-labels">
+                          🧙‍♂️ Enhance
+                        </span>
+                      </button>
                     </div>
                   </div>
-                  <p className="mb-4 mt-4 text-[#9d5e7b] custom-btn">
-                    Add your text.
-                  </p>
-                  <div className="relative">
-                    <textarea
-                      className={`w-full p-4 rounded-lg bg-[#f0ebea] text-[#9d5e7b] focus:outline-none focus:ring-2 focus:ring-[#9d5e7b] ${
-                        enhancingLoading ? "opacity-50 cursor-not-allowed" : ""
-                      }`}
-                      rows="4"
-                      placeholder="Enter your text here..."
-                      value={textValue}
-                      onChange={handleTextChange}
-                      disabled={enhancingLoading}></textarea>
-                    <button
-                      className={`absolute bottom-4 right-4 flex items-center justify-center px-4 py-2 rounded-md bg-gradient-to-r from-[#9d5e7b] to-[#b59481] text-white hover:bg-gradient-to-l focus:outline-none focus:ring-2 focus:ring-[#9d5e7b] transition-all duration-300 ${
-                        textValue
-                          ? "scale-100 opacity-100"
-                          : "scale-0 opacity-0"
-                      } group`}
-                      onClick={handleEnhanceText}
-                      disabled={enhancingLoading}>
-                      <span className="mr-2 animate-wiggle form-labels">
-                        🧙‍♂️ Enhance your text
-                      </span>
-                    </button>
-                  </div>
-                </div>
+                </motion.div>
               )}
             </div>
 
@@ -441,23 +489,32 @@ const UserDashboard = () => {
                     : "opacity-0 -translate-y-8"
                 } transition-all duration-500`}>
                 {isCreateWithText && showDesignTypeDropdown && (
-                  <div className="mt-8">
-                    <h2 className="text-2xl cursor-pointer button-fonts  font-bold text-[#9d5e7b] custom-btn">
-                      Select your design type to begin your designing journey
-                    </h2>
-                    <div className="mt-4">
-                      <select
-                        className="w-full cursor-pointer button-fonts  p-4 rounded-lg bg-[#f0ebea] text-[#9d5e7b] focus:outline-none focus:ring-2 focus:ring-[#9d5e7b]"
-                        value={designType}
-                        onChange={handleDesignTypeChange}>
-                        <option value="">Select Design Type</option>
-                        {/* <option value="cinematic">Cinematic</option> */}
-                        <option value="photographic">Photographic</option>
-                        <option value="3d-models">3D Models</option>
-                        <option value="no-styles">No Styles</option>
-                      </select>
+                  <motion.div
+                    initial={{ opacity: 0, y: -20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.5 }}
+                    className="">
+                    <div className="mt-8">
+                      <h2 className="text-2xl font-bold text-[#9d5e7b] custom-btn">
+                        Create with Text
+                      </h2>
+                      <p className="mb-4 text-[#9d5e7b] custom-btn">
+                        Select your design type to begin your designing journey
+                      </p>
+                      <div className="mt-4">
+                        <select
+                          className="w-full cursor-pointer button-fonts  p-4 rounded-lg bg-[#f0ebea] text-[#9d5e7b] focus:outline-none focus:ring-2 focus:ring-[#9d5e7b]"
+                          value={designType}
+                          onChange={handleDesignTypeChange}>
+                          <option value="">Select Design Type</option>
+                          {/* <option value="cinematic">Cinematic</option> */}
+                          <option value="photographic">Photographic</option>
+                          <option value="3d-models">3D Models</option>
+                          <option value="no-styles">No Styles</option>
+                        </select>
+                      </div>
                     </div>
-                  </div>
+                  </motion.div>
                 )}
               </div>
             </div>
@@ -521,39 +578,45 @@ const UserDashboard = () => {
                   isCreateWithText ? "opacity-100" : "opacity-0 -translate-y-8"
                 } transition-all duration-500`}>
                 {isCreateWithText && (
-                  <div className="mt-8">
-                    <h2 className="text-2xl font-bold text-[#9d5e7b] custom-btn">
-                      Create with Text
-                    </h2>
-                    <p className="mb-4 text-[#9d5e7b] custom-btn">
-                      Select a template and add your text.
-                    </p>
-                    <div className="relative">
-                      <textarea
-                        className={`w-full p-4 rounded-lg bg-[#f0ebea] text-[#9d5e7b] focus:outline-none focus:ring-2 focus:ring-[#9d5e7b] ${
-                          enhancingLoading
-                            ? "opacity-50 cursor-not-allowed"
-                            : ""
-                        }`}
-                        rows="4"
-                        placeholder="Enter your text here..."
-                        value={textValue}
-                        onChange={handleTextChange}
-                        disabled={enhancingLoading}></textarea>
-                      <button
-                        className={`absolute bottom-4 right-4 flex items-center justify-center px-4 py-2 rounded-md bg-gradient-to-r from-[#9d5e7b] to-[#b59481] text-white hover:bg-gradient-to-l focus:outline-none focus:ring-2 focus:ring-[#9d5e7b] transition-all duration-300 ${
-                          textValue
-                            ? "scale-100 opacity-100"
-                            : "scale-0 opacity-0"
-                        } group`}
-                        onClick={handleEnhanceText}
-                        disabled={enhancingLoading}>
-                        <span className="mr-2 animate-wiggle form-labels">
-                          🧙‍♂️ Enhance your text
-                        </span>
-                      </button>
+                  <motion.div
+                    initial={{ opacity: 0, y: -20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.5 }}
+                    className="">
+                    <div className="mt-8">
+                      {/* <h2 className="text-2xl font-bold text-[#9d5e7b] custom-btn">
+                        Create with Text
+                      </h2> */}
+                      <p className="mb-4 text-[#9d5e7b] custom-btn">
+                        Select a template and add your text.
+                      </p>
+                      <div className="relative">
+                        <textarea
+                          className={`w-full p-4 rounded-lg bg-[#f0ebea] text-[#9d5e7b] focus:outline-none focus:ring-2 focus:ring-[#9d5e7b] ${
+                            enhancingLoading
+                              ? "opacity-50 cursor-not-allowed"
+                              : ""
+                          }`}
+                          rows="4"
+                          placeholder="Enter your text here..."
+                          value={textValue}
+                          onChange={handleTextChange}
+                          disabled={enhancingLoading}></textarea>
+                        <button
+                          className={`absolute bottom-4 right-4 flex items-center justify-center px-4 py-2 rounded-md bg-gradient-to-r from-[#9d5e7b] to-[#b59481] text-white hover:bg-gradient-to-l focus:outline-none focus:ring-2 focus:ring-[#9d5e7b] transition-all duration-300 ${
+                            textValue
+                              ? "scale-100 opacity-100"
+                              : "scale-0 opacity-0"
+                          }`}
+                          onClick={handleEnhanceText}
+                          disabled={enhancingLoading}>
+                          <span className="mr-2 animate-wiggle form-labels">
+                            🧙‍♂️ Enhance your text
+                          </span>
+                        </button>
+                      </div>
                     </div>
-                  </div>
+                  </motion.div>
                 )}
               </div>
 
@@ -599,6 +662,18 @@ const UserDashboard = () => {
                       </div>
                     </div>
 
+                    {isLoadingImageUpload && (
+                      <motion.div
+                        initial={{ opacity: 0, scale: 0.9 }}
+                        animate={{ opacity: 1, scale: 1 }}
+                        transition={{ duration: 0.3 }}
+                        className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 custom-generated-div">
+                        <div className="flex items-center justify-center h-screen">
+                          <div className="w-12 h-12 border-4 border-t-4 border-gray-200 rounded-full loader animate-spin"></div>
+                        </div>
+                      </motion.div>
+                    )}
+
                     {isPopupOpen && (
                       <motion.div
                         initial={{ opacity: 0, scale: 0.9 }}
@@ -634,7 +709,7 @@ const UserDashboard = () => {
               </div>
             </div>
 
-            {isCreateWithText && (
+            {/* {isCreateWithText && (
               <button
                 onClick={handleGenerateImageWithText}
                 className="w-full form-labels mt-4 px-7 py-7 rounded-lg bg-gradient-to-r from-[#9d5e7b] to-[#b59481] hover:bg-gradient-to-l focus:outline-none focus:ring-2 focus:ring-[#9d5e7b] text-white">
@@ -647,12 +722,27 @@ const UserDashboard = () => {
                 className="w-full mt-4 form-labels px-7 py-7 rounded-lg bg-gradient-to-r from-[#9d5e7b] to-[#b59481] hover:bg-gradient-to-l focus:outline-none focus:ring-2 focus:ring-[#9d5e7b] text-white">
                 Generate Images
               </button>
-            )}
+            )} */}
           </div>
 
           <div className="flex-1 min-w-[300px]">
+            
             <div className="bg-[#f0ebea] rounded-lg p-4">
-              <h2 className="text-2xl font-bold text-[#9d5e7b] custom-btn">
+            {isCreateWithText && (
+              <button
+                onClick={handleGenerateImageWithText}
+                className="w-full form-labels mt-2 fs-5 px-7 py-7 rounded-lg bg-gradient-to-r from-[#9d5e7b] to-[#b59481] hover:bg-gradient-to-l focus:outline-none focus:ring-2 focus:ring-[#9d5e7b] text-white">
+                Generate Images
+              </button>
+            )}
+            {isCreateWithTextAndImage && (
+              <button
+                onClick={handleGenerateImageWithTextAndImage}
+                className="w-full mt-2 form-labels px-7 fs-5 py-7 rounded-lg bg-gradient-to-r from-[#9d5e7b] to-[#b59481] hover:bg-gradient-to-l focus:outline-none focus:ring-2 focus:ring-[#9d5e7b] text-white">
+                Generate Images
+              </button>
+            )}
+              <h2 className="text-2xl font-bold text-[#9d5e7b] custom-btn mt-4">
                 Your desired designs are waiting for you
               </h2>
               {generatedImages.length >= 1 ? (
@@ -745,7 +835,7 @@ const UserDashboard = () => {
         </div>
       </div>
       <div className="mt-8 border-t-blue-800">
-        <History />
+        <History generatedImages={generatedImages} />
       </div>
     </div>
   );

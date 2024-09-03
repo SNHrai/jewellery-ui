@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useLocation } from "react-router-dom";
 import "./style.css";
 import SignUp from "./SignUp";
-import videoSource from "../../util/videos/VIDEO-2024-08-02-10-33-59.mp4";
+import videoSource from "../../util/images/Leonardo_Phoenix_A_highly_detailed_and_realistic_illustration_2.jpg";
 import Login from "./Login";
 
 function LoginAndSignUp() {
@@ -26,16 +26,17 @@ function LoginAndSignUp() {
   };
 
   return (
-    <div className="flex h-screen">
-      <div className="hidden lg:flex lg:w-1/2 bg-gradient-to-br from-[#c8b38f] to-[#c4a770]">
-        <div className="relative w-full h-full">
-          <video
+    <div className="flex h-screen ">
+      <div className="hidden lg:flex lg:w-1/2 ">
+        <div className="relative ">
+          <img src={videoSource} alt={"image"} className=""/>
+          {/* <video
             src={videoSource}
             autoPlay
             loop
             muted
             className="absolute w-full h-full"
-          />
+          /> */}
         </div>
       </div>
 

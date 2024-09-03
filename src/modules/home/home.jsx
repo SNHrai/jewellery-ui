@@ -1,34 +1,104 @@
-import React, {useState} from "react"
-import Navbar from "../navbar/navbar"
-import Crousel from "./crousel"
-import "./home.css"
-import GroupIcon from "../../util/images/multiple-users-silhouette.png"
-import Clock from "../../util/images/clock.svg"
-import Code from "../../util/images/code.svg"
-import Eye from "../../util/images/eye.svg"
-import SpeedoMeter from "../../util/images/speedometer.svg"
-import ThumbsUpIcon from "../../util/images/thumbs-up.svg"
-import RevolutionDesign from "../../util/images/revolution-design.png"
-import WorldClassDesign from "../../util/images/world-class-jewel.png"
-import Infinity from "../../util/images/infinity.png"
-import Easy from "../../util/images/easy.png"
-import LeadInnovation from "../../util/images/lead-innovation.png"
-import Carousel from "./CarouselComponent"
-import OurReview from "./ReviewSection"
-import GifSection from "./GifSection"
-import Contact from "./contact"
-import Footer from "./Footer"
-import RatingWidget from "./RatingWidget"
-import { useNavigate } from "react-router-dom"
+import React, { useState } from "react";
+import Navbar from "../navbar/navbar";
+import Crousel from "./crousel";
+import "./home.css";
+import GroupIcon from "../../util/images/multiple-users-silhouette.png";
+import Clock from "../../util/images/clock.svg";
+import Code from "../../util/images/code.svg";
+import Eye from "../../util/images/eye.svg";
+import SpeedoMeter from "../../util/images/speedometer.svg";
+import ThumbsUpIcon from "../../util/images/thumbs-up.svg";
+import RevolutionDesign from "../../util/images/revolution-design.png";
+import WorldClassDesign from "../../util/images/world-class-jewel.png";
+import Infinity from "../../util/images/infinity.png";
+import Easy from "../../util/images/easy.png";
+import LeadInnovation from "../../util/images/lead-innovation.png";
+import Carousel from "./CarouselComponent";
+import OurReview from "./Review";
+import GifSection from "./GifSection";
+import Contact from "./contact";
+import Footer from "./Footer";
+import { useNavigate } from "react-router-dom";
+import { motion, AnimatePresence } from "framer-motion";
+
+const features = [
+  {
+    icon: RevolutionDesign,
+    title: "Jewelry Design Revolutionized",
+    description:
+      "At AI-CREATION, we use advanced AI technology to transform your ideas into detailed and beautiful jewelry designs in seconds.",
+  },
+  {
+    icon: Easy,
+    title: "Easy to Use",
+    description:
+      "Our intuitive interface allows anyone to create stunning jewelry designs without any technical skills.",
+  },
+  {
+    icon: WorldClassDesign,
+    title: "World-Class Designs",
+    description:
+      "AI-CREATION supports and enhances your design journey, providing resources and inspiration to bring your best ideas to life.",
+  },
+  {
+    icon: Infinity,
+    title: "Endless Possibilities",
+    description:
+      "Experiment with various styles, materials, and settings to create both classic and modern pieces. The possibilities are limitless.",
+  },
+  {
+    icon: SpeedoMeter,
+    title: "Accessible Anytime, Anywhere",
+    description:
+      "Design whenever inspiration strikes. Our cloud-based platform lets you access powerful AI tools from anywhere in the world.",
+  },
+  {
+    icon: LeadInnovation,
+    title: "Lead in Innovation",
+    description:
+      "Stay ahead with our continuously updated tools, bringing you the latest in AI and design for creating amazing jewelry pieces.",
+  },
+  {
+    icon: Code,
+    title: "Instant Creativity",
+    description:
+      "Bring your creative ideas to life instantly. Our AI tools work quickly, visualizing your designs in seconds.",
+  },
+  {
+    icon: Clock,
+    title: "Time-Saving Solutions",
+    description:
+      "Our efficient design process eliminates tedious manual work, allowing you to focus on refining concepts and expanding your collection.",
+  },
+  {
+    icon: GroupIcon,
+    title: "Your Creative Partner",
+    description:
+      "We’re more than just a tool; we support and enhance your design journey with resources and inspiration to bring your ideas to life.",
+  },
+];
 
 function Home() {
-  const [showReview, setShowReview] = useState(false)
+  const [showReview, setShowReview] = useState(false);
   const navigate = useNavigate();
 
   const toggleReview = () => {
-    setShowReview(!showReview)
-  }
+    setShowReview(!showReview);
+  };
 
+  const FeatureItem = ({ icon, title, description }) => {
+    return (
+      <motion.div
+        className="p-8 transition-shadow duration-500 ease-out transform rounded-xl hover:shadow-2xl hover:scale-105 hover:-translate-y-2 bg-gradient-to-r from-[#f7cac9] via-[#fdebd3] to-[#fff5e1]"
+        whileHover={{ scale: 1.05, y: -10 }}>
+        <div className="flex items-center justify-center mb-6">
+          <img className="w-16 h-16 text-primary" src={icon} alt={title} />
+        </div>
+        <h5 className="mb-4 text-xl font-semibold text-gray-800">{title}</h5>
+        <p className="text-gray-600">{description}</p>
+      </motion.div>
+    );
+  };
 
   return (
     <div>
@@ -36,118 +106,45 @@ function Home() {
       <Crousel />
       <Carousel />
       <GifSection />
-      <div className="pt-5 pb-5 feat bg-gray">
-        <div className="container">
-          <div className="row">
-            <div className="section-head col-sm-12">
-              <h4>
-                <span>Why Choose</span> Us?
-              </h4>
-            </div>
-            <div className="col-lg-4 col-sm-6">
-              <div className="item">
-                {" "}
-                <span className="icon feature_box_col_three">
-                  <img className="jewwllery-icon" src={RevolutionDesign} alt="" />
-                </span>
-                <h6>Jewelry Design Revolutionized</h6>
-                <p>At Jeweality, we've transformed jewelry design by using advanced AI technology. Our platform helps designers turn their ideas into detailed and beautiful jewelry designs in seconds. Say goodbye to long and complicated design processes and embrace a new era of creativity and innovation.</p>
-              </div>
-            </div>
-            <div className="col-lg-4 col-sm-6">
-              <div className="item">
-                {" "}
-                <span className="icon feature_box_col_two">
-                  <img className="jewwllery-icon" src={Easy} alt="" />
-                </span>
-                <h6>Easy to Use</h6>
-                <p>Jeweality is made for you. Our easy-to-use interface means anyone can create beautiful jewelry designs without needing technical skills. Just input your ideas, and our AI will bring them to life, making the design process simple and enjoyable.</p>
-              </div>
-            </div>
-            <div className="col-lg-4 col-sm-6">
-              <div className="item">
-                {" "}
-                <span className="icon feature_box_col_five">
-                  <img className="jewwllery-icon" src={WorldClassDesign} alt="" />
-                </span>
-                <h6>World-Class Designs</h6>
-                <p>Jeweality is more than just a tool; we're your creative partner. Our platform supports and enhances your design journey, giving you the resources and inspiration to bring your best ideas to life. Trust Jeweality to be with you every step of the way.</p>
-              </div>
-            </div>
-            <div className="col-lg-4 col-sm-6">
-              <div className="item">
-                {" "}
-                <span className="icon feature_box_col_three">
-                  <img className="jewwllery-icon" src={Infinity} alt="" />
-                </span>
-                <h6>Endless Possibilities</h6>
-                <p>Discover endless design options with Jeweality. Our platform lets you experiment with different styles, materials, and settings. Whether you're making a classic piece or something modern, the possibilities are limitless.</p>
-              </div>
-            </div>
-            <div className="col-lg-4 col-sm-6">
-              <div className="item">
-                {" "}
-                <span className="icon feature_box_col_two">
-                  <img className="jewwllery-icon" src={SpeedoMeter} alt="" />
-                </span>
-                <h6>Accessible Anytime, Anywhere</h6>
-                <p>Design whenever and wherever inspiration hits. Jeweality's cloud-based platform lets you use our powerful AI tools from anywhere in the world. Whether you're in the office, at home, or on the go, your next great design is just a click away.</p>
-              </div>
-            </div>
-            <div className="col-lg-4 col-sm-6">
-              <div className="item">
-                {" "}
-                <span className="icon feature_box_col_five">
-                  <img className="jewwllery-icon" src={LeadInnovation} alt="" />
-                </span>
-                <h6>Lead in Innovation</h6>
-                <p>Stay ahead with Jeweality’s cutting-edge technology. We continuously update our tools to bring you the latest in AI and design, ensuring you have the best resources to create amazing jewelry pieces.</p>
-              </div>
-            </div>
-            <div className="col-lg-4 col-sm-6">
-              <div className="item">
-                {" "}
-                <span className="icon feature_box_col_five">
-                  <img className="jewwllery-icon" src={Code} alt="" />
-                </span>
-                <h6>Instant Creativity</h6>
-                <p>Bring your creative ideas to life instantly. Jeweality’s AI tools work quickly, letting you see your designs come to life in seconds. This fast turnaround boosts your creativity and helps you get your products to market faster.</p>
-              </div>
-            </div>
-            <div className="col-lg-4 col-sm-6">
-              <div className="item">
-                {" "}
-                <span className="icon feature_box_col_six">
-                  <img className="jewwllery-icon" src={Clock} alt="" />
-                </span>
-                <h6>Time-Saving Solutions</h6>
-                <p>Save time with Jeweality. Our efficient design process cuts out tedious manual work, allowing you to focus on refining your concepts and expanding your collection. Get your designs ready faster and start impressing your audience sooner.</p>
-              </div>
-            </div>
-            <div className="col-lg-4 col-sm-6">
-              <div className="item">
-                {" "}
-                <span className="icon feature_box_col_four">
-                  <img className="jewwllery-icon" src={GroupIcon} alt="" />
-                </span>
-                <h6>Your Creative Partner</h6>
-                <p>Jeweality is more than just a tool; we're your creative partner. Our platform supports and enhances your design journey, giving you the resources and inspiration to bring your best ideas to life. Trust Jeweality to be with you every step of the way.</p>
-              </div>
-            </div>
+
+      <div className="py-16 bg-white">
+        <div className="container mx-auto">
+          <div
+            className="section-head col-sm-12"
+            style={{ marginTop: "100px" }}>
+            <h4>
+              <span>Why</span> Choose Us
+            </h4>
+          </div>
+          {/* <div className="mb-12 text-center">
+            <h2 className="text-5xl font-bold text-gray-800 section-head">
+              Why <span className="text-gradient bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500">Choose Us</span>?
+            </h2>
+            <p className="max-w-lg mx-auto mt-4 text-lg text-gray-600">
+              Discover the unique advantages of using AI-CREATION for your jewelry design needs.
+            </p>
+          </div> */}
+          <div className="grid grid-cols-1 gap-12 md:grid-cols-2 lg:grid-cols-3">
+            {features.map((feature, index) => (
+              <FeatureItem key={index} {...feature} />
+            ))}
           </div>
         </div>
       </div>
-       <OurReview />
-       <div className="d-flex justify-content-center align-items-center">
-      <button className="ml-3 subscribe-button bg-[#7a4d35] p-3 rounded-md text-white" onClick={toggleReview}>
-        {showReview ? "Close" : "Add Review"}
-      </button>
-      </div>
-      {showReview &&  <RatingWidget />}
+
+      <OurReview />
+      {/* <div className="flex items-center justify-center mt-8">
+        <button
+          className="px-6 py-3 text-white transition-colors rounded-md subscribe-button bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 hover:bg-secondary"
+          onClick={toggleReview}>
+          {showReview ? "Close" : "Add Review"}
+        </button>
+      </div> */}
+ 
       <Contact />
       <Footer />
     </div>
-  )
+  );
 }
 
-export default Home
+export default Home;

@@ -21,6 +21,11 @@ import ComingSoonPage from "./modules/page/ComingSoonPage.jsx";
 import { Provider } from "react-redux";
 import store from "./store/store.js";
 import { UserProvider } from "./context/user.jsx";
+import HistoryDashboard from "./modules/history/HistoryDashboard.jsx";
+import ErrorPage from "./modules/page/ErrorPage.jsx";
+import HistoryDetails from "./modules/history/HistoryDetails.jsx";
+import PaymentPage from "./modules/pricing/PaymentPage.jsx";
+import AdminDashboard from "./modules/admin-dashboard/AdminDashboard.jsx";
 
 function Main() {
   // const toggleSidebar = () => {
@@ -31,28 +36,28 @@ function Main() {
     {
       path: "/",
       element: <Navigate to="/home" />,
-      errorElement: <div>Error</div>,
+      errorElement: <ErrorPage />,
     },
     {
       path: "/login",
       element: <LoginAndSignUp />,
-      errorElement: <div>Error</div>,
+      errorElement: <ErrorPage />,
     },
     {
       path: "/signup",
       element: <LoginAndSignUp />,
-      errorElement: <div>Error</div>,
+      errorElement: <ErrorPage />,
     },
 
     {
       path: "/forgot-password",
       element: <ForgotPassword />,
-      errorElement: <div>Error</div>,
+      errorElement: <ErrorPage />,
     },
     {
       path: "/profile",
       element: <Profile />,
-      errorElement: <div>Error</div>,
+      errorElement: <ErrorPage />,
     },
     {
       path: "/dashboard",
@@ -61,27 +66,55 @@ function Main() {
           <UserDashboard />
         </ProtectedRoute>
       ),
-      errorElement: <AuthenticatePage />,
+      errorElement: <ErrorPage />,
     },
     {
       path: "/unauthorized",
       element: <AuthenticatePage />,
-      errorElement: <div>Error</div>,
+      errorElement: <ErrorPage />,
     },
     {
       path: "/pricing",
       element: <Pricing />,
-      errorElement: <div>Error</div>,
+      errorElement: <ErrorPage />,
     },
     {
       path: "/home",
       element: <Home />,
-      errorElement: <div>Error</div>,
+      errorElement: <ErrorPage />,
     },
     {
       path: "/comingsoon",
       element: <ComingSoonPage />,
-      errorElement: <div>Error</div>,
+      errorElement: <ErrorPage />,
+    },
+    {
+      path: "/history-dashboard",
+      element: <HistoryDashboard />,
+      errorElement: <ErrorPage />,
+    },
+    {
+      path: "/history-details/:id",
+      element: <HistoryDetails />,
+      errorElement: <ErrorPage />,
+    },
+    {
+      path: "/payment-page",
+      element: (
+        <ProtectedRoute requiredRoles={["ROLE_USER"]}>
+          <PaymentPage />
+        </ProtectedRoute>
+      ),
+      errorElement: <ErrorPage />,
+    },
+    {
+      path: "/admin-dashboard",
+      element: (
+        <ProtectedRoute requiredRoles={["ROLE_USER"]}>
+          <AdminDashboard />
+        </ProtectedRoute>
+      ),
+      errorElement: <ErrorPage />,
     },
   ]);
 

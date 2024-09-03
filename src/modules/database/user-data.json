@@ -1,0 +1,19 @@
+[
+    {
+       "title": "Text to image",
+       "noOfApiHits":27,
+       "titleDescription":"image to text is use to generate the image from the given prompt it generates accurate images"
+    },
+    
+    {
+        "title": "image to text",
+        "noOfApiHits":23,
+        "titleDescription":"image to text is use to generate the image from the given prompt it generates accurate images"
+     },
+     
+    {
+        "title": "Image to Image",
+        "noOfApiHits":35,
+        "titleDescription":"image to text is use to generate the image from the given prompt it generates accurate images"
+     }
+]

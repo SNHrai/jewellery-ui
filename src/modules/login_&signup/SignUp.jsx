@@ -208,7 +208,7 @@ const SignUp = () => {
             Continue with Google
           </button>
 
-          <button className="flex items-center justify-center w-full py-2 text-white bg-blue-900 rounded-md form-signup-custom hover:bg-blue-950">
+          <button className="flex items-center justify-center w-full py-2 text-white bg-[#9d5e7b] rounded-md form-signup-custom hover:bg-blue-950">
             <FaLinkedinIn size={22} className="mr-2" />
             Continue with LinkedIn
           </button>

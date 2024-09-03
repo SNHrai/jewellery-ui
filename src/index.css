@@ -6,6 +6,11 @@
 
 @import '~animate.css/animate.min.css';
 
+/* In your main CSS file or index.html */
+@import '~slick-carousel/slick/slick.css';
+@import '~slick-carousel/slick/slick-theme.css';
+
+
 input::placeholder {
     font-family: "Poppins", sans-serif;
     font-weight: 400;
@@ -14,4 +19,22 @@ input::placeholder {
   
 body{
     font-family: "Poppins", sans-serif;
+}
+
+/* Profile.css or a global stylesheet */
+.custom-primary {
+  background-color: #9d5e7b !important;
+  border-color: #9d5e7b !important;
+  color: #ffffff !important;
+}
+
+.custom-outline-primary {
+  background-color: transparent !important;
+  border-color: #9d5e7b !important;
+  color: #9d5e7b !important;
+}
+
+.custom-outline-primary:hover {
+  background-color: #9d5e7b !important;
+  color: #ffffff !important;
 }
